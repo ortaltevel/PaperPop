@@ -577,7 +577,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pp-steps__slot b{font:var(--type-label);color:var(--pp-burgundy-600)}
 .pp-steps__slot span{font:var(--type-body-sm);font-size:var(--text-xs);line-height:1.5;color:var(--pp-burgundy-500);max-width:26ch}
 /* hollow (outlined) numeral with a thick burgundy stroke */
-.pp-steps__num{position:absolute;z-index:2;inset-block-start:var(--space-2);inset-inline-start:var(--space-4);font-family:var(--font-core);font-weight:800;font-size:clamp(64px,8.2vw,98px);line-height:1;letter-spacing:var(--track-display,-.01em);color:transparent;-webkit-text-stroke:2px var(--pp-burgundy-600);text-stroke:2px var(--pp-burgundy-600)}
+.pp-steps__num{position:absolute;z-index:2;inset-block-start:var(--space-2);inset-inline-start:var(--space-4);font-family:var(--font-core);font-weight:800;font-size:clamp(64px,8.2vw,98px);line-height:1;letter-spacing:var(--track-display,-.01em);color:transparent;-webkit-text-stroke:1.3px var(--pp-burgundy-600);text-stroke:1.3px var(--pp-burgundy-600)}
 .pp-steps__body{padding:var(--space-6) var(--space-6) var(--space-8)}
 .pp-steps__title{font:var(--type-h2);font-size:var(--text-2xl);color:var(--text-strong)}
 .pp-steps__text{font:var(--type-body);color:var(--text-meta);margin-block-start:var(--space-3);max-width:32ch}
@@ -693,7 +693,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @media (max-width:860px){.pp-footer__grid--slim{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.pp-footer__grid--slim{grid-template-columns:1fr}}
 .pp-footer__lnk{display:inline-flex;align-items:center;gap:10px;font:var(--type-body);color:var(--pp-cream-200);text-decoration:none;transition:color var(--dur-hover) var(--ease-fold)}
-.pp-footer__lnk .pp-icon{color:var(--pp-pink-200);font-size:22px;flex:none}
+.pp-footer__brand{height:60px}
+@media (max-width:860px){.pp-footer__brand{height:44px}}
+.pp-footer__lnk{gap:12px}
+.pp-footer__lnk .pp-icon{color:var(--pp-pink-200);font-size:28px;flex:none}
 .pp-footer__lnk:hover{color:var(--pp-pink-200)}
 .pp-footer__legal{color:var(--pp-pink-300);font:var(--type-meta-2xs);letter-spacing:var(--track-mono);text-decoration:none}
 .pp-footer__legal:hover{color:var(--pp-pink-200)}
