@@ -697,6 +697,13 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @media (max-width:860px){.pp-footer__brand{height:44px}}
 .pp-footer__lnk{gap:12px}
 .pp-footer__lnk .pp-icon{color:var(--pp-pink-200);font-size:28px;flex:none}
+/* the Lucide youtube glyph is shorter inside its 24×24 box than instagram —
+   scale it up so the two social icons read at the same visual size */
+.pp-footer__lnk [data-icon="youtube"] svg{transform:scale(1.4)}
+/* the WhatsApp brand mark fills its whole box — trim it so all three match */
+.pp-footer__lnk [data-icon="whatsapp"] svg{transform:scale(.85)}
+.pp-footer__lnk [data-icon="instagram"]{font-size:32px}
+.pp-footer__lnk [data-icon="whatsapp"]{font-size:32px}
 .pp-footer__lnk:hover{color:var(--pp-pink-200)}
 .pp-footer__legal{color:var(--pp-pink-300);font:var(--type-meta-2xs);letter-spacing:var(--track-mono);text-decoration:none}
 .pp-footer__legal:hover{color:var(--pp-pink-200)}
