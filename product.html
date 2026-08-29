@@ -6,26 +6,23 @@
   <title>ערכה · PaperPop</title>
   <meta name="description" content="ערכת יצירה להרכבת פסל נייר תלת־ממדי של PaperPop.">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-  <link rel="stylesheet" href="styles.css?v=14">
+  <link rel="stylesheet" href="styles.css?v=28">
 </head>
 <body>
 
   <!-- ============================= HEADER ============================= -->
   <header class="pp-header">
-    <div class="pp-header__ticker">משלוח חינם מעל הזמנה של 250 ש״ח</div>
+    <div class="pp-header__ticker">משלוח חינם מעל הזמנה של 250 ₪</div>
     <div class="pp-header__bar">
-      <a class="pp-logo pp-logo--md" href="index.html" aria-label="PaperPop" style="height:44px">
+      <a class="pp-logo pp-logo--md" href="index.html" aria-label="PaperPop">
         <img src="assets/logo-wordmark.svg" alt="PaperPop" width="115" height="44">
       </a>
       <nav class="pp-header__nav" aria-label="ניווט ראשי">
         <a class="pp-header__link" href="index.html#gallery">ערכות</a>
-        <a class="pp-header__link" href="faq.html">שאלות ותשובות</a>
+        <a class="pp-header__link" href="index.html#about">מי אנחנו?</a>
+        <a class="pp-header__link" href="index.html#faq">שאלות ותשובות</a>
       </nav>
       <div class="pp-header__actions">
-        <a class="pp-btn pp-btn--secondary pp-btn--sm" href="https://wa.me/972504427479?text=%D7%94%D7%99%D7%99%21%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93%20%D7%A2%D7%9C%20%D7%94%D7%A7%D7%99%D7%98%D7%99%D7%9D%20%D7%A9%D7%9C%20PaperPop%20%F0%9F%99%82" target="_blank" rel="noopener">
-          <span class="pp-cta-full">לקטלוג בוואטסאפ</span><span class="pp-cta-short">לקטלוג</span>
-          <span class="pp-btn__icon"><span class="pp-icon pp-icon--sm" data-icon="arrow-left"></span></span>
-        </a>
         <span class="pp-header__burger">
           <button class="pp-iconbtn" type="button" aria-label="תפריט" aria-expanded="false" data-burger>
             <span class="pp-icon pp-icon--md" data-icon="menu"></span>
@@ -35,7 +32,8 @@
     </div>
     <div class="pp-header__drawer" data-drawer hidden>
       <a href="index.html#gallery">ערכות</a>
-      <a href="faq.html">שאלות ותשובות</a>
+      <a href="index.html#about">מי אנחנו?</a>
+      <a href="index.html#faq">שאלות ותשובות</a>
     </div>
   </header>
 
@@ -58,17 +56,32 @@
         <div class="pp-pdp__info">
           <h1 class="pp-pdp__name" id="pdpName">ערכה</h1>
           <div class="pp-pdp__price" id="pdpPrice"></div>
+          <p class="pp-pdp__desc" id="pdpDesc"></p>
 
-          <dl class="pp-pdp__specs">
-            <div><dt>זמן הרכבה</dt><dd id="pdpTime"></dd></div>
-            <div><dt>מידות הפסל</dt><dd id="pdpSize"></dd></div>
-            <div><dt>גיל מומלץ</dt><dd id="pdpAge"></dd></div>
-          </dl>
+          <div class="pp-pdp__buy">
+            <a class="pp-btn pp-btn--lg" id="pdpWa" href="#" target="_blank" rel="noopener">
+              <span>לרכישה בוואטסאפ</span>
+              <span class="pp-btn__icon"><span class="pp-icon pp-icon--sm" data-icon="arrow-left"></span></span>
+            </a>
+          </div>
 
-          <a class="pp-btn pp-btn--lg" id="pdpWa" href="#" target="_blank" rel="noopener">
-            <span>לרכישה בוואטסאפ</span>
-            <span class="pp-btn__icon"><span class="pp-icon pp-icon--sm" data-icon="arrow-left"></span></span>
-          </a>
+          <div class="pp-pdp__specs">
+            <div class="pp-pdp__spec">
+              <span class="pp-pdp__specval" id="pdpTime"></span>
+              <span class="pp-icon" data-icon="clock" aria-hidden="true"></span>
+              <span class="pp-visually-hidden">זמן הרכבה</span>
+            </div>
+            <div class="pp-pdp__spec">
+              <span class="pp-pdp__specval" id="pdpSize"></span>
+              <span class="pp-icon" data-icon="ruler" aria-hidden="true"></span>
+              <span class="pp-visually-hidden">מידות הפסל</span>
+            </div>
+            <div class="pp-pdp__spec">
+              <span class="pp-pdp__specval" id="pdpAge"></span>
+              <span class="pp-icon" data-icon="users" aria-hidden="true"></span>
+              <span class="pp-visually-hidden">גיל מומלץ</span>
+            </div>
+          </div>
 
           <ul class="pp-pdp__list">
             <li>הערכה חתוכה, אין צורך במספריים</li>
@@ -109,7 +122,7 @@
     </div>
   </footer>
 
-  <script src="app.js?v=7"></script>
+  <script src="app.js?v=10"></script>
   <script>
   (function () {
     "use strict";
@@ -123,6 +136,7 @@
       octopus: {
         name: "התמנון שעושה סדר", price: "45 ₪",
         time: "עד שעה וחצי", size: "כ-20 ס״מ", age: AGE, wa: wa("התמנון שעושה סדר"),
+        desc: "גם יצירה כיפית וגם מקום לכל הדברים הקטנים. יוצרים תמנון צבעוני שהופך לסדרן הכי חמוד על השולחן.",
         media: [
           { type:"image", src:"assets/products/octopus-blue-tight.png", alt:"התמנון שעושה סדר בתכלת" },
           { type:"image", src:"assets/products/octopus-display.png", alt:"התמנון שעושה סדר — צילום מוצר" },
@@ -134,6 +148,7 @@
       duck: {
         name: "הברווז השובב", price: "65 ₪",
         time: "עד שעה וחצי", size: "כ-18 ס״מ", age: AGE, wa: wa("הברווז השובב"),
+        desc: "ברווז צהוב עם המון אופי, כמה קיפולים והדבקות ויש לכם חבר חדש על המדף שיעשה שמח.",
         media: [
           { type:"image", src:"assets/products/duck-tight.png", alt:"הברווז השובב" },
           { type:"image", src:"assets/products/duck-display.jpg", alt:"הברווז השובב — צילום מוצר" },
@@ -143,6 +158,7 @@
       heart: {
         name: "הלב הפועם", price: "45 ₪",
         time: "עד שעה", size: "כ-15 ס״מ", age: AGE, wa: wa("הלב הפועם"),
+        desc: "קצת נייר, קצת דבק והרבה לב! כי ברגע שהיא מוכנה, אי אפשר לפספס אותה.",
         media: [
           { type:"image", src:"assets/products/heart-tight.png", alt:"הלב הפועם" },
           { type:"image", src:"assets/products/heart-display.jpg", alt:"הלב הפועם — צילום מוצר" },
@@ -152,10 +168,13 @@
       soccer: {
         name: "הכדור שלא מפספס", price: "45 ₪",
         time: "עד שעה וחצי", size: "כ-15 ס״מ", age: AGE, wa: wa("הכדור שלא מפספס"),
+        desc: "מרכיבים, מדביקים ורואים איך מחתיכות נייר נולד כדורגל תלת מימדי שעושה חשק לצעוק גווול!",
         media: [
           { type:"image", src:"assets/products/soccer-tight.png", alt:"הכדור שלא מפספס" },
-          { type:"image", src:"assets/products/soccer-display.png", alt:"הכדור שלא מפספס — צילום מוצר" },
-          { type:"image", src:"assets/products/soccer-sketch.png", alt:"הכדור שלא מפספס — שרטוט הדגם" }
+          { type:"image", src:"assets/products/soccer-grass.jpg", alt:"הכדור שלא מפספס על הדשא", fill:true },
+          { type:"image", src:"assets/products/soccer-girl.jpg", alt:"ילדה מחזיקה את הכדור שלא מפספס", fill:true },
+          { type:"image", src:"assets/products/soccer-boy.jpg", alt:"ילד מחזיק את הכדור שלא מפספס", fill:true },
+          { type:"image", src:"assets/products/soccer-shelf.jpg", alt:"הכדור שלא מפספס על המדף", fill:true }
         ]
       }
     };
@@ -168,32 +187,49 @@
     var byId = function (x) { return document.getElementById(x); };
     byId("pdpName").textContent = d.name;
     byId("pdpPrice").textContent = d.price;
+    byId("pdpDesc").textContent = d.desc;
     byId("pdpTime").textContent = d.time;
     byId("pdpSize").textContent = d.size;
     byId("pdpAge").textContent = d.age;
     byId("pdpWa").href = d.wa;
 
     var main = byId("pdpMain"), thumbs = byId("pdpThumbs");
+    var cur = 0;
 
-    function showMedia(m) {
+    function renderMedia(m) {
+      // Replace only the media node — keep the nav arrows in place.
+      [].slice.call(main.querySelectorAll(".pp-media__art, video")).forEach(function (n) { n.remove(); });
+      var node;
       if (m.type === "video") {
-        main.innerHTML =
-          '<video autoplay muted loop playsinline poster="' + m.poster + '" aria-label="' + m.alt + '">' +
-            (m.webm ? '<source src="' + m.webm + '" type="video/webm">' : '') +
-            '<source src="' + m.src + '" type="video/mp4"></video>';
+        node = document.createElement("video");
+        node.autoplay = node.muted = node.loop = node.playsInline = true;
+        node.setAttribute("playsinline", "");
+        node.poster = m.poster;
+        node.setAttribute("aria-label", m.alt);
+        node.innerHTML =
+          (m.webm ? '<source src="' + m.webm + '" type="video/webm">' : '') +
+          '<source src="' + m.src + '" type="video/mp4">';
       } else {
-        var img = new Image();
-        img.className = "pp-media__art";
-        img.src = m.src; img.alt = m.alt;
-        main.innerHTML = "";
-        main.appendChild(img);
+        node = new Image();
+        node.className = "pp-media__art" + (m.fill ? " pp-media__art--fill" : "");
+        node.src = m.src; node.alt = m.alt;
       }
+      main.insertBefore(node, main.firstChild);
+    }
+
+    function select(i) {
+      var n = d.media.length;
+      cur = (i % n + n) % n;
+      renderMedia(d.media[cur]);
+      [].forEach.call(thumbs.children, function (c, idx) {
+        c.setAttribute("aria-current", idx === cur ? "true" : "false");
+      });
     }
 
     d.media.forEach(function (m, i) {
       var b = document.createElement("button");
       b.type = "button";
-      b.className = "pp-pdp__thumb" + (m.type === "video" ? " pp-pdp__thumb--video" : "");
+      b.className = "pp-pdp__thumb" + (m.type === "video" ? " pp-pdp__thumb--video" : "") + (m.fill ? " pp-pdp__thumb--fill" : "");
       b.setAttribute("role", "tab");
       b.setAttribute("aria-label", m.alt);
       var timg = document.createElement("img");
@@ -201,16 +237,29 @@
       timg.alt = "";
       timg.loading = "lazy";
       b.appendChild(timg);
-      b.addEventListener("click", function () {
-        showMedia(m);
-        [].forEach.call(thumbs.children, function (c) { c.setAttribute("aria-current", "false"); });
-        b.setAttribute("aria-current", "true");
-      });
-      if (i === 0) b.setAttribute("aria-current", "true");
+      b.addEventListener("click", function () { select(i); });
       thumbs.appendChild(b);
     });
 
-    showMedia(d.media[0]);
+    // Side navigation arrows (only when there is more than one item).
+    if (d.media.length > 1) {
+      function navBtn(dir, icon, label) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "pp-pdp__nav pp-pdp__nav--" + dir;
+        b.setAttribute("aria-label", label);
+        b.innerHTML = '<span class="pp-icon" data-icon="' + icon + '"></span>';
+        return b;
+      }
+      var prevBtn = navBtn("prev", "chevron-left", "התמונה הקודמת");
+      var nextBtn = navBtn("next", "chevron-right", "התמונה הבאה");
+      prevBtn.addEventListener("click", function () { select(cur - 1); });
+      nextBtn.addEventListener("click", function () { select(cur + 1); });
+      main.appendChild(prevBtn);
+      main.appendChild(nextBtn);
+    }
+
+    select(0);
   })();
   </script>
   <!-- Vercel Web Analytics -->
