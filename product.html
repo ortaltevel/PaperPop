@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ערכה · PaperPop</title>
   <meta name="description" content="ערכת יצירה להרכבת פסל נייר תלת־ממדי של PaperPop.">
+  <link rel="canonical" href="https://paperpop.co.il/product.html" id="pdpCanonical">
+  <meta property="og:type" content="product">
+  <meta property="og:site_name" content="PaperPop">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
   <link rel="stylesheet" href="styles.css?v=39">
 </head>
@@ -179,8 +182,9 @@
     };
     var ORDER = ["octopus","duck","heart","soccer"];
 
-    var id = new URLSearchParams(location.search).get("p");
-    var d = PRODUCTS[id] || PRODUCTS[ORDER[0]];
+    var idParam = new URLSearchParams(location.search).get("p");
+    var id = PRODUCTS[idParam] ? idParam : ORDER[0];
+    var d = PRODUCTS[id];
 
     document.title = d.name + " · PaperPop";
     var byId = function (x) { return document.getElementById(x); };
@@ -191,6 +195,46 @@
     byId("pdpSize").textContent = d.size;
     byId("pdpAge").textContent = d.age;
     byId("pdpWa").href = d.wa;
+
+    // SEO: per-product description, canonical URL, Open Graph + structured data.
+    var pageUrl = "https://paperpop.co.il/product.html?p=" + id;
+    var firstImg = d.media.filter(function (m) { return m.type === "image"; })[0];
+    var imageUrl = firstImg ? "https://paperpop.co.il/" + firstImg.src : undefined;
+
+    document.querySelector('meta[name="description"]').setAttribute("content", d.desc);
+    byId("pdpCanonical").setAttribute("href", pageUrl);
+
+    [
+      ["og:title", d.name + " · PaperPop"],
+      ["og:description", d.desc],
+      ["og:url", pageUrl],
+      ["og:image", imageUrl]
+    ].forEach(function (pair) {
+      if (!pair[1]) return;
+      var meta = document.createElement("meta");
+      meta.setAttribute("property", pair[0]);
+      meta.setAttribute("content", pair[1]);
+      document.head.appendChild(meta);
+    });
+
+    var ld = document.createElement("script");
+    ld.type = "application/ld+json";
+    ld.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: d.name,
+      description: d.desc,
+      image: imageUrl,
+      url: pageUrl,
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "ILS",
+        price: d.price.replace(/[^\d.]/g, ""),
+        availability: "https://schema.org/InStock",
+        url: pageUrl
+      }
+    });
+    document.head.appendChild(ld);
 
     var main = byId("pdpMain"), thumbs = byId("pdpThumbs");
     var cur = 0;
