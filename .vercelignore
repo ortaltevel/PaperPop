@@ -4,7 +4,11 @@
 # fetched by any page (the originals only appear as stem strings in JS).
 
 # --- build/source tooling (never belongs on the CDN) ---
+# NOTE: media.js is deliberately NOT listed — the browser loads it.
 tools/
+build.js
+data/
+templates/
 
 # --- superseded image masters (21 files, 15,643,931 bytes) ---
 assets/media/AboutUs.png

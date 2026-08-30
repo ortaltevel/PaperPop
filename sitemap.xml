@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://paperpop.co.il/</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-08-30</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://paperpop.co.il/product.html?p=octopus</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://paperpop.co.il/kits/octopus</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://paperpop.co.il/product.html?p=duck</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://paperpop.co.il/kits/duck</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://paperpop.co.il/product.html?p=heart</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://paperpop.co.il/kits/heart</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://paperpop.co.il/product.html?p=soccer</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://paperpop.co.il/kits/soccer</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>

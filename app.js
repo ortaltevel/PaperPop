@@ -247,8 +247,65 @@
     sections.forEach(function (s) { io.observe(s); });
   }
 
+  /* ---- Product gallery: HYDRATE server-rendered markup ------------------
+     The page ships the first image, the thumbnails and the arrows already in
+     the HTML (so crawlers and WhatsApp see them). This only attaches
+     behaviour — it creates nothing and, crucially, does NOT re-render the
+     initial item, which is what would cause a visible flash on load.
+     Markup for subsequent items comes from the same media.js used at build
+     time, so switching can never produce different HTML. */
+  function initPdpGallery() {
+    var main = document.getElementById("pdpMain");
+    var payload = document.getElementById("pdpMedia");
+    // Absent on the homepage and on the legacy product.html, which keeps its
+    // own inline gallery — so this simply no-ops there.
+    if (!main || !payload || !window.PP_MEDIA) return;
+
+    var media;
+    try { media = JSON.parse(payload.textContent); } catch (e) { return; }
+    if (!media || media.length < 2) return;
+
+    var thumbs = document.getElementById("pdpThumbs");
+    var buttons = thumbs ? [].slice.call(thumbs.children) : [];
+
+    // Read the starting index from the DOM rather than assuming 0.
+    var cur = 0;
+    for (var i = 0; i < buttons.length; i++) {
+      if (buttons[i].getAttribute("aria-current") === "true") { cur = i; break; }
+    }
+
+    function select(next) {
+      var n = media.length;
+      next = ((next % n) + n) % n;
+      if (next === cur) return; // clicking the active thumb is free
+
+      // Remove the <picture> wrapper itself, not just the <img>, or empty
+      // shells accumulate on every switch.
+      [].slice.call(main.querySelectorAll("picture, .pp-media__art, video"))
+        .forEach(function (n2) { n2.remove(); });
+
+      main.insertAdjacentHTML("afterbegin", window.PP_MEDIA.mainMediaHTML(media[next]));
+
+      if (buttons[cur]) buttons[cur].setAttribute("aria-current", "false");
+      if (buttons[next]) buttons[next].setAttribute("aria-current", "true");
+      cur = next;
+    }
+
+    buttons.forEach(function (b, idx) {
+      b.addEventListener("click", function () { select(idx); });
+    });
+
+    var prev = main.querySelector(".pp-pdp__nav--prev");
+    var next = main.querySelector(".pp-pdp__nav--next");
+    if (prev) prev.addEventListener("click", function () { select(cur - 1); });
+    if (next) next.addEventListener("click", function () { select(cur + 1); });
+
+    // Deliberately no select(cur) here — the server already rendered it.
+  }
+
   function boot() {
     renderIcons(document);
+    initPdpGallery();
     initHero();
     initHeroVideo();
     initDrawer();

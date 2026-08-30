@@ -2,6 +2,20 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/product.html", "has": [{ "type": "query", "key": "p", "value": "octopus" }], "destination": "/kits/octopus", "permanent": true },
+    { "source": "/product.html", "has": [{ "type": "query", "key": "p", "value": "duck" }], "destination": "/kits/duck", "permanent": true },
+    { "source": "/product.html", "has": [{ "type": "query", "key": "p", "value": "heart" }], "destination": "/kits/heart", "permanent": true },
+    { "source": "/product.html", "has": [{ "type": "query", "key": "p", "value": "soccer" }], "destination": "/kits/soccer", "permanent": true },
+
+    { "source": "/product", "has": [{ "type": "query", "key": "p", "value": "octopus" }], "destination": "/kits/octopus", "permanent": true },
+    { "source": "/product", "has": [{ "type": "query", "key": "p", "value": "duck" }], "destination": "/kits/duck", "permanent": true },
+    { "source": "/product", "has": [{ "type": "query", "key": "p", "value": "heart" }], "destination": "/kits/heart", "permanent": true },
+    { "source": "/product", "has": [{ "type": "query", "key": "p", "value": "soccer" }], "destination": "/kits/soccer", "permanent": true },
+
+    { "source": "/product.html", "destination": "/", "permanent": true },
+    { "source": "/product", "destination": "/", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -25,6 +39,12 @@
     },
     {
       "source": "/",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/kits/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
