@@ -62,6 +62,11 @@ JOBS = [
      "הברווז השובב מקרוב"),
     ("duck", "Duck/64edc325-85ee-483a-893b-459f2bd5bd7a.jpg", "duck-stand",
      "הברווז השובב מוצג על קובייה שחורה"),
+    # Studio shot on grey. Portrait 1167x1600, so it letterboxed in the 1:1
+    # frame; squared here so it can fill like every other photo.
+    ("duck", "Duck/Duck_Display.jpeg", "duck-display",
+     "הברווז השובב — צילום מוצר על רקע אפור"),
+
     # --- heart ---
     ("heart", "Heart/5836D471-2604-475A-ACBC-98DB05C0D2EB.png", "heart-lifestyle",
      "הלב הפועם בבית"),
@@ -205,7 +210,14 @@ def square_crop(im: Image.Image, bbox, tight=None):
 
     left = max(0, min(left, W - side))
     top = max(0, min(top, H - side))
-    return im.crop((round(left), round(top), round(left + side), round(top + side)))
+    # Round the origin FIRST, then add the integer side. Rounding both edges
+    # independently can yield a 1px-off rectangle (observed 1167x1168), which
+    # shows as a hairline seam once the image is object-fit:cover'd.
+    side = int(side)
+    x, y = int(round(left)), int(round(top))
+    x = min(x, W - side)
+    y = min(y, H - side)
+    return im.crop((x, y, x + side, y + side))
 
 
 def main():

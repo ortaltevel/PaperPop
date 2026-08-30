@@ -20,7 +20,7 @@ const SITE = {
 };
 
 // Brand-supplied, identical for every kit.
-const AGE = "מגיל 10 ומעלה, ומגיל 6 בליווי מבוגר";
+const AGE = "מגיל 10 ומעלה, ומגיל 8 בליווי מבוגר";
 
 /* NOTE ON `time`: these are estimates carried over from the original build,
  * not measured values. They are now server-rendered, which means Google and AI
@@ -61,7 +61,7 @@ const products = [
     slug: "duck",
     name: "הברווז השובב",
     price: 65,
-    time: "עד שעה וחצי",
+    time: "כשעתיים",
     size: "21 × 16 × 25 ס״מ",
     age: AGE,
     desc: "ברווז צהוב עם המון אופי, כמה קיפולים והדבקות ויש לכם חבר חדש על המדף שיעשה שמח.",
@@ -72,8 +72,7 @@ const products = [
     },
     media: [
       { type: "image", src: "assets/products/duck-tight.png", alt: "הברווז השובב" },
-      { type: "image", src: "assets/products/duck-display.jpg", alt: "הברווז השובב — צילום מוצר" },
-      { type: "image", src: "assets/products/duck-sketch.png", widths: [370], alt: "הברווז השובב — שרטוט הדגם" },
+      { type: "image", src: "assets/products/duck-display.jpg", alt: "הברווז השובב — צילום מוצר על רקע אפור", fill: true },
       { type: "image", src: "assets/products/duck-held.jpg", alt: "הברווז השובב מוחזק ביד על מרפסת", fill: true },
       { type: "image", src: "assets/products/duck-lifestyle.jpg", alt: "הברווז השובב על מזנון עץ בבית", fill: true },
       { type: "image", src: "assets/products/duck-shelf.jpg", alt: "הברווז השובב מקרוב — פאות הנייר המקופל", fill: true },

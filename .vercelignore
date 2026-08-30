@@ -1,7 +1,7 @@
 # Files kept in git as regeneration masters but NOT deployed.
-# Every entry is fully superseded by width-suffixed .avif/.webp/.fallback.*
-# variants from tools/optimize-images.py, and is not fetched by any page
-# (the originals appear only as stem strings in the product data).
+# Each is fully superseded by width-suffixed .avif/.webp/.fallback.* variants
+# from tools/optimize-images.py, and is not fetched by any page (the originals
+# appear only as stem strings in the product data).
 
 # --- build/source tooling (never belongs on the CDN) ---
 # NOTE: media.js is deliberately NOT listed — the browser loads it.
@@ -10,7 +10,7 @@ build.js
 data/
 templates/
 
-# --- superseded image masters (36 files, 20,114,773 bytes) ---
+# --- superseded image masters (35 files, 19,911,368 bytes) ---
 assets/media/AboutUs.png
 assets/media/Gift.png
 assets/media/hero-poster.jpg
@@ -27,7 +27,6 @@ assets/products/duck-held.jpg
 assets/products/duck-lifestyle.jpg
 assets/products/duck-scene.jpg
 assets/products/duck-shelf.jpg
-assets/products/duck-sketch.png
 assets/products/duck-stand.jpg
 assets/products/duck-tight.png
 assets/products/heart-display.jpg
@@ -47,6 +46,9 @@ assets/products/soccer-girl.jpg
 assets/products/soccer-grass.jpg
 assets/products/soccer-shelf.jpg
 assets/products/soccer-tight.png
+
+# --- unused: duck wireframe sketch, removed from the gallery ---
+assets/products/duck-sketch.png
 
 # --- untouched source photos ---
 assets/products/כדורגל/
