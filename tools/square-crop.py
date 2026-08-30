@@ -274,7 +274,12 @@ def main():
             dbg = im.copy()
             ImageDraw.Draw(dbg).rectangle(bbox, outline=(255, 0, 255), width=8)
             dbg.thumbnail((600, 600))
-            dbg.save(OUT_ROOT.parent.parent / f"_dbg-{stem}.jpg", "JPEG", quality=80)
+            # Write overlays OUTSIDE the deployable tree — they were landing in
+            # the site root and got swept into git by the deploy sync.
+            dbgdir = pathlib.Path(tempfile.gettempdir()) / "pp-crop-debug"
+            dbgdir.mkdir(parents=True, exist_ok=True)
+            dbg.save(dbgdir / f"{stem}.jpg", "JPEG", quality=80)
+            print(f"    debug overlay -> {dbgdir / (stem + '.jpg')}")
 
     print(f"\n{len(made)} square masters written to {OUT_ROOT}/")
     print("Next: add them to data/products.js, then run")

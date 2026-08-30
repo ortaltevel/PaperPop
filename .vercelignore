@@ -1,6 +1,7 @@
 # Files kept in git as regeneration masters but NOT deployed.
 # Each is fully superseded by width-suffixed .avif/.webp/.fallback.* variants
-# from tools/optimize-images.py, and is not fetched by any page (the originals
+# from _dbg-*.jpg
+tools/optimize-images.py, and is not fetched by any page (the originals
 # appear only as stem strings in the product data).
 
 # --- build/source tooling (never belongs on the CDN) ---
