@@ -26,7 +26,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
-  <link rel="preload" as="image" href="/assets/products/duck-tight-600.fallback.png" fetchpriority="high">
+  <!-- Preload the SAME candidate <picture> will choose. Preloading the plain
+       fallback here would fetch it *and* the AVIF, doubling the LCP bytes.
+       Browsers without AVIF simply ignore this and load the fallback normally. -->
+  <link rel="preload" as="image" type="image/avif"
+        imagesrcset="/assets/products/duck-tight-400.avif 400w, /assets/products/duck-tight-600.avif 600w, /assets/products/duck-tight-800.avif 800w" imagesizes="(min-width:861px) 500px, 86vw" fetchpriority="high">
   <link rel="stylesheet" href="/styles.css?v=42">
   <script type="application/ld+json">
 {
@@ -124,7 +128,7 @@
         <!-- Gallery (right in RTL) -->
         <div class="pp-pdp__gallery">
           <div class="pp-media pp-pdp__main" id="pdpMain"><picture><source type="image/avif" srcset="/assets/products/duck-tight-400.avif 400w, /assets/products/duck-tight-600.avif 600w, /assets/products/duck-tight-800.avif 800w" sizes="(min-width:861px) 500px, 86vw"><source type="image/webp" srcset="/assets/products/duck-tight-400.webp 400w, /assets/products/duck-tight-600.webp 600w, /assets/products/duck-tight-800.webp 800w" sizes="(min-width:861px) 500px, 86vw"><img class="pp-media__art" src="/assets/products/duck-tight-600.fallback.png" sizes="(min-width:861px) 500px, 86vw" alt="הברווז השובב" loading="eager" decoding="async" fetchpriority="high"></picture><button class="pp-pdp__nav pp-pdp__nav--prev" type="button" aria-label="התמונה הקודמת"><span class="pp-icon" data-icon="chevron-left"></span></button><button class="pp-pdp__nav pp-pdp__nav--next" type="button" aria-label="התמונה הבאה"><span class="pp-icon" data-icon="chevron-right"></span></button></div>
-          <div class="pp-pdp__thumbs" id="pdpThumbs" role="tablist" aria-label="מדיה של המוצר"><button class="pp-pdp__thumb" type="button" role="tab" aria-current="true" aria-label="הברווז השובב"><img src="/assets/products/duck-tight-400.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb" type="button" role="tab" aria-current="false" aria-label="הברווז השובב — צילום מוצר"><img src="/assets/products/duck-display-400.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb" type="button" role="tab" aria-current="false" aria-label="הברווז השובב — שרטוט הדגם"><img src="/assets/products/duck-sketch-370.avif" alt="" loading="lazy" decoding="async"></button></div>
+          <div class="pp-pdp__thumbs" id="pdpThumbs" role="tablist" aria-label="מדיה של המוצר"><button class="pp-pdp__thumb" type="button" role="tab" aria-current="true" aria-label="הברווז השובב"><img src="/assets/products/duck-tight-400.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb" type="button" role="tab" aria-current="false" aria-label="הברווז השובב — צילום מוצר"><img src="/assets/products/duck-display-400.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb" type="button" role="tab" aria-current="false" aria-label="הברווז השובב — שרטוט הדגם"><img src="/assets/products/duck-sketch-370.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb pp-pdp__thumb--fill" type="button" role="tab" aria-current="false" aria-label="הברווז השובב מוחזק ביד על מרפסת"><img src="/assets/products/duck-held-400.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb pp-pdp__thumb--fill" type="button" role="tab" aria-current="false" aria-label="הברווז השובב על מזנון עץ בבית"><img src="/assets/products/duck-lifestyle-400.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb pp-pdp__thumb--fill" type="button" role="tab" aria-current="false" aria-label="הברווז השובב מקרוב — פאות הנייר המקופל"><img src="/assets/products/duck-shelf-400.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb pp-pdp__thumb--fill" type="button" role="tab" aria-current="false" aria-label="הברווז השובב על מדף בחדר עבודה"><img src="/assets/products/duck-closeup-400.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb pp-pdp__thumb--fill" type="button" role="tab" aria-current="false" aria-label="הברווז השובב מוצג על קובייה שחורה"><img src="/assets/products/duck-stand-400.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb pp-pdp__thumb--fill" type="button" role="tab" aria-current="false" aria-label="הברווז השובב מונח על מדף בבית"><img src="/assets/products/duck-desk-400.avif" alt="" loading="lazy" decoding="async"></button><button class="pp-pdp__thumb pp-pdp__thumb--fill" type="button" role="tab" aria-current="false" aria-label="הברווז השובב מוצג בסלון על מזנון"><img src="/assets/products/duck-scene-400.avif" alt="" loading="lazy" decoding="async"></button></div>
         </div>
 
         <!-- Info (left in RTL) -->
@@ -214,6 +218,52 @@
       370
     ],
     "alt": "הברווז השובב — שרטוט הדגם"
+  },
+  {
+    "type": "image",
+    "src": "assets/products/duck-held.jpg",
+    "alt": "הברווז השובב מוחזק ביד על מרפסת",
+    "fill": true
+  },
+  {
+    "type": "image",
+    "src": "assets/products/duck-lifestyle.jpg",
+    "alt": "הברווז השובב על מזנון עץ בבית",
+    "fill": true
+  },
+  {
+    "type": "image",
+    "src": "assets/products/duck-shelf.jpg",
+    "alt": "הברווז השובב מקרוב — פאות הנייר המקופל",
+    "fill": true
+  },
+  {
+    "type": "image",
+    "src": "assets/products/duck-closeup.jpg",
+    "alt": "הברווז השובב על מדף בחדר עבודה",
+    "fill": true
+  },
+  {
+    "type": "image",
+    "src": "assets/products/duck-stand.jpg",
+    "widths": [
+      400,
+      600
+    ],
+    "alt": "הברווז השובב מוצג על קובייה שחורה",
+    "fill": true
+  },
+  {
+    "type": "image",
+    "src": "assets/products/duck-desk.jpg",
+    "alt": "הברווז השובב מונח על מדף בבית",
+    "fill": true
+  },
+  {
+    "type": "image",
+    "src": "assets/products/duck-scene.jpg",
+    "alt": "הברווז השובב מוצג בסלון על מזנון",
+    "fill": true
   }
 ]</script>
   <script defer src="/media.js?v=42"></script>

@@ -1,7 +1,7 @@
 # Files kept in git as regeneration masters but NOT deployed.
-# Every entry below is fully superseded by width-suffixed .avif/.webp/
-# .fallback.* variants produced by tools/optimize-images.py, and is not
-# fetched by any page (the originals only appear as stem strings in JS).
+# Every entry is fully superseded by width-suffixed .avif/.webp/.fallback.*
+# variants from tools/optimize-images.py, and is not fetched by any page
+# (the originals appear only as stem strings in the product data).
 
 # --- build/source tooling (never belongs on the CDN) ---
 # NOTE: media.js is deliberately NOT listed — the browser loads it.
@@ -10,7 +10,7 @@ build.js
 data/
 templates/
 
-# --- superseded image masters (21 files, 15,643,931 bytes) ---
+# --- superseded image masters (36 files, 20,114,773 bytes) ---
 assets/media/AboutUs.png
 assets/media/Gift.png
 assets/media/hero-poster.jpg
@@ -20,18 +20,33 @@ assets/process/Show.png
 assets/products/OctepusGreen-clean.png
 assets/products/OctepusPink-clean.png
 assets/products/OctepusYellow-clean.png
+assets/products/duck-closeup.jpg
+assets/products/duck-desk.jpg
 assets/products/duck-display.jpg
+assets/products/duck-held.jpg
+assets/products/duck-lifestyle.jpg
+assets/products/duck-scene.jpg
+assets/products/duck-shelf.jpg
 assets/products/duck-sketch.png
+assets/products/duck-stand.jpg
 assets/products/duck-tight.png
 assets/products/heart-display.jpg
+assets/products/heart-held.jpg
+assets/products/heart-lifestyle.jpg
+assets/products/heart-shelf.jpg
 assets/products/heart-tight.png
 assets/products/octopus-blue-tight.png
+assets/products/octopus-closeup.jpg
 assets/products/octopus-display.png
+assets/products/octopus-lifestyle.jpg
+assets/products/octopus-pair.jpg
+assets/products/octopus-scene.jpg
+assets/products/octopus-shelf.jpg
 assets/products/soccer-boy.jpg
 assets/products/soccer-girl.jpg
 assets/products/soccer-grass.jpg
 assets/products/soccer-shelf.jpg
 assets/products/soccer-tight.png
 
-# --- untouched source scans/photos ---
+# --- untouched source photos ---
 assets/products/כדורגל/

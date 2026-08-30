@@ -48,6 +48,24 @@ JOBS = [
     ("assets/products/octopus-display.png",     (400, 600, 800), True),
     ("assets/products/duck-sketch.png",         (370,),          True),
 
+    # --- Lifestyle photos, pre-squared by tools/square-crop.py. Opaque, so
+    #     they get JPEG fallbacks; widths are capped at each master size. ---
+    ("assets/products/duck-held.jpg", (400, 600, 800), False),
+    ("assets/products/duck-lifestyle.jpg", (400, 600, 800), False),
+    ("assets/products/duck-scene.jpg", (400, 600, 800), False),
+    ("assets/products/duck-desk.jpg", (400, 600, 800), False),
+    ("assets/products/duck-shelf.jpg", (400, 600, 800), False),
+    ("assets/products/duck-closeup.jpg", (400, 600, 800), False),
+    ("assets/products/duck-stand.jpg", (400, 600), False),
+    ("assets/products/heart-lifestyle.jpg", (400, 600, 800), False),
+    ("assets/products/heart-held.jpg", (400, 600, 800), False),
+    ("assets/products/heart-shelf.jpg", (400, 600, 800), False),
+    ("assets/products/octopus-pair.jpg", (400, 600, 800), False),
+    ("assets/products/octopus-lifestyle.jpg", (400, 600, 800), False),
+    ("assets/products/octopus-shelf.jpg", (400,), False),
+    ("assets/products/octopus-closeup.jpg", (400, 600), False),
+    ("assets/products/octopus-scene.jpg", (400, 600, 800), False),
+
     # --- Already-reasonable JPEGs, but 1120-1400 px wide for a ~500 px slot. ---
     ("assets/products/soccer-grass.jpg",  (500, 750, 1120), False),
     ("assets/products/soccer-shelf.jpg",  (500, 750),       False),

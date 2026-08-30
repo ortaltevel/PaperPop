@@ -26,7 +26,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
-  <link rel="preload" as="image" href="{{PRELOAD}}" fetchpriority="high">
+  <!-- Preload the SAME candidate <picture> will choose. Preloading the plain
+       fallback here would fetch it *and* the AVIF, doubling the LCP bytes.
+       Browsers without AVIF simply ignore this and load the fallback normally. -->
+  <link rel="preload" as="image" type="image/avif"
+        imagesrcset="{{PRELOAD_SRCSET}}" imagesizes="{{PRELOAD_SIZES}}" fetchpriority="high">
   <link rel="stylesheet" href="/styles.css?v={{V}}">
   <script type="application/ld+json">
 {{JSONLD}}

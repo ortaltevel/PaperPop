@@ -69,7 +69,10 @@ function buildProductPage(tpl, p) {
     throw new Error(`${p.id}: media[0] must be an image so it can be the LCP element`);
   }
   const ws = MEDIA.widthsOf(first);
-  const preload = MEDIA.fallbackOf(first.src, ws[Math.floor(ws.length / 2)]);
+  // Preload must match the candidate <picture> selects (AVIF), not the fallback.
+  const preloadSrcset = ws
+    .map((w) => `${MEDIA.url(`${MEDIA.stemOf(first.src)}-${w}.avif`)} ${w}w`)
+    .join(", ");
 
   const jsonld = {
     "@context": "https://schema.org",
@@ -122,7 +125,8 @@ function buildProductPage(tpl, p) {
     WA: h(p.wa),
     OG_IMAGE: h(abs(p.ogImage)),
     OG_IMAGE_ALT: h(p.card.alt),
-    PRELOAD: h("/" + preload),
+    PRELOAD_SRCSET: h(preloadSrcset),
+    PRELOAD_SIZES: MEDIA.PDP_SIZES,
     MAIN_MEDIA: MEDIA.mainMediaHTML(first, { eager: true }),
     NAV: p.media.length > 1 ? MEDIA.navHTML() : "",
     THUMBS: p.media.map((m, i) => MEDIA.thumbHTML(m, i, i === 0)).join(""),
