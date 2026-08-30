@@ -43,6 +43,8 @@ TARGETS = {
 #   tight: multiplier on the product's longest edge — zooms in on wide room
 #          shots where the product would otherwise be a speck.
 #   hue:   replaces the product's default hue windows (e.g. a yellow octopus).
+#   anchor: "top"/"bottom" pins the crop to that edge instead of centring on
+#          the product — for shots where a face sits above the product.
 JOBS = [
     # --- duck ---
     ("duck", "Duck/08239981-0089-4E40-A916-2D07C91248D7.png", "duck-held",
@@ -68,8 +70,10 @@ JOBS = [
      "הברווז השובב — צילום מוצר על רקע אפור"),
 
     # --- heart ---
+    # The heart sits at chest height, so product-centring cut the top of her
+    # head. Anchor to the top edge: full face + heart, cropping off the bottom.
     ("heart", "Heart/5836D471-2604-475A-ACBC-98DB05C0D2EB.png", "heart-lifestyle",
-     "הלב הפועם בבית"),
+     "בחורה מחזיקה את הלב הפועם", {"anchor": "top"}),
     ("heart", "Heart/14C4F040-6526-4AB1-BB3B-1859C2D01774.png", "heart-held",
      "הלב הפועם מוחזק ביד"),
     ("heart", "Heart/7BA307D7-C737-45ED-8C34-93036641A929.png", "heart-shelf",
@@ -176,7 +180,7 @@ def _largest_blob(mask: np.ndarray):
     return best if best_area >= 30 else None
 
 
-def square_crop(im: Image.Image, bbox, tight=None):
+def square_crop(im: Image.Image, bbox, tight=None, anchor=None):
     """Square crop, clamped to the image, centred on the product.
 
     Never pads: the side is capped at min(W, H), so the result is always real
@@ -208,6 +212,14 @@ def square_crop(im: Image.Image, bbox, tight=None):
         if y1 - y0 <= side:
             top = min(max(top, y1 - side), y0)
 
+    # An explicit anchor wins over product-centring. Used when the subject the
+    # photo is really about (e.g. a person's face) sits above the product, so
+    # centring on the product alone would crop the face.
+    if anchor == "top":
+        top = 0
+    elif anchor == "bottom":
+        top = H - side
+
     left = max(0, min(left, W - side))
     top = max(0, min(top, H - side))
     # Round the origin FIRST, then add the integer side. Rounding both edges
@@ -237,7 +249,8 @@ def main():
             {k: v for k, v in over.items() if k in ("hue", "s", "v")})
         found = product_bbox(im, spec)
         bbox, coverage = found if found else (None, 0.0)
-        sq = square_crop(im, bbox, tight=over.get("tight"))
+        sq = square_crop(im, bbox, tight=over.get("tight"),
+                         anchor=over.get("anchor"))
 
         out = OUT_ROOT / f"{stem}.jpg"
         sq.save(out, "JPEG", quality=92, optimize=True, progressive=True)

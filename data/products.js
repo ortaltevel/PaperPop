@@ -98,7 +98,6 @@ const products = [
     },
     media: [
       { type: "image", src: "assets/products/heart-tight.png", alt: "הלב הפועם" },
-      { type: "image", src: "assets/products/heart-display.jpg", alt: "הלב הפועם — צילום מוצר" },
       {
         type: "video",
         src: "assets/media/hero.mp4",
@@ -106,7 +105,7 @@ const products = [
         poster: "assets/media/hero-poster-1200.fallback.jpg",
         alt: "הרכבת הלב הפועם",
       },
-      { type: "image", src: "assets/products/heart-lifestyle.jpg", alt: "הלב הפועם מוחזק בשתי ידיים", fill: true },
+      { type: "image", src: "assets/products/heart-lifestyle.jpg", alt: "בחורה מחזיקה את הלב הפועם", fill: true },
       { type: "image", src: "assets/products/heart-held.jpg", alt: "הלב הפועם על שידה לבנה", fill: true },
       { type: "image", src: "assets/products/heart-shelf.jpg", alt: "הלב הפועם על מדף עם צמח ותמונה", fill: true },
     ],

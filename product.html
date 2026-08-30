@@ -137,9 +137,10 @@
     var PDP_SIZES = "(min-width:861px) 500px, 86vw";
     function wa(t){ return WA + encodeURIComponent("היי! אני מעוניין/ת בערכת " + t + " של PaperPop 🙂"); }
 
-    // NOTE: assembly time and sculpture dimensions are placeholders — replace
-    // with the real values per kit. Age + kit facts are brand-supplied.
-    var AGE = "מגיל 10 ומעלה, ומגיל 6 בליווי מבוגר";
+    // LEGACY PAGE — superseded by the generated /kits/<id> pages. Kept only as
+    // a safety net while the 308 redirects bed in; delete once verified in
+    // production. data/products.js is the source of truth.
+    var AGE = "מגיל 10 ומעלה, ומגיל 8 בליווי מבוגר";
     var PRODUCTS = {
       octopus: {
         name: "התמנון שעושה סדר", price: "45 ₪",
@@ -155,12 +156,11 @@
       },
       duck: {
         name: "הברווז השובב", price: "65 ₪",
-        time: "עד שעה וחצי", size: "21 × 16 × 25 ס״מ", age: AGE, wa: wa("הברווז השובב"),
+        time: "כשעתיים", size: "21 × 16 × 25 ס״מ", age: AGE, wa: wa("הברווז השובב"),
         desc: "ברווז צהוב עם המון אופי, כמה קיפולים והדבקות ויש לכם חבר חדש על המדף שיעשה שמח.",
         media: [
           { type:"image", src:"assets/products/duck-tight.png", alt:"הברווז השובב" },
           { type:"image", src:"assets/products/duck-display.jpg", alt:"הברווז השובב — צילום מוצר" },
-          { type:"image", src:"assets/products/duck-sketch.png", widths:[370], alt:"הברווז השובב — שרטוט הדגם" }
         ]
       },
       heart: {
@@ -169,7 +169,6 @@
         desc: "קצת נייר, קצת דבק והרבה לב! כי ברגע שהיא מוכנה, אי אפשר לפספס אותה.",
         media: [
           { type:"image", src:"assets/products/heart-tight.png", alt:"הלב הפועם" },
-          { type:"image", src:"assets/products/heart-display.jpg", alt:"הלב הפועם — צילום מוצר" },
           { type:"video", src:"assets/media/hero.mp4", webm:"assets/media/hero.webm", poster:"assets/media/hero-poster.jpg", alt:"הרכבת הלב הפועם" }
         ]
       },
