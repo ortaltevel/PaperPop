@@ -45,7 +45,6 @@ JOBS = [
     ("assets/products/OctepusGreen-clean.png",  (400, 600, 800), True),
     ("assets/products/OctepusYellow-clean.png", (400, 600, 800), True),
     ("assets/products/OctepusPink-clean.png",   (400, 600, 800), True),
-    ("assets/products/octopus-display.png",     (400, 600, 800), True),
 
     # --- Lifestyle photos, pre-squared by tools/square-crop.py. Opaque, so
     #     they get JPEG fallbacks; widths are capped at each master size. ---
@@ -60,7 +59,7 @@ JOBS = [
     ("assets/products/heart-shelf.jpg", (400, 600, 800), False),
     ("assets/products/octopus-pair.jpg", (400, 600, 800), False),
     ("assets/products/octopus-lifestyle.jpg", (400, 600, 800), False),
-    ("assets/products/octopus-shelf.jpg", (400,), False),
+    ("assets/products/octopus-shelf.jpg", (400, 600, 800), False),
     ("assets/products/octopus-closeup.jpg", (400, 600), False),
     ("assets/products/octopus-scene.jpg", (400, 600, 800), False),
 

@@ -10,7 +10,7 @@ build.js
 data/
 templates/
 
-# --- superseded image masters (33 files, 19,673,405 bytes) ---
+# --- superseded image masters (32 files, 18,504,313 bytes) ---
 assets/media/AboutUs.png
 assets/media/Gift.png
 assets/media/hero-poster.jpg
@@ -34,7 +34,6 @@ assets/products/heart-shelf.jpg
 assets/products/heart-tight.png
 assets/products/octopus-blue-tight.png
 assets/products/octopus-closeup.jpg
-assets/products/octopus-display.png
 assets/products/octopus-lifestyle.jpg
 assets/products/octopus-pair.jpg
 assets/products/octopus-scene.jpg

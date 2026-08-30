@@ -45,6 +45,10 @@ TARGETS = {
 #   hue:   replaces the product's default hue windows (e.g. a yellow octopus).
 #   anchor: "top"/"bottom" pins the crop to that edge instead of centring on
 #          the product — for shots where a face sits above the product.
+#   include: [x0,y0,x1,y1] as FRACTIONS of the source. The square must contain
+#          this box. Use when the shot has two subjects that both have to stay
+#          in frame (a person's face AND the product) — colour detection finds
+#          only the product, so it would crop the face off.
 JOBS = [
     # --- duck ---
     ("duck", "Duck/08239981-0089-4E40-A916-2D07C91248D7.png", "duck-held",
@@ -81,12 +85,16 @@ JOBS = [
      "התמנון שעושה סדר בתכלת ובוורוד עם עפרונות"),
     ("octopus", "Octopus/146C523F-F08E-41DF-9483-06D66F9DBE1A.png", "octopus-lifestyle",
      "התמנון שעושה סדר על שולחן עבודה"),
-    # This octopus is YELLOW, so the default blue/pink windows find nothing and
-    # the frame is dominated by the person. Match yellow and crop in.
+    # Boy upper-left, yellow octopus lower-right. The previous tight crop centred
+    # on the octopus and cut him out entirely; this box keeps both.
     ("octopus", "Octopus/C43CB2EF-B705-40D9-9D5E-D8F6A2E778A0.png", "octopus-shelf",
-     "התמנון שעושה סדר בצהוב על שולחן", {"hue": [(38, 68)], "s": 0.45, "v": 0.45, "tight": 2.2}),
+     "נער ליד התמנון שעושה סדר בצהוב על שולחן",
+     {"include": [0.16, 0.03, 0.87, 0.94]}),
+    # Girl's face sits left, the octopus she is holding sits right — the square
+    # has to span both, so colour-centring alone cropped her face.
     ("octopus", "Octopus/459bfe93-b624-4883-8068-eab6656deb2b.jpg", "octopus-closeup",
-     "התמנון שעושה סדר מקרוב"),
+     "נערה מחזיקה את התמנון שעושה סדר בוורוד",
+     {"include": [0.03, 0.10, 0.88, 0.34]}),
     ("octopus", "Octopus/IMG_5635.HEIC", "octopus-scene",
      "התמנון שעושה סדר בחדר"),
 ]
@@ -247,7 +255,12 @@ def main():
             {k: v for k, v in over.items() if k in ("hue", "s", "v")})
         found = product_bbox(im, spec)
         bbox, coverage = found if found else (None, 0.0)
-        sq = square_crop(im, bbox, tight=over.get("tight"),
+        inc = over.get("include")
+        if inc:
+            bbox = (inc[0] * im.width, inc[1] * im.height,
+                    inc[2] * im.width, inc[3] * im.height)
+        sq = square_crop(im, bbox,
+                         tight=None if inc else over.get("tight"),
                          anchor=over.get("anchor"))
 
         out = OUT_ROOT / f"{stem}.jpg"
