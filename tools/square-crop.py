@@ -74,8 +74,6 @@ JOBS = [
     # head. Anchor to the top edge: full face + heart, cropping off the bottom.
     ("heart", "Heart/5836D471-2604-475A-ACBC-98DB05C0D2EB.png", "heart-lifestyle",
      "בחורה מחזיקה את הלב הפועם", {"anchor": "top"}),
-    ("heart", "Heart/14C4F040-6526-4AB1-BB3B-1859C2D01774.png", "heart-held",
-     "הלב הפועם מוחזק ביד"),
     ("heart", "Heart/7BA307D7-C737-45ED-8C34-93036641A929.png", "heart-shelf",
      "הלב הפועם על מדף עם צמח ותמונה"),
     # --- octopus ---

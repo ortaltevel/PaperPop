@@ -10,7 +10,7 @@ build.js
 data/
 templates/
 
-# --- superseded image masters (34 files, 19,826,269 bytes) ---
+# --- superseded image masters (33 files, 19,673,405 bytes) ---
 assets/media/AboutUs.png
 assets/media/Gift.png
 assets/media/hero-poster.jpg
@@ -29,7 +29,6 @@ assets/products/duck-scene.jpg
 assets/products/duck-shelf.jpg
 assets/products/duck-stand.jpg
 assets/products/duck-tight.png
-assets/products/heart-held.jpg
 assets/products/heart-lifestyle.jpg
 assets/products/heart-shelf.jpg
 assets/products/heart-tight.png

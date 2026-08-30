@@ -57,7 +57,6 @@ JOBS = [
     ("assets/products/duck-closeup.jpg", (400, 600, 800), False),
     ("assets/products/duck-stand.jpg", (400, 600), False),
     ("assets/products/heart-lifestyle.jpg", (400, 600, 800), False),
-    ("assets/products/heart-held.jpg", (400, 600, 800), False),
     ("assets/products/heart-shelf.jpg", (400, 600, 800), False),
     ("assets/products/octopus-pair.jpg", (400, 600, 800), False),
     ("assets/products/octopus-lifestyle.jpg", (400, 600, 800), False),
