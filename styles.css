@@ -6,16 +6,14 @@
    → core → forms → navigation → product → sections → feedback
    ========================================================================== */
 
-/* ---------- tokens/fonts.css ---------- */
-@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap");
-
-@font-face {
-  font-family: "Assistant PaperPop";
-  src: url("assets/fonts/Assistant-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* ---------- tokens/fonts.css ----------
+   Fonts are loaded from a <link> in the HTML <head>, NOT via @import here.
+   An @import inside a stylesheet is invisible to the browser's preload scanner,
+   which forced a 3-hop serial chain (styles.css -> googleapis -> gstatic).
+   The previous self-hosted "Assistant PaperPop" @font-face was also removed: it
+   registered a *separate family* holding only weight 400, so body text rendered
+   from the local TTF while headings came from Google's Assistant — two
+   unrelated families, giving inconsistent Hebrew stroke weights. */
 
 /* ---------- tokens/colors.css ---------- */
 :root {
@@ -104,8 +102,8 @@
 
 /* ---------- tokens/typography.css ---------- */
 :root {
-  --font-core: "Assistant PaperPop", "Assistant", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", "Assistant PaperPop", "Assistant", ui-monospace, monospace;
+  --font-core: "Assistant", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Assistant", ui-monospace, monospace;
 
   --weight-light: 300;
   --weight-regular: 400;
@@ -470,6 +468,16 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* ---------- components/product/product.css ---------- */
 .pp-media{position:relative;display:grid;place-items:center;aspect-ratio:1/1;overflow:hidden;background:var(--pp-cream-300);clip-path:var(--clip-fold-md);isolation:isolate}
+/* <picture> wrappers must NOT form a box. The images inside are sized either by
+   percentage (.pp-media__art is 78%/78%) or by inset:0 against an
+   aspect-ratio parent — both resolve against the nearest block container, which
+   would become the <picture> and silently break the layout. display:contents
+   removes it from the box tree so every existing selector keeps working. */
+.pp-media > picture,
+.pp-steps__media > picture,
+.pp-mpanel > picture,
+.pp-about__media > picture,
+.pp-hero__media > picture{display:contents}
 .pp-media--pink{background:var(--pp-pink-100)}
 .pp-media--pinkStrong{background:var(--pp-pink-200)}
 .pp-media--blue{background:#eaf6fc}
@@ -668,10 +676,12 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .pp-hero--video .pp-hero__copy{justify-self:stretch;max-width:none;justify-content:flex-end;padding-block-end:var(--space-16)}
   .pp-hero__veil--side{background:linear-gradient(to top, rgba(66,7,21,.95) 0%, rgba(66,7,21,.86) 30%, rgba(66,7,21,.56) 55%, rgba(66,7,21,.16) 80%, rgba(66,7,21,0) 94%)}
 }
-@media (prefers-reduced-motion: reduce){
-  /* Poster still-frame instead of motion; JS also pauses playback. */
+/* Poster still-frame instead of motion. The video ships preload="none" with no
+   autoplay, so in both cases below JS simply never opts in and zero video bytes
+   are fetched — phones and reduced-motion users get the poster for free. */
+@media (prefers-reduced-motion: reduce), (max-width:860px){
   .pp-hero__video{display:none}
-  .pp-hero--video{background:var(--pp-burgundy-800) url("assets/media/hero-poster.jpg") center/cover no-repeat}
+  .pp-hero--video{background:var(--pp-burgundy-800) image-set(url("assets/media/hero-poster-1200.avif") type("image/avif"),url("assets/media/hero-poster-1200.fallback.jpg") type("image/jpeg")) center/cover no-repeat}
 }
 
 /* ---------- gift band (from Home.jsx GiftBand, expressed as static CSS) ---------- */

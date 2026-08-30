@@ -14,7 +14,15 @@
   <meta property="og:image" content="https://paperpop.co.il/assets/media/hero-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-  <link rel="stylesheet" href="styles.css?v=39">
+  <!-- Fonts before the stylesheet so the preload scanner starts both connections
+       immediately, instead of discovering them via an @import inside styles.css.
+       Weights trimmed to those actually used: Assistant 400-800, Plex Mono 500. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+  <!-- The hero poster is the LCP candidate now that the video is gated. -->
+  <link rel="preload" as="image" href="assets/media/hero-poster-1200.fallback.jpg" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css?v=41">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,8 +71,8 @@
 
   <!-- ============================= HERO (video) ============================= -->
   <section class="pp-hero pp-hero--video" aria-label="PaperPop">
-    <video class="pp-hero__video" autoplay muted loop playsinline preload="metadata"
-           poster="assets/media/hero-poster.jpg"
+    <video class="pp-hero__video" muted loop playsinline preload="none"
+           poster="assets/media/hero-poster-1200.fallback.jpg"
            aria-label="ידיים מקפלות ומדביקות לב נייר של PaperPop — מדפים שטוחים שהופכים לפסל" data-hero-video>
       <source src="assets/media/hero.webm" type="video/webm">
       <source src="assets/media/hero.mp4" type="video/mp4">
@@ -95,7 +103,20 @@
         <!-- octopus -->
         <a class="pp-pcard" href="product.html?p=octopus" aria-label="התמנון שעושה סדר">
           <div class="pp-media">
-            <img class="pp-media__art" src="assets/products/octopus-blue-tight.png" alt="התמנון שעושה סדר — פסל נייר מקופל בתכלת עם שמונה זרועות" loading="eager">
+            <picture>
+              <source type="image/avif"
+                      srcset="assets/products/octopus-blue-tight-400.avif 400w,
+                        assets/products/octopus-blue-tight-600.avif 600w,
+                        assets/products/octopus-blue-tight-800.avif 800w"
+                      sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+              <source type="image/webp"
+                      srcset="assets/products/octopus-blue-tight-400.webp 400w,
+                        assets/products/octopus-blue-tight-600.webp 600w,
+                        assets/products/octopus-blue-tight-800.webp 800w"
+                      sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+              <img class="pp-media__art" src="assets/products/octopus-blue-tight-600.fallback.png" width="600" height="400" alt="התמנון שעושה סדר — פסל נייר מקופל בתכלת עם שמונה זרועות" loading="eager" decoding="async"
+                   sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+            </picture>
           </div>
           <div class="pp-pcard__body">
             <div>
@@ -109,7 +130,20 @@
         <!-- duck -->
         <a class="pp-pcard" href="product.html?p=duck" aria-label="הברווז השובב">
           <div class="pp-media">
-            <img class="pp-media__art" src="assets/products/duck-tight.png" alt="הברווז השובב — פסל נייר מקופל בצהוב עם מקור אדום" loading="lazy">
+            <picture>
+              <source type="image/avif"
+                      srcset="assets/products/duck-tight-400.avif 400w,
+                        assets/products/duck-tight-600.avif 600w,
+                        assets/products/duck-tight-800.avif 800w"
+                      sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+              <source type="image/webp"
+                      srcset="assets/products/duck-tight-400.webp 400w,
+                        assets/products/duck-tight-600.webp 600w,
+                        assets/products/duck-tight-800.webp 800w"
+                      sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+              <img class="pp-media__art" src="assets/products/duck-tight-600.fallback.png" width="600" height="640" alt="הברווז השובב — פסל נייר מקופל בצהוב עם מקור אדום" loading="lazy" decoding="async"
+                   sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+            </picture>
           </div>
           <div class="pp-pcard__body">
             <div>
@@ -123,7 +157,20 @@
         <!-- heart -->
         <a class="pp-pcard" href="product.html?p=heart" aria-label="הלב הפועם">
           <div class="pp-media">
-            <img class="pp-media__art" src="assets/products/heart-tight.png" alt="הלב הפועם — פסל נייר מקופל אדום בעל פאות" loading="lazy">
+            <picture>
+              <source type="image/avif"
+                      srcset="assets/products/heart-tight-400.avif 400w,
+                        assets/products/heart-tight-600.avif 600w,
+                        assets/products/heart-tight-800.avif 800w"
+                      sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+              <source type="image/webp"
+                      srcset="assets/products/heart-tight-400.webp 400w,
+                        assets/products/heart-tight-600.webp 600w,
+                        assets/products/heart-tight-800.webp 800w"
+                      sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+              <img class="pp-media__art" src="assets/products/heart-tight-600.fallback.png" width="600" height="550" alt="הלב הפועם — פסל נייר מקופל אדום בעל פאות" loading="lazy" decoding="async"
+                   sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+            </picture>
           </div>
           <div class="pp-pcard__body">
             <div>
@@ -137,7 +184,20 @@
         <!-- soccer -->
         <a class="pp-pcard" href="product.html?p=soccer" aria-label="הכדור שלא מפספס">
           <div class="pp-media">
-            <img class="pp-media__art" src="assets/products/soccer-tight.png" alt="הכדור שלא מפספס — פסל נייר מקופל בשחור ולבן" loading="lazy">
+            <picture>
+              <source type="image/avif"
+                      srcset="assets/products/soccer-tight-400.avif 400w,
+                        assets/products/soccer-tight-600.avif 600w,
+                        assets/products/soccer-tight-800.avif 800w"
+                      sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+              <source type="image/webp"
+                      srcset="assets/products/soccer-tight-400.webp 400w,
+                        assets/products/soccer-tight-600.webp 600w,
+                        assets/products/soccer-tight-800.webp 800w"
+                      sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+              <img class="pp-media__art" src="assets/products/soccer-tight-600.fallback.png" width="600" height="572" alt="הכדור שלא מפספס — פסל נייר מקופל בשחור ולבן" loading="lazy" decoding="async"
+                   sizes="(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw">
+            </picture>
           </div>
           <div class="pp-pcard__body">
             <div>
@@ -164,7 +224,20 @@
 
         <div class="pp-steps__item">
           <div class="pp-steps__media" style="background:#FDF4D6">
-            <img class="pp-steps__photo" src="assets/process/Get.png" alt="ערכת PaperPop — דפי נייר חתוכים וממוספרים על השולחן, מוכנים להרכבה" loading="lazy">
+            <picture>
+              <source type="image/avif"
+                      srcset="assets/process/Get-600.avif 600w,
+                        assets/process/Get-900.avif 900w,
+                        assets/process/Get-1200.avif 1200w"
+                      sizes="(min-width:861px) 384px, 100vw">
+              <source type="image/webp"
+                      srcset="assets/process/Get-600.webp 600w,
+                        assets/process/Get-900.webp 900w,
+                        assets/process/Get-1200.webp 1200w"
+                      sizes="(min-width:861px) 384px, 100vw">
+              <img class="pp-steps__photo" src="assets/process/Get-900.fallback.jpg" width="900" height="600" alt="ערכת PaperPop — דפי נייר חתוכים וממוספרים על השולחן, מוכנים להרכבה" loading="lazy" decoding="async"
+                   sizes="(min-width:861px) 384px, 100vw">
+            </picture>
             <span class="pp-steps__num">1</span>
           </div>
           <div class="pp-steps__body">
@@ -175,7 +248,20 @@
 
         <div class="pp-steps__item">
           <div class="pp-steps__media" style="background:var(--pp-cream-300)">
-            <img class="pp-steps__photo" src="assets/process/FoldGlue.png" alt="ידיים מקפלות ומדביקות את חלקי הברווז" loading="lazy">
+            <picture>
+              <source type="image/avif"
+                      srcset="assets/process/FoldGlue-600.avif 600w,
+                        assets/process/FoldGlue-900.avif 900w,
+                        assets/process/FoldGlue-1200.avif 1200w"
+                      sizes="(min-width:861px) 384px, 100vw">
+              <source type="image/webp"
+                      srcset="assets/process/FoldGlue-600.webp 600w,
+                        assets/process/FoldGlue-900.webp 900w,
+                        assets/process/FoldGlue-1200.webp 1200w"
+                      sizes="(min-width:861px) 384px, 100vw">
+              <img class="pp-steps__photo" src="assets/process/FoldGlue-900.fallback.jpg" width="900" height="600" alt="ידיים מקפלות ומדביקות את חלקי הברווז" loading="lazy" decoding="async"
+                   sizes="(min-width:861px) 384px, 100vw">
+            </picture>
             <span class="pp-steps__num">2</span>
           </div>
           <div class="pp-steps__body">
@@ -186,7 +272,20 @@
 
         <div class="pp-steps__item">
           <div class="pp-steps__media" style="background:#FDF4D6">
-            <img class="pp-steps__photo" src="assets/process/Show.png" alt="הברווז המוגמר של PaperPop מוצג לראווה על מדף בבית" loading="lazy">
+            <picture>
+              <source type="image/avif"
+                      srcset="assets/process/Show-600.avif 600w,
+                        assets/process/Show-900.avif 900w,
+                        assets/process/Show-1200.avif 1200w"
+                      sizes="(min-width:861px) 384px, 100vw">
+              <source type="image/webp"
+                      srcset="assets/process/Show-600.webp 600w,
+                        assets/process/Show-900.webp 900w,
+                        assets/process/Show-1200.webp 1200w"
+                      sizes="(min-width:861px) 384px, 100vw">
+              <img class="pp-steps__photo" src="assets/process/Show-900.fallback.jpg" width="900" height="600" alt="הברווז המוגמר של PaperPop מוצג לראווה על מדף בבית" loading="lazy" decoding="async"
+                   sizes="(min-width:861px) 384px, 100vw">
+            </picture>
             <span class="pp-steps__num">3</span>
           </div>
           <div class="pp-steps__body">
@@ -213,7 +312,20 @@
         </div>
       </div>
       <div class="pp-mpanel pp-mpanel--wide">
-        <img class="pp-mpanel__media" src="assets/media/Gift.png" alt="ידיים מגישות מתנה עטופה של PaperPop, עם לב וכדורגל נייר על המדף מאחור" loading="lazy">
+        <picture>
+          <source type="image/avif"
+                  srcset="assets/media/Gift-600.avif 600w,
+                    assets/media/Gift-900.avif 900w,
+                    assets/media/Gift-1200.avif 1200w"
+                  sizes="(min-width:861px) 574px, 100vw">
+          <source type="image/webp"
+                  srcset="assets/media/Gift-600.webp 600w,
+                    assets/media/Gift-900.webp 900w,
+                    assets/media/Gift-1200.webp 1200w"
+                  sizes="(min-width:861px) 574px, 100vw">
+          <img class="pp-mpanel__media" src="assets/media/Gift-900.fallback.jpg" width="900" height="600" alt="ידיים מגישות מתנה עטופה של PaperPop, עם לב וכדורגל נייר על המדף מאחור" loading="lazy" decoding="async"
+               sizes="(min-width:861px) 574px, 100vw">
+        </picture>
       </div>
     </div>
   </section>
@@ -228,7 +340,16 @@
         <p style="font:var(--type-lead);color:var(--text-meta);max-width:52ch">אנחנו דואגות לכל דגם בקפידה ויוצרות ערכות שכיף לפתוח, כיף להרכיב, ועוד יותר כיף להציג בבית ולהגיד בגאווה: את זה אני עשיתי.</p>
       </div>
       <div class="pp-about__media" data-about-svg="assets/media/AboutUs.svg?v=2">
-        <img src="assets/media/AboutUs.png?v=2" alt="אורטל ושני, מייסדות PaperPop — איור קווי גאומטרי" loading="lazy">
+        <picture>
+          <source type="image/avif"
+                  srcset="assets/media/AboutUs-900.avif 900w"
+                  sizes="(min-width:861px) 590px, 100vw">
+          <source type="image/webp"
+                  srcset="assets/media/AboutUs-900.webp 900w"
+                  sizes="(min-width:861px) 590px, 100vw">
+          <img src="assets/media/AboutUs-900.fallback.jpg" width="900" height="600" alt="אורטל ושני, מייסדות PaperPop — איור קווי גאומטרי" loading="lazy" decoding="async"
+               sizes="(min-width:861px) 590px, 100vw">
+        </picture>
       </div>
     </div>
   </section>
@@ -293,7 +414,7 @@
     </div>
   </footer>
 
-  <script src="app.js?v=12"></script>
+  <script defer src="app.js?v=13"></script>
   <!-- Vercel Web Analytics -->
   <script defer src="/_vercel/insights/script.js"></script>
   <!-- Vercel Speed Insights -->

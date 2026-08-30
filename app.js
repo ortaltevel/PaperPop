@@ -133,16 +133,32 @@
     });
   }
 
-  /* ---- Hero video: honour reduced-motion (poster instead of playback) ---- */
+  /* ---- Hero video: only ever download it when it's worth the bytes.
+     The markup ships preload="none" and no autoplay, so nothing is fetched
+     until we opt in here. Skipped entirely on narrow screens (poster shows
+     via CSS), under reduced-motion, and on metered/slow connections. Playback
+     starts on window load so the video never competes with the LCP paint. */
   function initHeroVideo() {
     var v = document.querySelector("[data-hero-video]");
     if (!v) return;
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      v.removeAttribute("autoplay");
-      v.autoplay = false;
-      try { v.pause(); } catch (e) {}
+
+    var mq = window.matchMedia;
+    if (mq && mq("(prefers-reduced-motion: reduce)").matches) return;
+    if (mq && !mq("(min-width: 861px)").matches) return;
+
+    var c = navigator.connection || {};
+    if (c.saveData === true) return;
+    if (/(^|-)2g$/.test(c.effectiveType || "") || c.effectiveType === "3g") return;
+
+    function start() {
+      v.preload = "auto";
+      try { v.load(); } catch (e) {}
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {}); // blocked autoplay -> poster stays
     }
+
+    if (document.readyState === "complete") window.setTimeout(start, 0);
+    else window.addEventListener("load", start, { once: true });
   }
 
   /* ---- About illustration: fetch a centerline SVG and draw it stroke by

@@ -9,7 +9,10 @@
   <meta property="og:type" content="product">
   <meta property="og:site_name" content="PaperPop">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-  <link rel="stylesheet" href="styles.css?v=39">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="styles.css?v=41">
 </head>
 <body>
 
@@ -124,11 +127,14 @@
     </div>
   </footer>
 
-  <script src="app.js?v=12"></script>
+  <script defer src="app.js?v=13"></script>
   <script>
   (function () {
     "use strict";
     var WA = "https://wa.me/972504427479?text=";
+    // The PDP main image renders ~500 CSS px on desktop, 86% of a
+    // near-viewport-width square on mobile.
+    var PDP_SIZES = "(min-width:861px) 500px, 86vw";
     function wa(t){ return WA + encodeURIComponent("היי! אני מעוניין/ת בערכת " + t + " של PaperPop 🙂"); }
 
     // NOTE: assembly time and sculpture dimensions are placeholders — replace
@@ -154,7 +160,7 @@
         media: [
           { type:"image", src:"assets/products/duck-tight.png", alt:"הברווז השובב" },
           { type:"image", src:"assets/products/duck-display.jpg", alt:"הברווז השובב — צילום מוצר" },
-          { type:"image", src:"assets/products/duck-sketch.png", alt:"הברווז השובב — שרטוט הדגם" }
+          { type:"image", src:"assets/products/duck-sketch.png", widths:[370], alt:"הברווז השובב — שרטוט הדגם" }
         ]
       },
       heart: {
@@ -173,10 +179,10 @@
         desc: "מרכיבים, מדביקים ורואים איך מחתיכות נייר נולד כדורגל תלת מימדי שעושה חשק לצעוק גווול!",
         media: [
           { type:"image", src:"assets/products/soccer-tight.png", alt:"הכדור שלא מפספס" },
-          { type:"image", src:"assets/products/soccer-grass.jpg", alt:"הכדור שלא מפספס על הדשא", fill:true },
-          { type:"image", src:"assets/products/soccer-girl.jpg", alt:"ילדה מחזיקה את הכדור שלא מפספס", fill:true },
-          { type:"image", src:"assets/products/soccer-boy.jpg", alt:"ילד מחזיק את הכדור שלא מפספס", fill:true },
-          { type:"image", src:"assets/products/soccer-shelf.jpg", alt:"הכדור שלא מפספס על המדף", fill:true }
+          { type:"image", src:"assets/products/soccer-grass.jpg", widths:[500, 750, 1120], alt:"הכדור שלא מפספס על הדשא", fill:true },
+          { type:"image", src:"assets/products/soccer-girl.jpg", widths:[500, 750], alt:"ילדה מחזיקה את הכדור שלא מפספס", fill:true },
+          { type:"image", src:"assets/products/soccer-boy.jpg", widths:[500, 750], alt:"ילד מחזיק את הכדור שלא מפספס", fill:true },
+          { type:"image", src:"assets/products/soccer-shelf.jpg", widths:[500, 750], alt:"הכדור שלא מפספס על המדף", fill:true }
         ]
       }
     };
@@ -240,8 +246,11 @@
     var cur = 0;
 
     function renderMedia(m) {
-      // Replace only the media node — keep the nav arrows in place.
-      [].slice.call(main.querySelectorAll(".pp-media__art, video")).forEach(function (n) { n.remove(); });
+      // Replace only the media node — keep the nav arrows in place. Must remove
+      // the <picture> wrapper itself, not just the inner <img>, or the empty
+      // shells accumulate on every switch.
+      [].slice.call(main.querySelectorAll("picture, .pp-media__art, video"))
+        .forEach(function (n) { n.remove(); });
       var node;
       if (m.type === "video") {
         node = document.createElement("video");
@@ -253,9 +262,29 @@
           (m.webm ? '<source src="' + m.webm + '" type="video/webm">' : '') +
           '<source src="' + m.src + '" type="video/mp4">';
       } else {
-        node = new Image();
-        node.className = "pp-media__art" + (m.fill ? " pp-media__art--fill" : "");
-        node.src = m.src; node.alt = m.alt;
+        // Build a <picture> so the browser can pick AVIF/WebP. The original
+        // file stays as the <img src> fallback. .pp-media__art stays on the
+        // <img> (that's what the CSS targets); styles.css gives the wrapping
+        // <picture> display:contents so it forms no box and the 86%/--fill
+        // sizing still resolves against #pdpMain.
+        var stem = m.src.replace(/\.(png|jpe?g)$/, "");
+        var ws = m.widths || [400, 600, 800];
+        var mid = ws[Math.floor(ws.length / 2)];
+        // Fallback extension follows the source: JPEG sources have no alpha so
+        // the generator wrote .fallback.jpg; PNG sources here are cutouts with
+        // transparency, so it wrote a quantised .fallback.png.
+        var fbExt = /\.jpe?g$/.test(m.src) ? "jpg" : "png";
+        function set(ext) {
+          return ws.map(function (w) { return stem + "-" + w + "." + ext + " " + w + "w"; }).join(", ");
+        }
+        node = document.createElement("picture");
+        node.innerHTML =
+          '<source type="image/avif" srcset="' + set("avif") + '" sizes="' + PDP_SIZES + '">' +
+          '<source type="image/webp" srcset="' + set("webp") + '" sizes="' + PDP_SIZES + '">' +
+          '<img class="pp-media__art' + (m.fill ? " pp-media__art--fill" : "") + '"' +
+          ' src="' + stem + "-" + mid + ".fallback." + fbExt + '"' +
+          ' sizes="' + PDP_SIZES + '" alt="' + m.alt.replace(/"/g, "&quot;") + '"' +
+          ' decoding="async">';
       }
       main.insertBefore(node, main.firstChild);
     }
@@ -276,7 +305,11 @@
       b.setAttribute("role", "tab");
       b.setAttribute("aria-label", m.alt);
       var timg = document.createElement("img");
-      timg.src = m.type === "video" ? m.poster : m.src;
+      // Thumbnails are 74px; serve the smallest generated variant
+      // instead of the full-resolution original.
+      var tw = (m.widths || [400, 600, 800])[0];
+      timg.src = m.type === "video" ? m.poster
+        : m.src.replace(/\.(png|jpe?g)$/, "") + "-" + tw + ".avif";
       timg.alt = "";
       timg.loading = "lazy";
       b.appendChild(timg);

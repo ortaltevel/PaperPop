@@ -1,0 +1,33 @@
+# Files kept in git as regeneration masters but NOT deployed.
+# Every entry below is fully superseded by width-suffixed .avif/.webp/
+# .fallback.* variants produced by tools/optimize-images.py, and is not
+# fetched by any page (the originals only appear as stem strings in JS).
+
+# --- build/source tooling (never belongs on the CDN) ---
+tools/
+
+# --- superseded image masters (21 files, 15,643,931 bytes) ---
+assets/media/AboutUs.png
+assets/media/Gift.png
+assets/media/hero-poster.jpg
+assets/process/FoldGlue.png
+assets/process/Get.png
+assets/process/Show.png
+assets/products/OctepusGreen-clean.png
+assets/products/OctepusPink-clean.png
+assets/products/OctepusYellow-clean.png
+assets/products/duck-display.jpg
+assets/products/duck-sketch.png
+assets/products/duck-tight.png
+assets/products/heart-display.jpg
+assets/products/heart-tight.png
+assets/products/octopus-blue-tight.png
+assets/products/octopus-display.png
+assets/products/soccer-boy.jpg
+assets/products/soccer-girl.jpg
+assets/products/soccer-grass.jpg
+assets/products/soccer-shelf.jpg
+assets/products/soccer-tight.png
+
+# --- untouched source scans/photos ---
+assets/products/כדורגל/
