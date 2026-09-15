@@ -23,6 +23,9 @@
     if (!id) return;
     if (!cart[id]) cart[id] = { id: id, name: btn.dataset.productName, price: Number(btn.dataset.productPrice), quantity: 0 };
     cart[id].quantity = Math.min(99, cart[id].quantity + 1);
+    var original = btn.textContent;
+    btn.textContent = "נוסף לסל ✓";
+    window.setTimeout(function () { btn.textContent = original; }, 1600);
     save(); openCart(); announce(btn.dataset.productName + " נוסף לסל");
   }
   function announce(text) {
