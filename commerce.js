@@ -2,6 +2,7 @@
   "use strict";
   document.querySelectorAll(".pp-header__ticker").forEach(function (el) { el.textContent = "משלוח חינם בהזמנה מעל 250₪"; });
   var KEY = "paperpop-cart-v1";
+  var CHECKOUT_DRAFT_KEY = "paperpop-checkout-draft-v1";
   var PRODUCT_IMAGES = { octopus: "/assets/products/octopus-blue-tight-400.webp", duck: "/assets/products/duck-tight-400.webp", heart: "/assets/products/heart-tight-400.webp", soccer: "/assets/products/soccer-tight-400.webp" };
   var cart = read();
 
@@ -92,6 +93,20 @@
     var title = document.querySelector(".pp-checkout h1");
     if (title) title.insertAdjacentHTML("beforebegin", '<a class="pp-checkout-back" href="/#gallery"><span aria-hidden="true">→</span><span class="pp-checkout-back__label">המשך קניות</span></a>');
     if (!items().length) { location.replace("/"); return; }
+    try {
+      var draft = JSON.parse(sessionStorage.getItem(CHECKOUT_DRAFT_KEY) || "null");
+      if (draft && typeof draft === "object") Object.keys(draft).forEach(function (name) {
+        var field = form.elements[name];
+        if (!field || name === "items") return;
+        if (field instanceof RadioNodeList) {
+          [].slice.call(form.querySelectorAll('[name="' + CSS.escape(name) + '"]')).forEach(function (radio) { radio.checked = radio.value === draft[name]; });
+        } else field.value = draft[name];
+      });
+    } catch (_) { sessionStorage.removeItem(CHECKOUT_DRAFT_KEY); }
+    if (new URLSearchParams(location.search).get("payment") === "failed") {
+      form.insertAdjacentHTML("afterbegin", '<div class="pp-payment-error" role="alert" tabindex="-1"><strong>התשלום לא הושלם</strong><p>לא התקבל אצלנו אישור תשלום, ולכן ההזמנה עדיין לא הושלמה. אפשר לבדוק את הפרטים ולנסות שוב.</p></div>');
+      form.querySelector(".pp-payment-error").focus();
+    }
     var shippingTouched = false;
     var radios = [].slice.call(form.querySelectorAll('[name="shipping"]'));
     function update() {
@@ -116,6 +131,7 @@
       if (!validateCheckout(form)) { status.textContent = "יש לתקן את השדות המסומנים"; return; }
       var data = Object.fromEntries(new FormData(form));
       data.items = items().map(function (x) { return { id: x.id, quantity: x.quantity }; });
+      sessionStorage.setItem(CHECKOUT_DRAFT_KEY, JSON.stringify(data));
       status.textContent = "מכינים את עמוד התשלום…";
       form.querySelector('[type="submit"]').disabled = true;
       fetch("/api/checkout", { method: "POST", headers: { "content-type": "application/json", "x-paperpop-request": "checkout" }, body: JSON.stringify(data) })
@@ -151,5 +167,5 @@
     }
   });
   renderCount(); initCheckout();
-  window.PaperPopCart = { clear: function () { cart = {}; save(); } };
+  window.PaperPopCart = { clear: function () { cart = {}; sessionStorage.removeItem(CHECKOUT_DRAFT_KEY); save(); } };
 })();
