@@ -40,7 +40,7 @@
 
   <!-- ============================= HEADER ============================= -->
   <header class="pp-header">
-    <div class="pp-header__ticker">משלוח חינם מעל הזמנה של 250 ₪</div>
+    <div class="pp-header__ticker">משלוח חינם בהזמנה מעל 250 ₪ 🎁</div>
     <div class="pp-header__bar">
       <a class="pp-logo pp-logo--md" href="/" aria-label="PaperPop">
         <img src="/assets/logo-wordmark.svg" alt="PaperPop" width="115" height="44">
@@ -51,6 +51,9 @@
         <a class="pp-header__link" href="/#faq">שאלות ותשובות</a>
       </nav>
       <div class="pp-header__actions">
+        <button class="pp-iconbtn pp-cart-trigger" type="button" aria-label="פתיחת סל הקניות" data-cart-open>
+          <span class="pp-icon pp-icon--md" data-icon="shopping-bag"></span><span class="pp-cart-count" data-cart-count hidden>0</span>
+        </button>
         <span class="pp-header__burger">
           <button class="pp-iconbtn" type="button" aria-label="תפריט" aria-expanded="false" data-burger>
             <span class="pp-icon pp-icon--md" data-icon="menu"></span>
@@ -88,10 +91,7 @@
           <p class="pp-pdp__desc">{{DESC}}</p>
 
           <div class="pp-pdp__buy">
-            <a class="pp-btn pp-btn--lg" href="{{WA}}" target="_blank" rel="noopener">
-              <span>לרכישה בוואטסאפ</span>
-              <span class="pp-btn__icon"><span class="pp-icon pp-icon--sm" data-icon="arrow-left"></span></span>
-            </a>
+            <button class="pp-btn pp-btn--lg" type="button" data-add-cart data-product-id="{{ID}}" data-product-name="{{NAME}}" data-product-price="{{PRICE_AMOUNT}}">הוספה לסל</button>
           </div>
 
           <div class="pp-pdp__specs">
@@ -149,6 +149,7 @@
   <script type="application/json" id="pdpMedia">{{MEDIA_JSON}}</script>
   <script defer src="/media.js?v={{V}}"></script>
   <script defer src="/app.js?v={{V}}"></script>
+  <script defer src="/commerce.js?v={{V}}"></script>
   <!-- Vercel Web Analytics -->
   <script defer src="/_vercel/insights/script.js"></script>
   <!-- Vercel Speed Insights -->

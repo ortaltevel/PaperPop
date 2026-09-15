@@ -114,6 +114,7 @@ function buildProductPage(tpl, p) {
   return render(tpl, {
     V: String(SITE.assetVersion),
     TITLE: h(p.title),
+    ID: h(p.id),
     NAME: h(p.name),
     DESC: h(p.desc),
     PRICE_LABEL: h(p.priceLabel),
@@ -149,7 +150,8 @@ function buildGallery(products) {
       const sizes =
         "(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw";
       const eager = p === products[0];
-      return `        <a class="pp-pcard" href="/kits/${p.slug}" aria-label="${h(p.name)}">
+      return `        <article class="pp-pcard" data-product-id="${h(p.id)}">
+          <a class="pp-pcard__link" href="/kits/${p.slug}" aria-label="${h(p.name)}">
           <div class="pp-media">
             <picture>
               <source type="image/avif" srcset="${h(srcsetFor(p.card.src, ws, "avif"))}" sizes="${sizes}">
@@ -165,8 +167,9 @@ function buildGallery(products) {
               <span class="pp-pcard__more">לפרטים <span class="pp-icon pp-icon--sm" data-icon="arrow-left"></span></span>
             </div>
             <span class="pp-pcard__price">${h(p.priceLabel)}</span>
-          </div>
-        </a>`;
+          </div></a>
+          <button class="pp-btn pp-pcard__add" type="button" data-add-cart data-product-id="${h(p.id)}" data-product-name="${h(p.name)}" data-product-price="${p.price}">הוספה לסל</button>
+        </article>`;
     })
     .join("\n\n");
 }

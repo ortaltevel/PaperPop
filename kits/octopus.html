@@ -31,7 +31,7 @@
        Browsers without AVIF simply ignore this and load the fallback normally. -->
   <link rel="preload" as="image" type="image/avif"
         imagesrcset="/assets/products/octopus-blue-tight-400.avif 400w, /assets/products/octopus-blue-tight-600.avif 600w, /assets/products/octopus-blue-tight-800.avif 800w" imagesizes="(min-width:861px) 500px, 86vw" fetchpriority="high">
-  <link rel="stylesheet" href="/styles.css?v=42">
+  <link rel="stylesheet" href="/styles.css?v=44">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -90,7 +90,7 @@
 
   <!-- ============================= HEADER ============================= -->
   <header class="pp-header">
-    <div class="pp-header__ticker">משלוח חינם מעל הזמנה של 250 ₪</div>
+    <div class="pp-header__ticker">משלוח חינם בהזמנה מעל 250 ₪ 🎁</div>
     <div class="pp-header__bar">
       <a class="pp-logo pp-logo--md" href="/" aria-label="PaperPop">
         <img src="/assets/logo-wordmark.svg" alt="PaperPop" width="115" height="44">
@@ -101,6 +101,9 @@
         <a class="pp-header__link" href="/#faq">שאלות ותשובות</a>
       </nav>
       <div class="pp-header__actions">
+        <button class="pp-iconbtn pp-cart-trigger" type="button" aria-label="פתיחת סל הקניות" data-cart-open>
+          <span class="pp-icon pp-icon--md" data-icon="shopping-bag"></span><span class="pp-cart-count" data-cart-count hidden>0</span>
+        </button>
         <span class="pp-header__burger">
           <button class="pp-iconbtn" type="button" aria-label="תפריט" aria-expanded="false" data-burger>
             <span class="pp-icon pp-icon--md" data-icon="menu"></span>
@@ -138,10 +141,7 @@
           <p class="pp-pdp__desc">גם יצירה כיפית וגם מקום לכל הדברים הקטנים. יוצרים תמנון צבעוני שהופך לסדרן הכי חמוד על השולחן.</p>
 
           <div class="pp-pdp__buy">
-            <a class="pp-btn pp-btn--lg" href="https://wa.me/972504427479?text=%D7%94%D7%99%D7%99!%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%2F%D7%AA%20%D7%91%D7%A2%D7%A8%D7%9B%D7%AA%20%D7%94%D7%AA%D7%9E%D7%A0%D7%95%D7%9F%20%D7%A9%D7%A2%D7%95%D7%A9%D7%94%20%D7%A1%D7%93%D7%A8%20%D7%A9%D7%9C%20PaperPop%20%F0%9F%99%82" target="_blank" rel="noopener">
-              <span>לרכישה בוואטסאפ</span>
-              <span class="pp-btn__icon"><span class="pp-icon pp-icon--sm" data-icon="arrow-left"></span></span>
-            </a>
+            <button class="pp-btn pp-btn--lg" type="button" data-add-cart data-product-id="octopus" data-product-name="התמנון שעושה סדר" data-product-price="45">הוספה לסל</button>
           </div>
 
           <div class="pp-pdp__specs">
@@ -256,8 +256,9 @@
     "fill": true
   }
 ]</script>
-  <script defer src="/media.js?v=42"></script>
-  <script defer src="/app.js?v=42"></script>
+  <script defer src="/media.js?v=44"></script>
+  <script defer src="/app.js?v=44"></script>
+  <script defer src="/commerce.js?v=44"></script>
   <!-- Vercel Web Analytics -->
   <script defer src="/_vercel/insights/script.js"></script>
   <!-- Vercel Speed Insights -->

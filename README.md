@@ -89,4 +89,20 @@ age 10+, "glue not included", WhatsApp-first purchasing, all copy.
 `time` values in `data/products.js`. They are now server-rendered, so Google and
 AI answer engines will quote them as fact.
 
-**Not built yet:** shipping / returns / terms pages.
+## Commerce preview
+
+The cart and checkout are available on every product page. Prices and shipping
+are recalculated in `api/_lib/store.js`; browser-supplied prices are ignored.
+To test without charging a card, set `ALLOW_MOCK_CHECKOUT=true` for a Vercel
+Preview deployment. Mock checkout is hard-disabled when `VERCEL_ENV=production`.
+
+Production requires `DATABASE_URL`, `SUMIT_COMPANY_ID`, `SUMIT_API_KEY`, and
+optionally `RESEND_API_KEY`; see `.env.example`. Apply `db/schema.sql` once to
+the Neon database. Never place real credentials in local files or Git.
+
+The SUMIT IPN handler verifies the payment again through SUMIT's server API and
+checks the paid amount against the server-calculated order total before marking
+an order paid or sending the merchant email.
+
+**Launch blockers:** final legal terms/privacy copy and an end-to-end SUMIT
+test after the UPay terminal is activated.

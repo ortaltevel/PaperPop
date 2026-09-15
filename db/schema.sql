@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS orders (id uuid PRIMARY KEY,status text NOT NULL CHECK(status IN ('pending','paid','failed','cancelled')),customer jsonb NOT NULL,items jsonb NOT NULL,shipping_method text NOT NULL,subtotal_agorot integer NOT NULL,shipping_agorot integer NOT NULL,total_agorot integer NOT NULL,sumit_payment_id text UNIQUE,created_at timestamptz NOT NULL DEFAULT now(),paid_at timestamptz);
+CREATE INDEX IF NOT EXISTS orders_status_created_idx ON orders(status,created_at DESC);
