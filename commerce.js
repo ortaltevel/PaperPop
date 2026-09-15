@@ -42,8 +42,7 @@
     if (!box) return;
     var list = items();
     box.innerHTML = list.length ? list.map(function (x) {
-      var options = Array.from({ length: 99 }, function (_, i) { var n = i + 1; return '<option value="' + n + '"' + (n === x.quantity ? ' selected' : '') + '>' + n + '</option>'; }).join('');
-      return '<div class="pp-cart-item"><img class="pp-cart-item__image" src="' + PRODUCT_IMAGES[x.id] + '" alt=""><div class="pp-cart-item__info"><strong>' + esc(x.name) + '</strong><small>' + money(x.price) + ' ליחידה</small><button class="pp-cart-item__remove" type="button" data-remove="' + esc(x.id) + '">הסרה</button></div><label class="pp-cart-item__quantity">כמות<select data-quantity-select data-id="' + esc(x.id) + '">' + options + '</select></label><div class="pp-cart-item__line-total"><small>סכום ביניים</small><strong>' + money(x.price * x.quantity) + '</strong></div></div>';
+      return '<div class="pp-cart-item"><img class="pp-cart-item__image" src="' + PRODUCT_IMAGES[x.id] + '" alt=""><div class="pp-cart-item__info"><strong>' + esc(x.name) + '</strong><small>' + money(x.price) + ' ליחידה</small><button class="pp-cart-item__remove" type="button" data-remove="' + esc(x.id) + '">הסרה</button></div><div class="pp-cart-item__quantity" role="group" aria-label="כמות ' + esc(x.name) + '"><button type="button" data-qty="1" data-id="' + esc(x.id) + '" aria-label="הגדלת כמות">+</button><input type="number" min="1" max="99" inputmode="numeric" value="' + x.quantity + '" data-quantity-input data-id="' + esc(x.id) + '" aria-label="כמות"><button type="button" data-qty="-1" data-id="' + esc(x.id) + '" aria-label="הפחתת כמות">−</button></div><div class="pp-cart-item__line-total"><small>סכום ביניים</small><strong>' + money(x.price * x.quantity) + '</strong></div></div>';
     }).join("") : '<p class="pp-cart__empty">הסל עדיין ריק.</p>';
     document.querySelector("[data-cart-subtotal]").textContent = money(subtotal());
     var sum = subtotal(), remaining = Math.max(0, 250 - sum), progress = document.querySelector("[data-shipping-progress]");
@@ -101,12 +100,12 @@
     var addBtn = e.target.closest("[data-add-cart]"); if (addBtn) { add(addBtn); return; }
     if (e.target.closest("[data-cart-open]")) { openCart(); return; }
     if (e.target.closest("[data-cart-close]")) { closeCart(); return; }
-    var q = e.target.closest("[data-qty]"); if (q && cart[q.dataset.id]) { cart[q.dataset.id].quantity = Math.max(0, Math.min(99, cart[q.dataset.id].quantity + Number(q.dataset.qty))); save(); renderCart(); }
+    var q = e.target.closest("[data-qty]"); if (q && cart[q.dataset.id]) { cart[q.dataset.id].quantity = Math.max(1, Math.min(99, cart[q.dataset.id].quantity + Number(q.dataset.qty))); save(); renderCart(); }
     var rm = e.target.closest("[data-remove]"); if (rm) { delete cart[rm.dataset.remove]; save(); renderCart(); }
   });
   document.addEventListener("change", function (e) {
-    var select = e.target.closest("[data-quantity-select]");
-    if (select && cart[select.dataset.id]) { cart[select.dataset.id].quantity = Number(select.value); save(); renderCart(); announce("הכמות עודכנה"); }
+    var input = e.target.closest("[data-quantity-input]");
+    if (input && cart[input.dataset.id]) { cart[input.dataset.id].quantity = Math.max(1, Math.min(99, Number(input.value) || 1)); save(); renderCart(); announce("הכמות עודכנה"); }
   });
   document.addEventListener("keydown", function (e) {
     var drawer = document.getElementById("cartDrawer");
