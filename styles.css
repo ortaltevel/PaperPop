@@ -500,7 +500,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pp-pcard:hover{transform:translateY(calc(-1 * var(--hover-lift)))}
 .pp-pcard:hover .pp-media__art{transform:scale(var(--hover-image-scale));filter:drop-shadow(calc(16px * var(--fold-dir)) 22px 22px rgba(112,13,38,.24))}
 .pp-pcard__link{display:grid;gap:var(--space-4);color:inherit;text-decoration:none}
-.pp-pcard__add{justify-self:end;width:auto;min-width:132px;padding-inline:var(--space-5);background:var(--pp-pink-100);color:var(--pp-burgundy-700);clip-path:var(--clip-tag)}
+.pp-pcard__actions{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3)}
+.pp-pcard__add{width:auto;min-width:132px;padding-inline:var(--space-5);background:var(--pp-pink-100);color:var(--pp-burgundy-700);clip-path:var(--clip-tag)}
 .pp-pcard__add:hover{background:var(--pp-pink-200);color:var(--pp-burgundy-800)}
 .pp-pcard__add:active{background:var(--pp-pink-300);color:var(--pp-burgundy-800)}
 
@@ -523,9 +524,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pp-pcard__meta{display:flex;gap:var(--space-4);margin-block-start:6px}
 .pp-pcard__price{font:var(--type-price);color:var(--text-price);white-space:nowrap}
 .pp-pcard__desc{font:var(--type-body-sm);color:var(--text-meta);margin-block-start:8px;max-width:38ch}
-.pp-pcard__more{display:flex;align-items:center;gap:6px;font:var(--type-label);color:var(--text-strong);margin-block-start:10px;opacity:0;transform:translateX(calc(6px * var(--fold-dir)));transition:opacity var(--dur-hover) var(--ease-fold),transform var(--dur-hover) var(--ease-fold)}
-.pp-pcard:hover .pp-pcard__more,.pp-pcard:focus-visible .pp-pcard__more{opacity:1;transform:translateX(0)}
-@media (hover:none){.pp-pcard__more{opacity:1;transform:none}.pp-pcard:hover{transform:none}.pp-pcard:hover .pp-media__art{transform:none}}
+.pp-pcard__more{font:var(--type-label);color:var(--text-strong);text-decoration:underline;text-underline-offset:4px}
+.pp-pcard__more:hover{color:var(--pp-burgundy-800)}
+@media (hover:none){.pp-pcard:hover{transform:none}.pp-pcard:hover .pp-media__art{transform:none}}
 .pp-pcard.is-selected{z-index:var(--z-raised)}
 .pp-pcard.is-selected .pp-media__art{transform:scale(var(--select-image-scale));transition:transform var(--dur-select) var(--ease-out-soft)}
 .pp-pcard.is-selected .pp-pcard__body{opacity:0;transition:opacity var(--dur-reveal) var(--ease-out-soft)}

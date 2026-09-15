@@ -164,11 +164,13 @@ function buildGallery(products) {
           <div class="pp-pcard__body">
             <div>
               <h3 class="pp-pcard__name">${h(p.name)}</h3>
-              <span class="pp-pcard__more">לפרטים <span class="pp-icon pp-icon--sm" data-icon="arrow-left"></span></span>
             </div>
             <span class="pp-pcard__price">${h(p.priceLabel)}</span>
           </div></a>
-          <button class="pp-btn pp-pcard__add" type="button" data-add-cart data-product-id="${h(p.id)}" data-product-name="${h(p.name)}" data-product-price="${p.price}">הוספה לסל</button>
+          <div class="pp-pcard__actions">
+            <a class="pp-pcard__more" href="/kits/${p.slug}">לפרטים</a>
+            <button class="pp-btn pp-pcard__add" type="button" data-add-cart data-product-id="${h(p.id)}" data-product-name="${h(p.name)}" data-product-price="${p.price}">הוספה לסל</button>
+          </div>
         </article>`;
     })
     .join("\n\n");
