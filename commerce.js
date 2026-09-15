@@ -35,7 +35,7 @@
   }
   function ensureDrawer() {
     if (document.getElementById("cartDrawer")) return;
-    document.body.insertAdjacentHTML("beforeend", '<div class="pp-cart-backdrop" data-cart-close hidden></div><aside class="pp-cart" id="cartDrawer" aria-labelledby="cartTitle" aria-modal="true" role="dialog" hidden><div class="pp-cart__head"><h2 id="cartTitle">סל הקניות</h2><button class="pp-iconbtn" type="button" data-cart-close aria-label="סגירת הסל">×</button></div><div data-cart-items></div><div class="pp-cart__foot"><div class="pp-cart__total"><span>סכום ביניים</span><strong data-cart-subtotal></strong></div><p class="pp-cart__shipping-note">משלוח חינם בהזמנה מעל 250 ₪ 🎁</p><a class="pp-btn pp-btn--lg" href="/checkout" data-checkout-link>להמשך להזמנה</a></div></aside><span class="pp-visually-hidden" id="cartLive" aria-live="polite"></span>');
+    document.body.insertAdjacentHTML("beforeend", '<div class="pp-cart-backdrop" data-cart-close hidden></div><aside class="pp-cart" id="cartDrawer" aria-labelledby="cartTitle" aria-modal="true" role="dialog" hidden><div class="pp-cart__head"><h2 id="cartTitle">סל הקניות</h2><button class="pp-iconbtn" type="button" data-cart-close aria-label="סגירת הסל">×</button></div><div data-cart-items></div><div class="pp-cart__foot"><div class="pp-cart__total"><span>סכום ביניים</span><strong data-cart-subtotal></strong></div><div class="pp-shipping-progress"><p data-shipping-progress-text></p><div class="pp-shipping-progress__track" role="progressbar" aria-label="התקדמות למשלוח בדואר רשום חינם" aria-valuemin="0" aria-valuemax="250" data-shipping-progress><span></span></div></div><a class="pp-btn pp-btn--lg" href="/checkout" data-checkout-link>להמשך להזמנה</a></div></aside><span class="pp-visually-hidden" id="cartLive" aria-live="polite"></span>');
   }
   function renderCart() {
     var box = document.querySelector("[data-cart-items]");
@@ -46,6 +46,11 @@
       return '<div class="pp-cart-item"><img class="pp-cart-item__image" src="' + PRODUCT_IMAGES[x.id] + '" alt=""><div class="pp-cart-item__info"><strong>' + esc(x.name) + '</strong><small>' + money(x.price) + ' ליחידה</small><button class="pp-cart-item__remove" type="button" data-remove="' + esc(x.id) + '">הסרה</button></div><label class="pp-cart-item__quantity">כמות<select data-quantity-select data-id="' + esc(x.id) + '">' + options + '</select></label><div class="pp-cart-item__line-total"><small>סכום ביניים</small><strong>' + money(x.price * x.quantity) + '</strong></div></div>';
     }).join("") : '<p class="pp-cart__empty">הסל עדיין ריק.</p>';
     document.querySelector("[data-cart-subtotal]").textContent = money(subtotal());
+    var sum = subtotal(), remaining = Math.max(0, 250 - sum), progress = document.querySelector("[data-shipping-progress]");
+    document.querySelector("[data-shipping-progress-text]").textContent = remaining ? "חסרים " + money(remaining) + " למשלוח בדואר רשום חינם" : "יש! קיבלת משלוח בדואר רשום חינם";
+    progress.setAttribute("aria-valuenow", String(Math.min(sum, 250)));
+    progress.setAttribute("aria-valuetext", remaining ? "חסרים " + money(remaining) : "הגעת לסכום המזכה");
+    progress.querySelector("span").style.width = Math.min(100, sum / 250 * 100) + "%";
     document.querySelector("[data-checkout-link]").setAttribute("aria-disabled", list.length ? "false" : "true");
   }
   function esc(s) { var d = document.createElement("div"); d.textContent = String(s); return d.innerHTML; }
