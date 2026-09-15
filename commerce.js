@@ -171,6 +171,7 @@
   document.addEventListener("change", function (e) {
     if (e.target.matches('[name="product-color"]')) {
       var box = e.target.closest("[data-product-options]"); box.removeAttribute("aria-invalid"); box.querySelector("[data-option-error]").hidden = true;
+      box.querySelector("[data-selected-color]").textContent = e.target.dataset.optionLabel;
       var colorMediaIndex = { blue: 0, pink: 1, yellow: 2, green: 3 }[e.target.value];
       var colorThumbs = document.querySelectorAll(".pp-pdp__thumb");
       if (colorThumbs[colorMediaIndex]) colorThumbs[colorMediaIndex].click();

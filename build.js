@@ -112,8 +112,8 @@ function buildProductPage(tpl, p) {
   ).join("\n");
 
   const options = p.colors ? `<fieldset class="pp-pdp__colors" data-product-options>
-            <legend>בחירת צבע <span aria-hidden="true">*</span></legend>
-            <div class="pp-pdp__color-list">${p.colors.map((color) => `<label class="pp-pdp__color"><input type="radio" name="product-color" value="${h(color.id)}" data-option-label="${h(color.label)}"><span class="pp-pdp__swatch" style="--swatch:${h(color.hex)}" aria-hidden="true"></span><span>${h(color.label)}</span></label>`).join("")}</div>
+            <legend>צבע: <span data-selected-color>בחרו צבע</span> <span class="pp-pdp__required" aria-hidden="true">*</span></legend>
+            <div class="pp-pdp__color-list">${p.colors.map((color) => `<label class="pp-pdp__color"><input type="radio" name="product-color" value="${h(color.id)}" data-option-label="${h(color.label)}"><span class="pp-pdp__swatch" style="--swatch:${h(color.hex)}" aria-hidden="true"></span><span class="pp-visually-hidden">${h(color.label)}</span></label>`).join("")}</div>
             <p class="pp-field-error pp-pdp__color-error" data-option-error hidden>יש לבחור צבע</p>
           </fieldset>` : "";
 
