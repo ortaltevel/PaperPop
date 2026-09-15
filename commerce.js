@@ -2,6 +2,7 @@
   "use strict";
   document.querySelectorAll(".pp-header__ticker").forEach(function (el) { el.textContent = "משלוח חינם בהזמנה מעל 250₪"; });
   var KEY = "paperpop-cart-v1";
+  var PRODUCT_IMAGES = { octopus: "/assets/products/octopus-blue-tight-400.webp", duck: "/assets/products/duck-tight-400.webp", heart: "/assets/products/heart-tight-400.webp", soccer: "/assets/products/soccer-tight-400.webp" };
   var cart = read();
 
   function read() {
@@ -41,7 +42,8 @@
     if (!box) return;
     var list = items();
     box.innerHTML = list.length ? list.map(function (x) {
-      return '<div class="pp-cart-item"><div><strong>' + esc(x.name) + '</strong><small>' + money(x.price) + '</small></div><div class="pp-qty"><button type="button" data-qty="-1" data-id="' + esc(x.id) + '" aria-label="הפחתת כמות">−</button><span aria-label="כמות">' + x.quantity + '</span><button type="button" data-qty="1" data-id="' + esc(x.id) + '" aria-label="הגדלת כמות">+</button></div><button class="pp-cart-item__remove" type="button" data-remove="' + esc(x.id) + '">הסרה</button></div>';
+      var options = Array.from({ length: 99 }, function (_, i) { var n = i + 1; return '<option value="' + n + '"' + (n === x.quantity ? ' selected' : '') + '>' + n + '</option>'; }).join('');
+      return '<div class="pp-cart-item"><img class="pp-cart-item__image" src="' + PRODUCT_IMAGES[x.id] + '" alt=""><div class="pp-cart-item__info"><strong>' + esc(x.name) + '</strong><small>' + money(x.price) + ' ליחידה</small><button class="pp-cart-item__remove" type="button" data-remove="' + esc(x.id) + '">הסרה</button></div><label class="pp-cart-item__quantity">כמות<select data-quantity-select data-id="' + esc(x.id) + '">' + options + '</select></label><div class="pp-cart-item__line-total"><small>סכום ביניים</small><strong>' + money(x.price * x.quantity) + '</strong></div></div>';
     }).join("") : '<p class="pp-cart__empty">הסל עדיין ריק.</p>';
     document.querySelector("[data-cart-subtotal]").textContent = money(subtotal());
     document.querySelector("[data-checkout-link]").setAttribute("aria-disabled", list.length ? "false" : "true");
@@ -96,6 +98,10 @@
     if (e.target.closest("[data-cart-close]")) { closeCart(); return; }
     var q = e.target.closest("[data-qty]"); if (q && cart[q.dataset.id]) { cart[q.dataset.id].quantity = Math.max(0, Math.min(99, cart[q.dataset.id].quantity + Number(q.dataset.qty))); save(); renderCart(); }
     var rm = e.target.closest("[data-remove]"); if (rm) { delete cart[rm.dataset.remove]; save(); renderCart(); }
+  });
+  document.addEventListener("change", function (e) {
+    var select = e.target.closest("[data-quantity-select]");
+    if (select && cart[select.dataset.id]) { cart[select.dataset.id].quantity = Number(select.value); save(); renderCart(); announce("הכמות עודכנה"); }
   });
   document.addEventListener("keydown", function (e) {
     var drawer = document.getElementById("cartDrawer");
