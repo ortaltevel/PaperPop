@@ -1,5 +1,6 @@
 (function () {
   "use strict";
+  document.querySelectorAll(".pp-header__ticker").forEach(function (el) { el.textContent = "משלוח חינם בהזמנה מעל 250₪"; });
   var KEY = "paperpop-cart-v1";
   var cart = read();
 
