@@ -6,3 +6,5 @@ test("registered shipping becomes free at 250",()=>{const o=validate({...custome
 test("pickup needs no address",()=>{assert.equal(validate({fullName:"א א",email:"a@b.co",phone:"0501234567",shipping:"pickup",items:[{id:"heart",quantity:1}]}).total,45)});
 test("delivery requires address",()=>{assert.throws(()=>validate({fullName:"א א",email:"a@b.co",phone:"0501234567",shipping:"courier",items:[{id:"heart",quantity:1}]}),/INVALID_ADDRESS/)});
 test("unknown product is rejected",()=>{assert.throws(()=>validate({...customer,shipping:"pickup",items:[{id:"evil",quantity:1}]}),/INVALID_CART/)});
+test("octopus requires a supported color",()=>{assert.throws(()=>validate({...customer,shipping:"pickup",items:[{id:"octopus",quantity:1}]}),/INVALID_CART/);const o=validate({...customer,shipping:"pickup",items:[{id:"octopus",color:"pink",quantity:1}]});assert.equal(o.items[0].name,"התמנון שעושה סדר – ורוד")});
+test("other products reject color variants",()=>{assert.throws(()=>validate({...customer,shipping:"pickup",items:[{id:"duck",color:"yellow",quantity:1}]}),/INVALID_CART/)});

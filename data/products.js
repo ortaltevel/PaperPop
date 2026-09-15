@@ -32,6 +32,12 @@ const products = [
     slug: "octopus",
     name: "התמנון שעושה סדר",
     price: 45,
+    colors: [
+      { id: "blue", label: "כחול", hex: "#96d2ec" },
+      { id: "pink", label: "ורוד", hex: "#f6bec9" },
+      { id: "green", label: "ירוק", hex: "#75a875" },
+      { id: "yellow", label: "צהוב", hex: "#f7d53a" },
+    ],
     time: "שעה וחצי",
     size: "25 × 15 × 30 ס״מ",
     age: AGE,

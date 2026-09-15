@@ -4,12 +4,15 @@
   var KEY = "paperpop-cart-v1";
   var CHECKOUT_DRAFT_KEY = "paperpop-checkout-draft-v1";
   var PRODUCT_IMAGES = { octopus: "/assets/products/octopus-blue-tight-400.webp", duck: "/assets/products/duck-tight-400.webp", heart: "/assets/products/heart-tight-400.webp", soccer: "/assets/products/soccer-tight-400.webp" };
+  var OCTOPUS_IMAGES = { blue: "/assets/products/octopus-blue-tight-400.webp", pink: "/assets/products/OctepusPink-clean-400.webp", green: "/assets/products/OctepusGreen-clean-400.webp", yellow: "/assets/products/OctepusYellow-clean-400.webp" };
   var cart = read();
 
   function read() {
     try {
       var value = JSON.parse(localStorage.getItem(KEY) || "{}");
-      return value && typeof value === "object" ? value : {};
+      if (!value || typeof value !== "object") return {};
+      Object.keys(value).forEach(function (key) { if (value[key].id === "octopus" && !value[key].color) delete value[key]; });
+      return value;
     } catch (_) { return {}; }
   }
   function save() { localStorage.setItem(KEY, JSON.stringify(cart)); renderCount(); }
@@ -23,8 +26,20 @@
   function add(btn) {
     var id = btn.dataset.productId;
     if (!id) return;
-    if (!cart[id]) cart[id] = { id: id, name: btn.dataset.productName, price: Number(btn.dataset.productPrice), quantity: 0 };
-    cart[id].quantity = Math.min(99, cart[id].quantity + 1);
+    var optionBox = btn.closest(".pp-pdp__info") && btn.closest(".pp-pdp__info").querySelector("[data-product-options]");
+    var selected = optionBox && optionBox.querySelector('[name="product-color"]:checked');
+    if (optionBox && !selected) {
+      var optionError = optionBox.querySelector("[data-option-error]");
+      optionError.hidden = false;
+      optionBox.setAttribute("aria-invalid", "true");
+      optionBox.querySelector('[name="product-color"]').focus();
+      announce("יש לבחור צבע לפני הוספה לסל");
+      return;
+    }
+    var color = selected ? selected.value : "", colorLabel = selected ? selected.dataset.optionLabel : "";
+    var lineId = id + (color ? "::" + color : "");
+    if (!cart[lineId]) cart[lineId] = { id: id, color: color || null, colorLabel: colorLabel || null, name: btn.dataset.productName, price: Number(btn.dataset.productPrice), quantity: 0 };
+    cart[lineId].quantity = Math.min(99, cart[lineId].quantity + 1);
     var original = btn.textContent;
     btn.textContent = "נוסף לסל ✓";
     window.setTimeout(function () { btn.textContent = original; }, 1600);
@@ -43,7 +58,8 @@
     if (!box) return;
     var list = items();
     box.innerHTML = list.length ? list.map(function (x) {
-      return '<div class="pp-cart-item"><img class="pp-cart-item__image" src="' + PRODUCT_IMAGES[x.id] + '" alt=""><div class="pp-cart-item__info"><strong>' + esc(x.name) + '</strong><small>' + money(x.price) + ' ליחידה</small><button class="pp-cart-item__remove" type="button" data-remove="' + esc(x.id) + '">הסרה</button></div><div class="pp-cart-item__quantity" role="group" aria-label="כמות ' + esc(x.name) + '"><button type="button" data-qty="1" data-id="' + esc(x.id) + '" aria-label="הגדלת כמות">+</button><input type="number" min="1" max="99" inputmode="numeric" value="' + x.quantity + '" data-quantity-input data-id="' + esc(x.id) + '" aria-label="כמות"><button type="button" data-qty="-1" data-id="' + esc(x.id) + '" aria-label="הפחתת כמות">−</button></div><div class="pp-cart-item__line-total"><small>סכום ביניים</small><strong>' + money(x.price * x.quantity) + '</strong></div></div>';
+      var lineId = x.id + (x.color ? "::" + x.color : "");
+      return '<div class="pp-cart-item"><img class="pp-cart-item__image" src="' + productImage(x) + '" alt=""><div class="pp-cart-item__info"><strong>' + esc(x.name) + '</strong>' + (x.colorLabel ? '<small>צבע: ' + esc(x.colorLabel) + '</small>' : '') + '<small>' + money(x.price) + ' ליחידה</small><button class="pp-cart-item__remove" type="button" data-remove="' + esc(lineId) + '">הסרה</button></div><div class="pp-cart-item__quantity" role="group" aria-label="כמות ' + esc(x.name + (x.colorLabel ? " בצבע " + x.colorLabel : "")) + '"><button type="button" data-qty="1" data-id="' + esc(lineId) + '" aria-label="הגדלת כמות">+</button><input type="number" min="1" max="99" inputmode="numeric" value="' + x.quantity + '" data-quantity-input data-id="' + esc(lineId) + '" aria-label="כמות"><button type="button" data-qty="-1" data-id="' + esc(lineId) + '" aria-label="הפחתת כמות">−</button></div><div class="pp-cart-item__line-total"><small>סכום ביניים</small><strong>' + money(x.price * x.quantity) + '</strong></div></div>';
     }).join("") : '<p class="pp-cart__empty">הסל עדיין ריק.</p>';
     document.querySelector("[data-cart-subtotal]").textContent = money(subtotal());
     var sum = subtotal(), remaining = Math.max(0, 250 - sum), progress = document.querySelector("[data-shipping-progress]");
@@ -54,6 +70,7 @@
     document.querySelector("[data-checkout-link]").setAttribute("aria-disabled", list.length ? "false" : "true");
   }
   function esc(s) { var d = document.createElement("div"); d.textContent = String(s); return d.innerHTML; }
+  function productImage(x) { return x.id === "octopus" && x.color ? OCTOPUS_IMAGES[x.color] : PRODUCT_IMAGES[x.id]; }
   var returnFocus;
   function openCart() { ensureDrawer(); returnFocus = document.activeElement; renderCart(); document.getElementById("cartDrawer").hidden = false; document.querySelector(".pp-cart-backdrop").hidden = false; document.body.classList.add("is-cart-open"); document.querySelector("[data-cart-close]").focus(); }
   function closeCart() { var d = document.getElementById("cartDrawer"); if (!d) return; d.hidden = true; document.querySelector(".pp-cart-backdrop").hidden = true; document.body.classList.remove("is-cart-open"); if (returnFocus) returnFocus.focus(); }
@@ -119,7 +136,7 @@
       document.querySelector("[data-address-fields]").hidden = !needsAddress;
       document.querySelectorAll("[data-address-required]").forEach(function (el) { el.required = !!needsAddress; });
       var fee = selected ? shippingCost(selected.value, sum) : 0;
-      document.querySelector("[data-checkout-items]").innerHTML = items().map(function (x) { return '<li><span>' + esc(x.name) + ' × ' + x.quantity + '</span><strong>' + money(x.price * x.quantity) + '</strong></li>'; }).join("");
+      document.querySelector("[data-checkout-items]").innerHTML = items().map(function (x) { return '<li><span>' + esc(x.name) + (x.colorLabel ? ' · ' + esc(x.colorLabel) : '') + ' × ' + x.quantity + '</span><strong>' + money(x.price * x.quantity) + '</strong></li>'; }).join("");
       document.querySelector("[data-checkout-subtotal]").textContent = money(sum);
       document.querySelector("[data-checkout-shipping]").textContent = selected ? (fee ? money(fee) : "חינם") : "טרם נבחר";
       document.querySelector("[data-checkout-total]").textContent = money(sum + fee);
@@ -130,7 +147,7 @@
       var status = document.getElementById("checkoutStatus");
       if (!validateCheckout(form)) { status.textContent = "יש לתקן את השדות המסומנים"; return; }
       var data = Object.fromEntries(new FormData(form));
-      data.items = items().map(function (x) { return { id: x.id, quantity: x.quantity }; });
+      data.items = items().map(function (x) { return { id: x.id, color: x.color || null, quantity: x.quantity }; });
       sessionStorage.setItem(CHECKOUT_DRAFT_KEY, JSON.stringify(data));
       status.textContent = "מכינים את עמוד התשלום…";
       form.querySelector('[type="submit"]').disabled = true;
@@ -152,6 +169,12 @@
     var rm = e.target.closest("[data-remove]"); if (rm) { delete cart[rm.dataset.remove]; save(); renderCart(); }
   });
   document.addEventListener("change", function (e) {
+    if (e.target.matches('[name="product-color"]')) {
+      var box = e.target.closest("[data-product-options]"); box.removeAttribute("aria-invalid"); box.querySelector("[data-option-error]").hidden = true;
+      var colorMediaIndex = { blue: 0, pink: 1, yellow: 2, green: 3 }[e.target.value];
+      var colorThumbs = document.querySelectorAll(".pp-pdp__thumb");
+      if (colorThumbs[colorMediaIndex]) colorThumbs[colorMediaIndex].click();
+    }
     var input = e.target.closest("[data-quantity-input]");
     if (input && cart[input.dataset.id]) { cart[input.dataset.id].quantity = Math.max(1, Math.min(99, Number(input.value) || 1)); save(); renderCart(); announce("הכמות עודכנה"); }
   });

@@ -111,6 +111,12 @@ function buildProductPage(tpl, p) {
     `${h(f.text)}${f.included ? "" : ' <span class="pp-visually-hidden">(לא כלול)</span>'}</li>`
   ).join("\n");
 
+  const options = p.colors ? `<fieldset class="pp-pdp__colors" data-product-options>
+            <legend>בחירת צבע <span aria-hidden="true">*</span></legend>
+            <div class="pp-pdp__color-list">${p.colors.map((color) => `<label class="pp-pdp__color"><input type="radio" name="product-color" value="${h(color.id)}" data-option-label="${h(color.label)}"><span class="pp-pdp__swatch" style="--swatch:${h(color.hex)}" aria-hidden="true"></span><span>${h(color.label)}</span></label>`).join("")}</div>
+            <p class="pp-field-error pp-pdp__color-error" data-option-error hidden>יש לבחור צבע</p>
+          </fieldset>` : "";
+
   return render(tpl, {
     V: String(SITE.assetVersion),
     TITLE: h(p.title),
@@ -134,6 +140,7 @@ function buildProductPage(tpl, p) {
     MEDIA_JSON: jsonForScript(p.media),
     JSONLD: jsonForScript(jsonld),
     FACTS: facts,
+    OPTIONS: options,
   });
 }
 
@@ -169,7 +176,7 @@ function buildGallery(products) {
           </div></a>
           <div class="pp-pcard__actions">
             <a class="pp-pcard__more" href="/kits/${p.slug}">לפרטים</a>
-            <button class="pp-btn pp-pcard__add" type="button" data-add-cart data-product-id="${h(p.id)}" data-product-name="${h(p.name)}" data-product-price="${p.price}">הוספה לסל</button>
+          ${p.colors ? `<a class="pp-btn pp-pcard__add" href="/kits/${p.slug}">לבחירת צבע</a>` : `<button class="pp-btn pp-pcard__add" type="button" data-add-cart data-product-id="${h(p.id)}" data-product-name="${h(p.name)}" data-product-price="${p.price}">הוספה לסל</button>`}
           </div>
         </article>`;
     })
