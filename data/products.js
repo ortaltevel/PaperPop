@@ -16,7 +16,7 @@ const SITE = {
   locale: "he_IL",
   // Bumped whenever styles.css / app.js change; stamped into every generated
   // page so index.html and kits/*.html can never disagree on a cached copy.
-  assetVersion: 50,
+  assetVersion: 51,
 };
 
 // Brand-supplied, identical for every kit.
