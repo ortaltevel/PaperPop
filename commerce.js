@@ -58,6 +58,34 @@
   function closeCart() { var d = document.getElementById("cartDrawer"); if (!d) return; d.hidden = true; document.querySelector(".pp-cart-backdrop").hidden = true; document.body.classList.remove("is-cart-open"); if (returnFocus) returnFocus.focus(); }
 
   function shippingCost(kind, sum) { if (kind === "pickup") return 0; if (kind === "registered") return sum >= 250 ? 0 : 17; return kind === "courier" ? 69 : 0; }
+  function fieldMessage(field) {
+    if (!field.value.trim()) return "זהו שדה חובה";
+    if (field.type === "email" && !/^\S+@\S+\.\S+$/.test(field.value)) return "יש להזין כתובת אימייל תקינה";
+    if (field.name === "phone" && !/^[+\d][\d\s().-]{6,19}$/.test(field.value.trim())) return "יש להזין מספר טלפון תקין";
+    return "";
+  }
+  function setFieldError(field, message) {
+    var id = "error-" + field.name, error = document.getElementById(id);
+    if (!error) { error = document.createElement("span"); error.id = id; error.className = "pp-field-error"; field.insertAdjacentElement("afterend", error); }
+    error.textContent = message;
+    error.hidden = !message;
+    field.setAttribute("aria-invalid", message ? "true" : "false");
+    if (message) field.setAttribute("aria-describedby", id); else field.removeAttribute("aria-describedby");
+  }
+  function validateCheckout(form) {
+    var valid = true, first = null;
+    form.querySelectorAll("input:not([type=radio]), textarea").forEach(function (field) {
+      if (field.closest("[hidden]")) { setFieldError(field, ""); return; }
+      var message = field.required || field.value ? fieldMessage(field) : "";
+      setFieldError(field, message); if (message && !first) { first = field; valid = false; }
+    });
+    var shipping = form.querySelector('[name="shipping"]:checked'), group = form.querySelector("fieldset"), error = group.querySelector(".pp-shipping-error");
+    if (!error) { error = document.createElement("p"); error.className = "pp-field-error pp-shipping-error"; group.appendChild(error); }
+    error.textContent = shipping ? "" : "יש לבחור אופן קבלת ההזמנה"; error.hidden = !!shipping;
+    form.querySelectorAll('[name="shipping"]').forEach(function (radio) { radio.setAttribute("aria-invalid", shipping ? "false" : "true"); });
+    if (!shipping) { valid = false; if (!first) first = form.querySelector('[name="shipping"]'); }
+    if (first) first.focus(); return valid;
+  }
   function initCheckout() {
     var form = document.getElementById("checkoutForm");
     if (!form) return;
@@ -85,7 +113,7 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var status = document.getElementById("checkoutStatus");
-      if (!form.reportValidity()) return;
+      if (!validateCheckout(form)) { status.textContent = "יש לתקן את השדות המסומנים"; return; }
       var data = Object.fromEntries(new FormData(form));
       data.items = items().map(function (x) { return { id: x.id, quantity: x.quantity }; });
       status.textContent = "מכינים את עמוד התשלום…";
@@ -95,6 +123,8 @@
         .then(function (b) { sessionStorage.setItem("paperpop-payment-url", b.paymentUrl); location.href = "/payment?order=" + encodeURIComponent(b.orderId); })
         .catch(function () { status.textContent = "לא הצלחנו לפתוח את התשלום. נסו שוב או פנו אלינו."; form.querySelector('[type="submit"]').disabled = false; });
     });
+    form.addEventListener("input", function (e) { if (e.target.matches("input:not([type=radio]), textarea") && e.target.getAttribute("aria-invalid") === "true") setFieldError(e.target, e.target.required || e.target.value ? fieldMessage(e.target) : ""); });
+    form.addEventListener("change", function (e) { if (e.target.name === "shipping") { var error = form.querySelector(".pp-shipping-error"); if (error) { error.textContent = ""; error.hidden = true; } form.querySelectorAll('[name="shipping"]').forEach(function (radio) { radio.setAttribute("aria-invalid", "false"); }); } });
     update();
   }
 
