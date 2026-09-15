@@ -61,6 +61,8 @@
   function initCheckout() {
     var form = document.getElementById("checkoutForm");
     if (!form) return;
+    var title = document.querySelector(".pp-checkout h1");
+    if (title) title.insertAdjacentHTML("beforebegin", '<a class="pp-checkout-back" href="/#gallery"><span aria-hidden="true">→</span> המשך קניות</a>');
     if (!items().length) { location.replace("/"); return; }
     var shippingTouched = false;
     var radios = [].slice.call(form.querySelectorAll('[name="shipping"]'));
