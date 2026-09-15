@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  document.querySelectorAll(".pp-header__ticker").forEach(function (el) { el.textContent = "משלוח חינם בהזמנה מעל 250₪"; });
+  document.querySelectorAll(".pp-header__ticker").forEach(function (el) { el.innerHTML = 'משלוח חינם בהזמנה מעל <bdi dir="ltr">₪250</bdi>'; });
   var KEY = "paperpop-cart-v1";
   var CHECKOUT_DRAFT_KEY = "paperpop-checkout-draft-v1";
   var PRODUCT_IMAGES = { octopus: "/assets/products/octopus-blue-tight-400.webp", duck: "/assets/products/duck-tight-400.webp", heart: "/assets/products/heart-tight-400.webp", soccer: "/assets/products/soccer-tight-400.webp" };
