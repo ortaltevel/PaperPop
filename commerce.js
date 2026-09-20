@@ -120,8 +120,10 @@
         } else field.value = draft[name];
       });
     } catch (_) { sessionStorage.removeItem(CHECKOUT_DRAFT_KEY); }
-    if (new URLSearchParams(location.search).get("payment") === "failed") {
-      form.insertAdjacentHTML("afterbegin", '<div class="pp-payment-error" role="alert" tabindex="-1"><strong>התשלום לא הושלם</strong><p>לא התקבל אצלנו אישור תשלום, ולכן ההזמנה עדיין לא הושלמה. אפשר לבדוק את הפרטים ולנסות שוב.</p></div>');
+    var paymentResult = new URLSearchParams(location.search).get("payment");
+    if (paymentResult === "failed" || paymentResult === "cancelled") {
+      var paymentCopy = paymentResult === "cancelled" ? { title: "התשלום בוטל", message: "ההזמנה עדיין לא הושלמה. אפשר לבדוק את הפרטים ולנסות שוב כשתרצו." } : { title: "התשלום לא הושלם", message: "לא התקבל אצלנו אישור תשלום, ולכן ההזמנה עדיין לא הושלמה. אפשר לבדוק את הפרטים ולנסות שוב." };
+      form.insertAdjacentHTML("afterbegin", '<div class="pp-payment-error" role="alert" tabindex="-1"><strong>' + paymentCopy.title + '</strong><p>' + paymentCopy.message + '</p></div>');
       form.querySelector(".pp-payment-error").focus();
     }
     var shippingTouched = false;
