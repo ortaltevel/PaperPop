@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "echo 'Using committed static output'",
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
