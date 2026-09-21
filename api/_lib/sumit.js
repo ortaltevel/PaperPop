@@ -31,4 +31,5 @@ async function begin(order,origin){
  if(!data.RedirectURL)throw Error("SUMIT_MISSING_REDIRECT");return data.RedirectURL;
 }
 async function getPayment(id){return(await call("/billing/payments/get/",{Credentials:credentials(),PaymentID:Number(id)})).Payment}
-module.exports={begin,getPayment,orderDescription};
+async function listPayments(from,to,startIndex=0){return call("/billing/payments/list/",{Credentials:credentials(),Date_From:from,Date_To:to,Valid:true,StartIndex:startIndex})}
+module.exports={begin,getPayment,listPayments,orderDescription};
