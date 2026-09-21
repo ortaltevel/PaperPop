@@ -10,10 +10,4 @@ async function markEmailSent(id,kind){
  else throw Error("INVALID_EMAIL_KIND");
 }
 async function markEmailError(id,error){await sql()`UPDATE orders SET email_last_error=${String(error||"EMAIL_FAILED").slice(0,200)} WHERE id=${id}`}
-async function ensureEmailDeliveryColumns(){
- const db=sql();
- await db.query("ALTER TABLE orders ADD COLUMN IF NOT EXISTS customer_email_sent_at timestamptz");
- await db.query("ALTER TABLE orders ADD COLUMN IF NOT EXISTS merchant_email_sent_at timestamptz");
- await db.query("ALTER TABLE orders ADD COLUMN IF NOT EXISTS email_last_error text");
-}
-module.exports={createOrder,getOrder,markPaid,markEmailSent,markEmailError,ensureEmailDeliveryColumns};
+module.exports={createOrder,getOrder,markPaid,markEmailSent,markEmailError};

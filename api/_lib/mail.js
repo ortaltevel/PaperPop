@@ -9,6 +9,7 @@ const SHIPPING_LABELS=Object.freeze({
 function escapeHtml(value){
  return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
 }
+function safeText(value){return String(value??"").replace(/[\r\n]+/g," ").trim()}
 
 function money(agorot){return`${(Number(agorot)/100).toFixed(2)} ₪`}
 function orderNumber(order){return String(order.order_number)}
@@ -33,7 +34,7 @@ function customerEmail(order){
 function merchantEmail(order){
  const number=orderNumber(order),c=order.customer;
  return{
-  subject:`הזמנה חדשה ${number} · ${escapeHtml(c.fullName)}`,
+  subject:`הזמנה חדשה ${number} · ${safeText(c.fullName)}`,
   html:shell(`<h1 style="margin:28px 0 8px">הזמנה חדשה ${number}</h1><table style="width:100%;border-collapse:collapse;margin:24px 0"><tbody>${itemLines(order)}</tbody></table><p><strong>סה״כ:</strong> ${money(order.total_agorot)}<br><strong>משלוח:</strong> ${escapeHtml(SHIPPING_LABELS[order.shipping_method]||order.shipping_method)}<br><strong>כתובת:</strong> ${address(order)}</p><p><strong>לקוחה:</strong> ${escapeHtml(c.fullName)}<br><strong>טלפון:</strong> ${escapeHtml(c.phone)}<br><strong>מייל:</strong> ${escapeHtml(c.email)}</p>${c.notes?`<p><strong>הערות:</strong> ${escapeHtml(c.notes)}</p>`:""}`)
  };
 }
