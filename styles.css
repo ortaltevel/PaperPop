@@ -849,3 +849,5 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pp-result-icon{width:66px;height:66px}
 .pp-result-icon.is-paid{font-size:2.15rem}
 .pp-payment-result .pp-btn{margin-top:14px}
+.pp-order-reference{margin:2px 0 0;color:var(--pp-ink-60);font-size:.95rem}
+.pp-order-reference strong{color:var(--pp-burgundy-700);font-variant-numeric:tabular-nums;letter-spacing:.04em}
