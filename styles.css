@@ -842,3 +842,5 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pp-payment__head::after{display:none}
 .pp-payment-steps li::before{border-color:rgba(125,11,39,.24)}
 .pp-payment-steps li:not(:last-child)::after{background:rgba(125,11,39,.24)}
+.pp-payment-steps{margin-block-end:6px}
+.pp-payment__frame{margin-top:0}
