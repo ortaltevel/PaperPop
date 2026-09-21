@@ -32,13 +32,14 @@ async function confirmPayment(orderId,paymentId){
  const{getOrder,markPaid}=require("./db"),{getPayment}=require("./sumit"),{notify}=require("./mail");
  const order=await getOrder(orderId);
  if(!order)throw Error("ORDER_NOT_FOUND");
- if(order.status==="paid")return order;
+ if(order.status==="paid"){
+  try{await notify(order)}catch(e){console.error("order_notification_failed",{orderId,code:e.message})}
+  return order;
+ }
  const payment=await getPayment(paymentId);
  if(!payment||payment.ValidPayment!==true||Math.round(Number(payment.Amount)*100)!==order.total_agorot)throw Error("PAYMENT_NOT_CONFIRMED");
  const paid=await markPaid(orderId,paymentId);
- if(paid){
-  try{await notify(paid)}catch(e){console.error("order_notification_failed",{orderId,code:e.message})}
- }
+ if(paid)try{await notify(paid)}catch(e){console.error("order_notification_failed",{orderId,code:e.message})}
  return paid||await getOrder(orderId);
 }
 

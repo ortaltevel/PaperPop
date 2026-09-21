@@ -8,7 +8,10 @@ module.exports=async function(req,res){
   const{getOrder}=require("./_lib/db"),{listPayments}=require("./_lib/sumit"),{confirmPayment}=require("./_lib/payment-confirmation");
   const order=await getOrder(orderId);
   if(!order)return res.status(404).json({error:"ORDER_NOT_FOUND"});
-  if(order.status==="paid")return res.status(200).json({status:"paid"});
+  if(order.status==="paid"){
+   const paid=await confirmPayment(orderId,String(order.sumit_payment_id));
+   return res.status(200).json({status:paid.status});
+  }
   const created=new Date(order.created_at),from=new Date(created.getTime()-86400000).toISOString(),to=new Date(created.getTime()+86400000).toISOString();
   let startIndex=0,match=null;
   for(let page=0;page<10&&!match;page++){
