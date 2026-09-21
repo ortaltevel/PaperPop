@@ -844,3 +844,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pp-payment-steps li:not(:last-child)::after{background:rgba(125,11,39,.24)}
 .pp-payment-steps{margin-block-end:6px}
 .pp-payment__frame{margin-top:0}
+
+/* Order confirmation: emphasize success and separate the next action. */
+.pp-result-icon{width:66px;height:66px}
+.pp-result-icon.is-paid{font-size:2.15rem}
+.pp-payment-result .pp-btn{margin-top:14px}
