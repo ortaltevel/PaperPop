@@ -839,6 +839,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* Payment-page dividers use explicit colors because this standalone page does
    not inherit the legacy --pp-ink-20 token. */
-.pp-payment__head::after{background:rgba(125,11,39,.18)}
+.pp-payment__head::after{display:none}
 .pp-payment-steps li::before{border-color:rgba(125,11,39,.24)}
 .pp-payment-steps li:not(:last-child)::after{background:rgba(125,11,39,.24)}
