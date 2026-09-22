@@ -33,9 +33,10 @@ function shell(content,{showReply=true}={}){return`<!doctype html><html dir="rtl
 
 function customerEmail(order){
  const number=orderNumber(order);
+ const shippingAddress=order.shipping_method==="pickup"?"":`<br><strong>כתובת למשלוח:</strong> ${address(order)}`;
  return{
   subject:`הזמנה ${number} התקבלה בפייפרפופ`,
-  html:shell(`<h1 dir="rtl" style="margin:28px 0 8px;text-align:right">תודה, ${escapeHtml(order.customer.fullName)}!</h1><p dir="rtl" style="text-align:right">התשלום אושר והזמנה <strong dir="ltr" style="unicode-bidi:isolate">${number}</strong> התקבלה.</p><table dir="rtl" role="presentation" style="width:100%;border-collapse:collapse;margin:24px 0;text-align:right"><thead><tr><th aria-label="תמונה"></th><th style="text-align:right;padding:8px 10px">מוצר</th><th style="text-align:center;padding:8px">כמות</th><th style="text-align:left;padding:8px 0">סכום</th></tr></thead><tbody>${itemLines(order)}</tbody></table><p dir="rtl" style="text-align:right;line-height:1.8"><strong>משלוח:</strong> ${escapeHtml(SHIPPING_LABELS[order.shipping_method]||order.shipping_method)}<br><strong>סה״כ:</strong> ${money(order.total_agorot)}</p><p dir="rtl" style="text-align:right">הקבלה החשבונאית תישלח בנפרד ממערכת <bdi dir="ltr" style="unicode-bidi:isolate">SUMIT</bdi>.</p>`)
+  html:shell(`<h1 dir="rtl" style="margin:28px 0 8px;text-align:right">תודה, ${escapeHtml(order.customer.fullName)}!</h1><p dir="rtl" style="text-align:right">התשלום אושר והזמנה <strong dir="ltr" style="unicode-bidi:isolate">${number}</strong> התקבלה.</p><table dir="rtl" role="presentation" style="width:100%;border-collapse:collapse;margin:24px 0;text-align:right"><thead><tr><th aria-label="תמונה"></th><th style="text-align:right;padding:8px 10px">מוצר</th><th style="text-align:center;padding:8px">כמות</th><th style="text-align:left;padding:8px 0">סכום</th></tr></thead><tbody>${itemLines(order)}</tbody></table><p dir="rtl" style="text-align:right;line-height:1.8"><strong>משלוח:</strong> ${escapeHtml(SHIPPING_LABELS[order.shipping_method]||order.shipping_method)}${shippingAddress}<br><strong>סה״כ:</strong> ${money(order.total_agorot)}</p><p dir="rtl" style="text-align:right">הקבלה החשבונאית תישלח בנפרד ממערכת <bdi dir="ltr" style="unicode-bidi:isolate">SUMIT</bdi>.</p>`)
  };
 }
 function merchantEmail(order){

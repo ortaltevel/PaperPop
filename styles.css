@@ -855,7 +855,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* ---------- Legal, privacy and accessibility ---------- */
 .pp-legal{max-width:900px;padding-block:clamp(38px,7vw,76px)}
 .pp-legal__back{display:inline-flex;align-items:center;gap:8px;color:var(--pp-burgundy-600);font-weight:600;text-decoration:none;margin-block-end:24px}
-.pp-legal__back:hover{text-decoration:underline;text-underline-offset:4px}
+.pp-legal__back-label{text-decoration:none}
+.pp-legal__back:hover .pp-legal__back-label{text-decoration:underline;text-underline-offset:4px}
 .pp-legal__header{padding-block-end:28px;border-block-end:1px solid var(--border-subtle)}
 .pp-legal__header h1{font-size:clamp(36px,6vw,62px);line-height:1.05;color:var(--pp-burgundy-700);margin:0 0 12px}
 .pp-legal__updated{color:var(--text-meta);font-size:.95rem;margin:0}
