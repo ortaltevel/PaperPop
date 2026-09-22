@@ -214,6 +214,7 @@ function rewriteGallery(html, products) {
 function buildSitemap(products, lastmod) {
   const urls = [
     { loc: SITE.origin + "/", priority: "1.0" },
+    { loc: SITE.origin + "/legal", priority: "0.4" },
     ...products.map((p) => ({ loc: p.url, priority: "0.8" })),
   ];
   return (

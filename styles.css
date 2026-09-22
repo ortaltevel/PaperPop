@@ -851,3 +851,23 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pp-payment-result .pp-btn{margin-top:14px}
 .pp-order-reference{margin:2px 0 0;color:var(--pp-ink-60);font-size:.95rem}
 .pp-order-reference strong{color:var(--pp-burgundy-700);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+
+/* ---------- Legal, privacy and accessibility ---------- */
+.pp-legal{max-width:900px;padding-block:clamp(38px,7vw,76px)}
+.pp-legal__back{display:inline-flex;align-items:center;gap:8px;color:var(--pp-burgundy-600);font-weight:600;text-decoration:none;margin-block-end:24px}
+.pp-legal__back:hover{text-decoration:underline;text-underline-offset:4px}
+.pp-legal__header{padding-block-end:28px;border-block-end:1px solid var(--border-subtle)}
+.pp-legal__header h1{font-size:clamp(36px,6vw,62px);line-height:1.05;color:var(--pp-burgundy-700);margin:0 0 12px}
+.pp-legal__updated{color:var(--text-meta);font-size:.95rem;margin:0}
+.pp-legal__nav{display:flex;flex-wrap:wrap;gap:10px 22px;padding:22px 0;border-block-end:1px solid var(--border-subtle)}
+.pp-legal__nav a{color:var(--pp-burgundy-600);font-weight:600;text-underline-offset:4px}
+.pp-legal__section{scroll-margin-top:110px;padding-block:34px;border-block-end:1px solid var(--border-subtle)}
+.pp-legal__section:last-child{border-block-end:0}
+.pp-legal__section h2{font-size:clamp(27px,4vw,38px);line-height:1.2;color:var(--pp-burgundy-700);margin:0 0 22px}
+.pp-legal__section h3{font-size:1.2rem;line-height:1.4;color:var(--pp-ink);margin:28px 0 8px}
+.pp-legal__section p,.pp-legal__section li{font-size:1rem;line-height:1.8;color:var(--text-body)}
+.pp-legal__section ul{padding-inline-start:1.25rem}
+.pp-legal__section a,.pp-form-note a{color:var(--pp-burgundy-600);text-underline-offset:3px}
+.pp-legal__notice{background:var(--pp-pink-50,#fff4f6);border-inline-start:4px solid var(--pp-pink-300);padding:16px 18px;margin-block:22px}
+.pp-legal__contact{display:grid;gap:5px;padding:18px;background:var(--pp-cream-300);margin-block-start:18px}
+@media (max-width:600px){.pp-legal__nav{display:grid}.pp-legal__section{padding-block:28px}}
