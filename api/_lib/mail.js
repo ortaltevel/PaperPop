@@ -48,7 +48,7 @@ async function send(resend,payload,idempotencyKey){
 async function notify(order){
  if(!process.env.RESEND_API_KEY)throw Error("RESEND_NOT_CONFIGURED");
  const{Resend}=require("resend"),resend=new Resend(process.env.RESEND_API_KEY);
- const from=process.env.ORDER_FROM_EMAIL||"PaperPop <orders@paperpop.co.il>";
+ const from=process.env.ORDER_FROM_EMAIL||"PaperPop <hello@paperpop.co.il>";
  const replyTo=process.env.ORDER_REPLY_TO||"paperpop6767@gmail.com";
  const{markEmailSent,markEmailError}=require("./db");
  try{
