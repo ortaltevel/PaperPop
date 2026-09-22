@@ -2,7 +2,7 @@
 
 const SHIPPING_LABELS=Object.freeze({pickup:"איסוף עצמי מרעננה בתיאום מראש",registered:"דואר רשום",courier:"שליח עד הבית"});
 const PRODUCT_IMAGES=Object.freeze({
- octopus:Object.freeze({blue:"/assets/products/octopus-blue-tight-600.fallback.png",pink:"/assets/products/OctepusPink-clean.png",green:"/assets/products/OctepusGreen-clean.png",yellow:"/assets/products/OctepusYellow-clean.png"}),
+ octopus:Object.freeze({blue:"/assets/products/octopus-blue-tight-600.fallback.png",pink:"/assets/products/OctepusPink-clean-600.fallback.png",green:"/assets/products/OctepusGreen-clean-600.fallback.png",yellow:"/assets/products/OctepusYellow-clean-600.fallback.png"}),
  duck:"/assets/products/duck-tight-600.fallback.png",
  heart:"/assets/products/heart-tight-600.fallback.png",
  soccer:"/assets/products/soccer-tight-600.fallback.png"
@@ -21,7 +21,7 @@ function imageUrl(item){
 function itemLines(order){
  return order.items.map(item=>{
   const image=imageUrl(item);
-  return`<tr><td style="padding:12px 0;border-bottom:1px solid #eadfe1;width:72px">${image?`<img src="${escapeHtml(image)}" width="60" height="60" alt="" style="display:block;width:60px;height:60px;object-fit:contain;border-radius:8px;background:#fff">`:""}</td><td dir="rtl" style="padding:12px 10px;border-bottom:1px solid #eadfe1;text-align:right">${escapeHtml(item.name)}</td><td dir="ltr" style="padding:12px 8px;border-bottom:1px solid #eadfe1;text-align:center;white-space:nowrap">${Number(item.quantity)}</td><td dir="ltr" style="padding:12px 0;border-bottom:1px solid #eadfe1;text-align:left;white-space:nowrap">${money(Number(item.total)*100)}</td></tr>`;
+  return`<tr><td style="padding:12px 0;border-bottom:1px solid #eadfe1;width:72px">${image?`<div style="width:64px;height:64px;padding:4px;border-radius:10px;background:#f4e8e7"><img src="${escapeHtml(image)}" width="64" height="64" alt="" style="display:block;width:64px;height:64px;object-fit:contain;border:0;border-radius:8px;background:#f4e8e7"></div>`:""}</td><td dir="rtl" style="padding:12px 10px;border-bottom:1px solid #eadfe1;text-align:right">${escapeHtml(item.name)}</td><td dir="ltr" style="padding:12px 8px;border-bottom:1px solid #eadfe1;text-align:center;white-space:nowrap">${Number(item.quantity)}</td><td dir="ltr" style="padding:12px 0;border-bottom:1px solid #eadfe1;text-align:left;white-space:nowrap">${money(Number(item.total)*100)}</td></tr>`;
  }).join("");
 }
 function address(order){
