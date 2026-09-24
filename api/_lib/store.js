@@ -1,6 +1,6 @@
 "use strict";
 const crypto = require("node:crypto");
-const CATALOG = Object.freeze({ octopus:{name:"התמנון שעושה סדר",price:45,colors:{blue:"כחול",pink:"ורוד",green:"ירוק",yellow:"צהוב"}}, duck:{name:"הברווז השובב",price:65}, heart:{name:"הלב הפועם",price:45}, soccer:{name:"הכדור שלא מפספס",price:45} });
+const CATALOG = Object.freeze({ octopus:{name:"התמנון שעושה סדר",price:45,colors:{blue:"כחול",pink:"ורוד",green:"ירוק",yellow:"צהוב"}}, duck:{name:"הברווז השובב",price:65}, heart:{name:"הלב הפועם",price:45}, soccer:{name:"הכדור שלא מפספס",price:45}, fox:{name:"שועלה של צבעים",price:35} });
 const SHIPPING = Object.freeze({ pickup:0, registered:17, courier:69 });
 function clean(v,n){return typeof v==="string"?v.trim().slice(0,n):""}
 function validate(input){

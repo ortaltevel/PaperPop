@@ -106,7 +106,7 @@ function buildProductPage(tpl, p) {
     ],
   };
 
-  const facts = KIT_FACTS.map((f) =>
+  const facts = [...(p.facts || []), ...KIT_FACTS].map((f) =>
     `            <li${f.included ? "" : ' class="is-excluded"'}>` +
     `${h(f.text)}${f.included ? "" : ' <span class="pp-visually-hidden">(לא כלול)</span>'}</li>`
   ).join("\n");
@@ -159,12 +159,12 @@ function buildGallery(products) {
       const eager = p === products[0];
       return `        <article class="pp-pcard" data-product-id="${h(p.id)}">
           <a class="pp-pcard__link" href="/kits/${p.slug}" aria-label="${h(p.name)}">
-          <div class="pp-media">
+          <div class="pp-media${p.card.fill ? " pp-media--noFacet" : ""}">
             <picture>
               <source media="(max-width:600px)" srcset="${h(MEDIA.url(MEDIA.fallbackOf(p.card.src, mid)))}">
               <source type="image/avif" srcset="${h(srcsetFor(p.card.src, ws, "avif"))}" sizes="${sizes}">
               <source type="image/webp" srcset="${h(srcsetFor(p.card.src, ws, "webp"))}" sizes="${sizes}">
-              <img class="pp-media__art" src="${h(MEDIA.url(MEDIA.fallbackOf(p.card.src, mid)))}"
+              <img class="${p.card.fill ? "pp-media__photo" : "pp-media__art"}" src="${h(MEDIA.url(MEDIA.fallbackOf(p.card.src, mid)))}"
                    sizes="${sizes}" alt="${h(p.card.alt)}"
                    loading="${eager ? "eager" : "lazy"}" decoding="async"${eager ? ' fetchpriority="high"' : ""}>
             </picture>

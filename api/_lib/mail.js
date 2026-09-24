@@ -5,7 +5,8 @@ const PRODUCT_IMAGES=Object.freeze({
  octopus:Object.freeze({blue:"/assets/products/octopus-blue-tight-600.fallback.png",pink:"/assets/products/OctepusPink-clean-600.fallback.png",green:"/assets/products/OctepusGreen-clean-600.fallback.png",yellow:"/assets/products/OctepusYellow-clean-600.fallback.png"}),
  duck:"/assets/products/duck-tight-600.fallback.png",
  heart:"/assets/products/heart-tight-600.fallback.png",
- soccer:"/assets/products/soccer-tight-600.fallback.png"
+ soccer:"/assets/products/soccer-tight-600.fallback.png",
+ fox:"/assets/products/fox-closeup-600.fallback.jpg"
 });
 const INSTAGRAM_URL="https://www.instagram.com/wearepaperpop/";
 

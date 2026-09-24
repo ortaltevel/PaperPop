@@ -16,7 +16,7 @@ const SITE = {
   locale: "he_IL",
   // Bumped whenever styles.css / app.js change; stamped into every generated
   // page so index.html and kits/*.html can never disagree on a cached copy.
-  assetVersion: 60,
+  assetVersion: 61,
 };
 
 // Brand-supplied, identical for every kit.
@@ -134,6 +134,32 @@ const products = [
       { type: "image", src: "assets/products/soccer-girl.jpg", widths: [500, 750], alt: "ילדה מחזיקה את הכדור שלא מפספס", fill: true },
       { type: "image", src: "assets/products/soccer-boy.jpg", widths: [500, 750], alt: "ילד מחזיק את הכדור שלא מפספס", fill: true },
       { type: "image", src: "assets/products/soccer-shelf.jpg", widths: [500, 750], alt: "הכדור שלא מפספס על המדף", fill: true },
+    ],
+  },
+  {
+    id: "fox",
+    slug: "fox",
+    name: "שועלה של צבעים",
+    price: 35,
+    time: "15 דקות",
+    size: "16.5 × 16.5 × 1 ס״מ",
+    age: "מגיל 8 ומעלה, ומגיל 6 בליווי מבוגר",
+    desc: "בואו ליצור שועלה צבעונית ומלאת אופי, שכבה אחר שכבה! ערכת יצירה מהנה ליצירת שועלה מרהיבה בתלת מימד שעשויה כולה מנייר. כל השכבות הצבעוניות ממוספרות, כך שקל לדעת מה מדביקים ובאיזה סדר. פשוט מרכיבים את המסגרת, מדביקים את השכבות לפי המספרים, ורואים איך השועלה מתעוררת לחיים! בסיום מתקבלת יצירה צבעונית ומיוחדת שאפשר להניח על מדף או לתלות בחדר הילדים — מזכרת יפהפייה שהילדים יוכלו להתגאות בה.",
+    ogImage: "assets/og/fox-og.jpg",
+    card: {
+      src: "assets/products/fox-closeup.jpg",
+      alt: "שועלה של צבעים — יצירת נייר תלת־ממדית במסגרת שחורה",
+      fill: true,
+    },
+    facts: [
+      { text: "הערכה כוללת מסגרת שחורה מנייר איכותי להרכבה", included: true },
+    ],
+    media: [
+      { type: "image", src: "assets/products/fox-closeup.jpg", alt: "שועלה של צבעים במסגרת השחורה הכלולה בערכה", fill: true },
+      { type: "image", src: "assets/products/fox-shelf.jpg", alt: "שועלה של צבעים מוצגת על מדף בחדר ילדים", fill: true },
+      { type: "image", src: "assets/products/fox-boy.jpg", alt: "ילד מחזיק את היצירה שועלה של צבעים", fill: true },
+      { type: "image", src: "assets/products/fox-girl.jpg", alt: "ילדה מחזיקה את היצירה שועלה של צבעים", fill: true },
+      { type: "image", src: "assets/products/fox-easel.jpg", widths: [400, 600], alt: "שועלה של צבעים מוצגת על כן עץ", fill: true },
     ],
   },
 ];

@@ -69,6 +69,11 @@ JOBS = [
     ("assets/products/soccer-girl.jpg",   (500, 750),       False),
     ("assets/products/soccer-boy.jpg",    (500, 750),       False),
     ("assets/products/duck-display.jpg",  (400, 600, 800),  False),
+    ("assets/products/fox-closeup.jpg", (400, 600, 800), False),
+    ("assets/products/fox-shelf.jpg",   (400, 600, 800), False),
+    ("assets/products/fox-boy.jpg",     (400, 600, 800), False),
+    ("assets/products/fox-girl.jpg",    (400, 600, 800), False),
+    ("assets/products/fox-easel.jpg",   (400, 600),      False),
 ]
 
 AVIF_Q_ALPHA, AVIF_Q_OPAQUE = 66, 66  # tuned so VMAF >= 93 (measured)

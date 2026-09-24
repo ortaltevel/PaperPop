@@ -13,7 +13,7 @@ async function call(path,body){
 }
 function isSuccess(status){return status===0||status==="0"||status==="Success (0)"}
 function safeLogValue(value){return typeof value==="string"?value.replace(/[\r\n]/g," ").slice(0,240):value??null}
-const SHORT_PRODUCT_NAMES=Object.freeze({octopus:"תמנון",duck:"ברווז",heart:"לב אדום",soccer:"כדורגל"});
+const SHORT_PRODUCT_NAMES=Object.freeze({octopus:"תמנון",duck:"ברווז",heart:"לב אדום",soccer:"כדורגל",fox:"שועלה של צבעים"});
 function orderDescription(order){
  const summary=order.items.map(item=>{
   const product=SHORT_PRODUCT_NAMES[item.id]||item.name||"מוצר";

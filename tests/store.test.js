@@ -8,3 +8,4 @@ test("delivery requires address",()=>{assert.throws(()=>validate({fullName:"א �
 test("unknown product is rejected",()=>{assert.throws(()=>validate({...customer,shipping:"pickup",items:[{id:"evil",quantity:1}]}),/INVALID_CART/)});
 test("octopus requires a supported color",()=>{assert.throws(()=>validate({...customer,shipping:"pickup",items:[{id:"octopus",quantity:1}]}),/INVALID_CART/);const o=validate({...customer,shipping:"pickup",items:[{id:"octopus",color:"pink",quantity:1}]});assert.equal(o.items[0].name,"התמנון שעושה סדר – ורוד")});
 test("other products reject color variants",()=>{assert.throws(()=>validate({...customer,shipping:"pickup",items:[{id:"duck",color:"yellow",quantity:1}]}),/INVALID_CART/)});
+test("fox price is validated on the server",()=>{const o=validate({...customer,shipping:"pickup",items:[{id:"fox",quantity:2,price:1}]});assert.equal(o.subtotal,70);assert.equal(o.total,70)});
