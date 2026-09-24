@@ -288,6 +288,20 @@
     var thumbs = document.getElementById("pdpThumbs");
     var buttons = thumbs ? [].slice.call(thumbs.children) : [];
 
+    function updateThumbOverflow() {
+      if (!thumbs) return;
+      var hasOverflow = thumbs.scrollHeight > thumbs.clientHeight + 2;
+      var atEnd = !hasOverflow || Math.ceil(thumbs.scrollTop + thumbs.clientHeight) >= thumbs.scrollHeight - 2;
+      thumbs.classList.toggle("has-overflow", hasOverflow);
+      thumbs.classList.toggle("is-scroll-end", atEnd);
+    }
+
+    if (thumbs) {
+      thumbs.addEventListener("scroll", updateThumbOverflow, { passive: true });
+      window.addEventListener("resize", updateThumbOverflow);
+      window.requestAnimationFrame(updateThumbOverflow);
+    }
+
     // Read the starting index from the DOM rather than assuming 0.
     var cur = 0;
     for (var i = 0; i < buttons.length; i++) {
@@ -309,6 +323,7 @@
       if (buttons[cur]) buttons[cur].setAttribute("aria-current", "false");
       if (buttons[next]) buttons[next].setAttribute("aria-current", "true");
       cur = next;
+      updateThumbOverflow();
     }
 
     buttons.forEach(function (b, idx) {
