@@ -136,22 +136,26 @@
 
   /* ---- Hero video: only ever download it when it's worth the bytes.
      The markup ships preload="none" and no autoplay, so nothing is fetched
-     until we opt in here. Skipped entirely on narrow screens (poster shows
-     via CSS), under reduced-motion, and on metered/slow connections. Playback
-     starts on window load so the video never competes with the LCP paint. */
+     until we opt in here. Reduced-motion and metered/slow connections keep the
+     poster, while capable phones receive the same muted inline video as desktop.
+     Playback starts on window load so the video never competes with LCP. */
   function initHeroVideo() {
     var v = document.querySelector("[data-hero-video]");
     if (!v) return;
 
     var mq = window.matchMedia;
     if (mq && mq("(prefers-reduced-motion: reduce)").matches) return;
-    if (mq && !mq("(min-width: 861px)").matches) return;
 
     var c = navigator.connection || {};
     if (c.saveData === true) return;
     if (/(^|-)2g$/.test(c.effectiveType || "") || c.effectiveType === "3g") return;
 
     function start() {
+      // Explicit properties improve muted autoplay reliability in mobile Safari.
+      v.muted = true;
+      v.defaultMuted = true;
+      v.setAttribute("muted", "");
+      v.setAttribute("playsinline", "");
       v.preload = "auto";
       try { v.load(); } catch (e) {}
       var p = v.play();

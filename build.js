@@ -161,6 +161,7 @@ function buildGallery(products) {
           <a class="pp-pcard__link" href="/kits/${p.slug}" aria-label="${h(p.name)}">
           <div class="pp-media">
             <picture>
+              <source media="(max-width:600px)" srcset="${h(MEDIA.url(MEDIA.fallbackOf(p.card.src, mid)))}">
               <source type="image/avif" srcset="${h(srcsetFor(p.card.src, ws, "avif"))}" sizes="${sizes}">
               <source type="image/webp" srcset="${h(srcsetFor(p.card.src, ws, "webp"))}" sizes="${sizes}">
               <img class="pp-media__art" src="${h(MEDIA.url(MEDIA.fallbackOf(p.card.src, mid)))}"
