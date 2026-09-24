@@ -45,6 +45,7 @@ JOBS = [
     ("assets/products/OctepusGreen-clean.png",  (400, 600, 800), True),
     ("assets/products/OctepusYellow-clean.png", (400, 600, 800), True),
     ("assets/products/OctepusPink-clean.png",   (400, 600, 800), True),
+    ("assets/products/fox-tight.png",           (400, 600, 800), True),
 
     # --- Lifestyle photos, pre-squared by tools/square-crop.py. Opaque, so
     #     they get JPEG fallbacks; widths are capped at each master size. ---
@@ -89,8 +90,12 @@ def main():
 
     total_src = total_out = 0
     missing = []
+    filters = [arg for arg in sys.argv[1:] if not arg.startswith("--")]
+    jobs = JOBS if not filters else [job for job in JOBS if any(value in job[0] for value in filters)]
+    if filters and not jobs:
+        sys.exit("error: no image jobs matched: " + ", ".join(filters))
 
-    for path, widths, alpha in JOBS:
+    for path, widths, alpha in jobs:
         p = pathlib.Path(path)
         if not p.exists():
             missing.append(path)
