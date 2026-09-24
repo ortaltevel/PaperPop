@@ -159,7 +159,6 @@ const products = [
       { type: "image", src: "assets/products/fox-shelf.jpg", alt: "שועלה של צבעים מוצגת על מדף בחדר ילדים", fill: true },
       { type: "image", src: "assets/products/fox-boy.jpg", alt: "ילד מחזיק את היצירה שועלה של צבעים", fill: true },
       { type: "image", src: "assets/products/fox-girl.jpg", alt: "ילדה מחזיקה את היצירה שועלה של צבעים", fill: true },
-      { type: "image", src: "assets/products/fox-easel.jpg", widths: [400, 600], alt: "שועלה של צבעים מוצגת על כן עץ", fill: true },
     ],
   },
 ];
