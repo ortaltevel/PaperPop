@@ -138,7 +138,8 @@
      The markup ships preload="none" and no autoplay, so nothing is fetched
      until we opt in here. Reduced-motion and metered/slow connections keep the
      poster, while capable phones receive the same muted inline video as desktop.
-     Playback starts on window load so the video never competes with LCP. */
+     Phones start loading as soon as the DOM is ready to avoid a visible pause;
+     desktop still waits for window load so the video never competes with LCP. */
   function initHeroVideo() {
     var v = document.querySelector("[data-hero-video]");
     if (!v) return;
@@ -162,7 +163,8 @@
       if (p && p.catch) p.catch(function () {}); // blocked autoplay -> poster stays
     }
 
-    if (document.readyState === "complete") window.setTimeout(start, 0);
+    var isMobile = mq && mq("(max-width: 860px)").matches;
+    if (isMobile || document.readyState === "complete") window.setTimeout(start, 0);
     else window.addEventListener("load", start, { once: true });
   }
 
