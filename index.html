@@ -20,9 +20,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
-  <!-- The hero poster is the LCP candidate now that the video is gated. -->
-  <link rel="preload" as="image" href="assets/media/hero-poster-1200.fallback.jpg" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css?v=57">
+  <!-- Preload only the poster appropriate to the current viewport. -->
+  <link rel="preload" as="image" href="assets/media/hero-mobile-poster.jpg" media="(max-width:860px)" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/media/hero-poster-1200.fallback.jpg" media="(min-width:861px)" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css?v=58">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -76,7 +77,8 @@
   <section class="pp-hero pp-hero--video" aria-label="PaperPop">
     <video class="pp-hero__video" muted loop playsinline preload="none"
            poster="assets/media/hero-poster-1200.fallback.jpg"
-           aria-label="ידיים מקפלות ומדביקות לב נייר של PaperPop — מדפים שטוחים שהופכים לפסל" data-hero-video>
+           aria-label="ידיים מקפלות ומדביקות לב נייר של PaperPop — מדפים שטוחים שהופכים לפסל"
+           data-hero-video data-mobile-src="assets/media/hero-mobile.mp4" data-mobile-poster="assets/media/hero-mobile-poster.jpg">
       <source src="assets/media/hero.webm" type="video/webm">
       <source src="assets/media/hero.mp4" type="video/mp4">
     </video>
@@ -406,7 +408,7 @@
     </div>
   </footer>
 
-  <script defer src="app.js?v=57"></script>
+  <script defer src="app.js?v=58"></script>
   <script defer src="commerce.js?v=55"></script>
   <!-- Vercel Web Analytics -->
   <script defer src="/_vercel/insights/script.js"></script>

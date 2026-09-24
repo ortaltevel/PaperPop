@@ -719,7 +719,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @media (max-width:860px){
   /* On phones the 16:9 frame is too short to carry copy beside it, so the copy
      drops to the bottom over a bottom-anchored veil. Centre stays clear. */
-  .pp-hero--video{aspect-ratio:auto;min-height:clamp(520px,84vh,660px);max-height:none}
+  .pp-hero--video{aspect-ratio:auto;min-height:clamp(520px,84vh,660px);max-height:none;background:var(--pp-burgundy-800) url("assets/media/hero-mobile-poster.jpg") center/cover no-repeat}
+  .pp-hero--video .pp-hero__video{opacity:0}
+  .pp-hero--video .pp-hero__video.is-playing{opacity:1}
   .pp-hero--video .pp-hero__copy{justify-self:stretch;max-width:none;justify-content:flex-end;padding-block-end:var(--space-16)}
   .pp-hero__veil--side{background:linear-gradient(to top, rgba(66,7,21,.95) 0%, rgba(66,7,21,.86) 30%, rgba(66,7,21,.56) 55%, rgba(66,7,21,.16) 80%, rgba(66,7,21,0) 94%)}
 }

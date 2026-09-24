@@ -151,6 +151,20 @@
     if (c.saveData === true) return;
     if (/(^|-)2g$/.test(c.effectiveType || "") || c.effectiveType === "3g") return;
 
+    var isMobile = mq && mq("(max-width: 860px)").matches;
+    if (isMobile) {
+      var mobileSrc = v.getAttribute("data-mobile-src");
+      var mobilePoster = v.getAttribute("data-mobile-poster");
+      if (mobilePoster) v.poster = mobilePoster;
+      if (mobileSrc) {
+        while (v.firstChild) v.removeChild(v.firstChild);
+        v.src = mobileSrc;
+      }
+      v.addEventListener("playing", function () {
+        v.classList.add("is-playing");
+      }, { once: true });
+    }
+
     function start() {
       // Explicit properties improve muted autoplay reliability in mobile Safari.
       v.muted = true;
@@ -163,7 +177,6 @@
       if (p && p.catch) p.catch(function () {}); // blocked autoplay -> poster stays
     }
 
-    var isMobile = mq && mq("(max-width: 860px)").matches;
     if (isMobile || document.readyState === "complete") window.setTimeout(start, 0);
     else window.addEventListener("load", start, { once: true });
   }
