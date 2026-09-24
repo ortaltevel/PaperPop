@@ -736,12 +736,18 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* ---------- FAQ (dedicated page) — folded-card accordion ---------- */
 .pp-faq{display:grid;gap:var(--space-4);max-width:var(--container-narrow);margin-inline:auto}
 .pp-faq__item{background:var(--surface-card);clip-path:var(--clip-fold-sm)}
-.pp-faq__item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-6);font:var(--type-h3);color:var(--text-strong)}
+.pp-faq__item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:18px var(--space-6);font:var(--weight-semibold) 22px/var(--lh-heading) var(--font-core);color:var(--text-strong)}
 .pp-faq__item summary::-webkit-details-marker{display:none}
 .pp-faq__item summary:focus-visible{outline:var(--stroke-bold) solid var(--focus-ring);outline-offset:3px}
 .pp-faq__chev{color:var(--pp-burgundy-400);flex:none;transition:transform var(--dur-hover) var(--ease-fold)}
 .pp-faq__item[open] .pp-faq__chev{transform:rotate(180deg)}
-.pp-faq__a{padding:0 var(--space-6) var(--space-6);font:var(--type-body);color:var(--text-meta);max-width:60ch}
+.pp-faq__a{padding:0 var(--space-6) var(--space-5);font:var(--type-body);color:var(--text-meta);max-width:60ch}
+@media (max-width:600px){
+  .pp-faq{gap:var(--space-3)}
+  .pp-faq__item summary{gap:var(--space-3);padding:15px var(--space-4);font-size:18px}
+  .pp-faq__a{padding:0 var(--space-4) var(--space-4);font-size:16px;line-height:1.55}
+  .pp-faq__chev{width:20px;height:20px}
+}
 
 /* ---------- Slim footer (brand · contact · social) ---------- */
 .pp-footer__grid--slim{grid-template-columns:1.6fr 1fr 1fr}
