@@ -39,7 +39,15 @@ def main():
         if x: queue.append((y, x - 1))
         if x + 1 < width: queue.append((y, x + 1))
 
-    alpha = Image.fromarray(np.where(outside, 0, 255).astype("uint8"), "L")
+    # The studio photo also contains a soft, neutral cast shadow below the
+    # apple. It is not part of the product and makes this catalog card look
+    # different from the other clean cut-outs. Red, green and brown paper all
+    # have appreciable chroma, so neutral residual pixels can be removed safely.
+    chroma_ratio = (high - low) / np.maximum(high, 1)
+    cast_shadow = (high < 225) & (chroma_ratio < 0.32)
+    alpha = Image.fromarray(
+        np.where(outside | cast_shadow, 0, 255).astype("uint8"), "L"
+    )
     alpha = alpha.filter(ImageFilter.GaussianBlur(1.2))
     result = image.convert("RGBA")
     result.putalpha(alpha)

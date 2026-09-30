@@ -11,7 +11,7 @@ from collections import deque
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter, ImageChops
 
 
 SOURCE = Path("assets/products/fox-closeup.jpg")
@@ -55,8 +55,16 @@ def main():
         if x + 1 < width:
             queue.append((y, x + 1))
 
-    # A small blur avoids a jagged halo around the photographed frame.
+    # Keep only the framed object. The edge flood fill intentionally preserved
+    # the photographed cast shadow; clipping to the frame silhouette removes
+    # it and aligns the card with the rest of the catalog.
     alpha = Image.fromarray(np.where(outside, 0, 255).astype("uint8"), "L")
+    silhouette = Image.new("L", image.size, 0)
+    ImageDraw.Draw(silhouette).polygon(
+        [(143, 95), (1128, 140), (1128, 1040), (137, 1140)], fill=255
+    )
+    alpha = ImageChops.multiply(alpha, silhouette)
+    # A small blur avoids a jagged halo around the photographed frame.
     alpha = alpha.filter(ImageFilter.GaussianBlur(1.2))
     result = image.convert("RGBA")
     result.putalpha(alpha)
