@@ -56,7 +56,7 @@ function decorate(p) {
     ...p,
     url,
     priceLabel: `${p.price} ₪`,
-    title: `${p.name} · ${SITE.brand}`,
+    title: `${p.name} · ${SITE.brandHebrew} (${SITE.brand})`,
     wa: `https://wa.me/${SITE.waPhone}?text=` + encodeURIComponent(waText),
   };
 }
@@ -84,7 +84,7 @@ function buildProductPage(tpl, p) {
         image: abs(p.ogImage),
         url: p.url,
         sku: p.id,
-        brand: { "@type": "Brand", name: SITE.brand },
+        brand: { "@type": "Brand", name: SITE.brand, alternateName: SITE.brandHebrew },
         offers: {
           "@type": "Offer",
           url: p.url,
@@ -92,7 +92,7 @@ function buildProductPage(tpl, p) {
           price: String(p.price),
           availability: "https://schema.org/InStock",
           itemCondition: "https://schema.org/NewCondition",
-          seller: { "@type": "Organization", name: SITE.brand },
+          seller: { "@type": "Organization", name: SITE.brand, alternateName: SITE.brandHebrew },
         },
       },
       {
@@ -120,6 +120,7 @@ function buildProductPage(tpl, p) {
   return render(tpl, {
     V: String(SITE.assetVersion),
     TITLE: h(p.title),
+    META_DESC: h(`${p.name} – ערכת יצירה מנייר תלת־ממדית של ${SITE.brandHebrew} (${SITE.brand}). ${p.age}; זמן הכנה משוער: ${p.time}.`),
     ID: h(p.id),
     NAME: h(p.name),
     DESC: h(p.desc),

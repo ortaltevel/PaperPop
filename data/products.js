@@ -12,6 +12,7 @@
 const SITE = {
   origin: "https://paperpop.co.il",
   brand: "PaperPop",
+  brandHebrew: "פייפרפופ",
   waPhone: "972504427479",
   locale: "he_IL",
   // Bumped whenever styles.css / app.js change; stamped into every generated
