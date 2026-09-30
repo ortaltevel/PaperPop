@@ -150,6 +150,7 @@ const START = "<!-- BUILD:gallery:start";
 const END = "<!-- BUILD:gallery:end -->";
 
 function buildGallery(products) {
+  const versioned = (path) => `${MEDIA.url(path)}?v=${SITE.assetVersion}`;
   return products
     .map((p) => {
       const ws = MEDIA.widthsOf(p.card);
@@ -161,10 +162,10 @@ function buildGallery(products) {
           <a class="pp-pcard__link" href="/kits/${p.slug}" aria-label="${h(p.name)}">
           <div class="pp-media${p.card.fill ? " pp-media--noFacet" : ""}">
             <picture>
-              <source media="(max-width:600px)" srcset="${h(MEDIA.url(MEDIA.fallbackOf(p.card.src, mid)))}">
+              <source media="(max-width:600px)" srcset="${h(versioned(MEDIA.fallbackOf(p.card.src, mid)))}">
               <source type="image/avif" srcset="${h(srcsetFor(p.card.src, ws, "avif"))}" sizes="${sizes}">
               <source type="image/webp" srcset="${h(srcsetFor(p.card.src, ws, "webp"))}" sizes="${sizes}">
-              <img class="${p.card.fill ? "pp-media__photo" : "pp-media__art"}" src="${h(MEDIA.url(MEDIA.fallbackOf(p.card.src, mid)))}"
+              <img class="${p.card.fill ? "pp-media__photo" : "pp-media__art"}" src="${h(versioned(MEDIA.fallbackOf(p.card.src, mid)))}"
                    sizes="${sizes}" alt="${h(p.card.alt)}"
                    loading="${eager ? "eager" : "lazy"}" decoding="async"${eager ? ' fetchpriority="high"' : ""}>
             </picture>
@@ -186,7 +187,7 @@ function buildGallery(products) {
 
 function srcsetFor(src, widths, ext) {
   const stem = MEDIA.stemOf(src);
-  return widths.map((w) => `${MEDIA.url(`${stem}-${w}.${ext}`)} ${w}w`).join(", ");
+  return widths.map((w) => `${MEDIA.url(`${stem}-${w}.${ext}`)}?v=${SITE.assetVersion} ${w}w`).join(", ");
 }
 
 function rewriteGallery(html, products) {
