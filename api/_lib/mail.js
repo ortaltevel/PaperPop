@@ -6,7 +6,8 @@ const PRODUCT_IMAGES=Object.freeze({
  duck:"/assets/products/duck-tight-600.fallback.png",
  heart:"/assets/products/heart-tight-600.fallback.png",
  soccer:"/assets/products/soccer-tight-600.fallback.png",
- fox:"/assets/products/fox-tight-600.fallback.png"
+ fox:"/assets/products/fox-tight-600.fallback.png",
+ apple:"/assets/products/apple-tight-600.fallback.png"
 });
 const INSTAGRAM_URL="https://www.instagram.com/wearepaperpop/";
 

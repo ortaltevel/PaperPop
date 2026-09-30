@@ -106,7 +106,7 @@ function buildProductPage(tpl, p) {
     ],
   };
 
-  const facts = [...(p.facts || []), ...KIT_FACTS].map((f) =>
+  const facts = [...(p.facts || []), ...KIT_FACTS, ...(p.factsAfter || [])].map((f) =>
     `            <li${f.included ? "" : ' class="is-excluded"'}>` +
     `${h(f.text)}${f.included ? "" : ' <span class="pp-visually-hidden">(לא כלול)</span>'}</li>`
   ).join("\n");

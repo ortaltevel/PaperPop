@@ -16,7 +16,7 @@ const SITE = {
   locale: "he_IL",
   // Bumped whenever styles.css / app.js change; stamped into every generated
   // page so index.html and kits/*.html can never disagree on a cached copy.
-  assetVersion: 61,
+  assetVersion: 62,
 };
 
 // Brand-supplied, identical for every kit.
@@ -158,6 +158,30 @@ const products = [
       { type: "image", src: "assets/products/fox-shelf.jpg", alt: "שועלה של צבעים מוצגת על מדף בחדר ילדים", fill: true },
       { type: "image", src: "assets/products/fox-boy.jpg", alt: "ילד מחזיק את היצירה שועלה של צבעים", fill: true },
       { type: "image", src: "assets/products/fox-girl.jpg", alt: "ילדה מחזיקה את היצירה שועלה של צבעים", fill: true },
+    ],
+  },
+  {
+    id: "apple",
+    slug: "apple",
+    name: "תפוח ההפתעות",
+    price: 45,
+    time: "כחצי שעה",
+    size: "10 × 8 × 8 ס״מ",
+    age: AGE,
+    desc: "מרכיבים, מדביקים – ובסוף מחכה הפתעה! ערכת יצירה שבה בונים מנייר תפוח תלת־ממדי צבעוני, שהופך בסיום לקופסה קטנה שאפשר לפתוח ולמלא במה שאוהבים. החלקים מוכנים ומסומנים כדי להפוך את ההרכבה לפשוטה ומהנה. בסיום מתקבל תפוח מקסים עם מכסה נפתח, שאפשר למלא בסוכריות, פתקים קטנים, אוצרות או הפתעה למישהו שאוהבים.",
+    ogImage: "assets/og/apple-og.jpg",
+    card: {
+      src: "assets/products/apple-tight.png",
+      alt: "תפוח ההפתעות — קופסת נייר תלת־ממדית אדומה עם מכסה",
+    },
+    factsAfter: [
+      { text: "הערכה אינה כוללת את השוקולדים שבתמונה", included: false },
+    ],
+    media: [
+      { type: "image", src: "assets/products/apple-closed.jpg", alt: "תפוח ההפתעות סגור", fill: true },
+      { type: "image", src: "assets/products/apple-open.jpg", alt: "תפוח ההפתעות עם מכסה פתוח", fill: true },
+      { type: "image", src: "assets/products/apple-chocolates.jpg", alt: "תפוח ההפתעות פתוח ומלא שוקולדים להמחשה", fill: true },
+      { type: "image", src: "assets/products/apple-held.jpg", alt: "אדם פותח את תפוח ההפתעות", fill: true },
     ],
   },
 ];

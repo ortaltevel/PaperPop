@@ -46,6 +46,7 @@ JOBS = [
     ("assets/products/OctepusYellow-clean.png", (400, 600, 800), True),
     ("assets/products/OctepusPink-clean.png",   (400, 600, 800), True),
     ("assets/products/fox-tight.png",           (400, 600, 800), True),
+    ("assets/products/apple-tight.png",         (400, 600, 800), True),
 
     # --- Lifestyle photos, pre-squared by tools/square-crop.py. Opaque, so
     #     they get JPEG fallbacks; widths are capped at each master size. ---
@@ -74,6 +75,10 @@ JOBS = [
     ("assets/products/fox-shelf.jpg",   (400, 600, 800), False),
     ("assets/products/fox-boy.jpg",     (400, 600, 800), False),
     ("assets/products/fox-girl.jpg",    (400, 600, 800), False),
+    ("assets/products/apple-closed.jpg",     (400, 600, 800), False),
+    ("assets/products/apple-open.jpg",       (400, 600, 800), False),
+    ("assets/products/apple-chocolates.jpg", (400, 600, 800), False),
+    ("assets/products/apple-held.jpg",       (400, 600, 800), False),
 ]
 
 AVIF_Q_ALPHA, AVIF_Q_OPAQUE = 66, 66  # tuned so VMAF >= 93 (measured)
