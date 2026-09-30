@@ -44,7 +44,7 @@ def main():
     # different from the other clean cut-outs. Red, green and brown paper all
     # have appreciable chroma, so neutral residual pixels can be removed safely.
     chroma_ratio = (high - low) / np.maximum(high, 1)
-    cast_shadow = (high < 225) & (chroma_ratio < 0.32)
+    cast_shadow = chroma_ratio < 0.35
     alpha = Image.fromarray(
         np.where(outside | cast_shadow, 0, 255).astype("uint8"), "L"
     )
