@@ -25,11 +25,16 @@ function orderDescription(order){
 }
 async function begin(order,origin){
  const address=order.shipping==="pickup"?"איסוף עצמי מרעננה בתיאום מראש":[order.customer.street,order.customer.houseNumber,order.customer.apartment&&"דירה "+order.customer.apartment].filter(Boolean).join(" ");
- const items=order.items.map(x=>({Item:{Name:x.name,SKU:x.id,ExternalIdentifier:x.id,SearchMode:0},Quantity:x.quantity,UnitPrice:x.unitPrice}));
- if(order.shippingCost)items.push({Item:{Name:order.shipping==="courier"?"שליח עד הבית":"דואר רשום",SKU:"shipping",SearchMode:0},Quantity:1,UnitPrice:order.shippingCost});
+ const items=paymentItems(order);
  const data=await call("/billing/payments/beginredirect/",{Credentials:credentials(),Customer:{ExternalIdentifier:order.customer.email,SearchMode:0,Name:order.customer.fullName,Phone:order.customer.phone,EmailAddress:order.customer.email,City:order.customer.city||"רעננה",Address:address,ZipCode:order.customer.postalCode||null,NoVAT:true},Items:items,VATIncluded:true,DocumentType:2,RedirectURL:`${origin}/api/payment-return`,CancelRedirectURL:`${origin}/checkout?payment=cancelled`,ExternalIdentifier:order.id,MaximumPayments:0,SendUpdateByEmailAddress:order.customer.email,ExpirationHours:1,Language:0,Header:" ",UpdateOrganizationOnSuccess:false,UpdateOrganizationOnFailure:false,UpdateCustomerOnSuccess:true,DocumentDescription:orderDescription(order),DraftDocument:false,PreventSavingPaymentMethod:true,IPNURL:`${origin}/api/sumit-ipn`});
  if(!data.RedirectURL)throw Error("SUMIT_MISSING_REDIRECT");return data.RedirectURL;
 }
+function paymentItems(order){
+ const items=order.items.map(x=>({Item:{Name:x.name,SKU:x.id,ExternalIdentifier:x.id,SearchMode:0},Quantity:x.quantity,UnitPrice:x.unitPrice}));
+ if(order.discountAgorot)items.push({Item:{Name:`הנחת קופון ${order.couponCode}`,SKU:`coupon-${order.couponCode}`,SearchMode:0},Quantity:1,UnitPrice:-(order.discountAgorot/100)});
+ if(order.shippingCost)items.push({Item:{Name:order.shipping==="courier"?"שליח עד הבית":"דואר רשום",SKU:"shipping",SearchMode:0},Quantity:1,UnitPrice:order.shippingCost});
+ return items;
+}
 async function getPayment(id){return(await call("/billing/payments/get/",{Credentials:credentials(),PaymentID:Number(id)})).Payment}
 async function listPayments(from,to,startIndex=0){return call("/billing/payments/list/",{Credentials:credentials(),Date_From:from,Date_To:to,Valid:true,StartIndex:startIndex})}
-module.exports={begin,getPayment,listPayments,orderDescription};
+module.exports={begin,getPayment,listPayments,orderDescription,paymentItems};

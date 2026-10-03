@@ -1,5 +1,5 @@
 "use strict";
-const test=require("node:test"),assert=require("node:assert/strict"),{validate}=require("../api/_lib/store");
+const test=require("node:test"),assert=require("node:assert/strict"),{validate,applyCoupon,normalizeCouponCode}=require("../api/_lib/store");
 const customer={fullName:"ישראל ישראלי",email:"test@example.com",phone:"0501234567",city:"רעננה",street:"אחוזה",houseNumber:"1",postalCode:"1234567",termsAccepted:true};
 test("server prices ignore client prices",()=>{const o=validate({...customer,shipping:"registered",items:[{id:"duck",quantity:2,price:1}]});assert.equal(o.subtotal,130);assert.equal(o.total,147)});
 test("registered shipping becomes free at 250",()=>{const o=validate({...customer,shipping:"registered",items:[{id:"duck",quantity:4}]});assert.equal(o.shippingCost,0)});
@@ -11,3 +11,5 @@ test("other products reject color variants",()=>{assert.throws(()=>validate({...
 test("fox price is validated on the server",()=>{const o=validate({...customer,shipping:"pickup",items:[{id:"fox",quantity:2,price:1}]});assert.equal(o.subtotal,70);assert.equal(o.total,70)});
 test("apple price is validated on the server",()=>{const o=validate({...customer,shipping:"pickup",items:[{id:"apple",quantity:2,price:1}]});assert.equal(o.subtotal,90);assert.equal(o.total,90)});
 test("terms consent is required and recorded by the server",()=>{assert.throws(()=>validate({...customer,termsAccepted:false,shipping:"pickup",items:[{id:"heart",quantity:1}]}),/TERMS_NOT_ACCEPTED/);const o=validate({...customer,shipping:"pickup",items:[{id:"heart",quantity:1}]});assert.equal(o.customer.consent.termsVersion,"2026-09-22");assert.match(o.customer.consent.acceptedAt,/^\d{4}-\d{2}-\d{2}T/)});
+test("coupon code is normalized and invalid code is ignored",()=>{assert.equal(normalizeCouponCode(" welcome10 "),"WELCOME10");assert.equal(normalizeCouponCode("לא תקין"),"")});
+test("coupon discounts products while free shipping uses pre-discount subtotal",()=>{const base=validate({...customer,shipping:"registered",items:[{id:"duck",quantity:4}]});const order=applyCoupon(base,{code:"SAVE10",discount_percent:10});assert.equal(order.subtotal,260);assert.equal(order.shippingCost,0);assert.equal(order.discountAgorot,2600);assert.equal(order.total,234)});
