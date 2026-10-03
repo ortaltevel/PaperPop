@@ -237,8 +237,14 @@ function buildSitemap(products, lastmod) {
 
 /* ---------- main ------------------------------------------------------- */
 
+const GALLERY_ORDER = ["octopus", "duck", "heart", "soccer", "apple", "fox"];
+
 function main() {
   const decorated = products.map(decorate);
+  const galleryProducts = GALLERY_ORDER.map((id) => decorated.find((product) => product.id === id));
+  if (galleryProducts.some((product) => !product) || galleryProducts.length !== decorated.length) {
+    throw new Error("GALLERY_ORDER must contain every product exactly once");
+  }
   const tpl = fs.readFileSync(path.join(ROOT, "templates", "product.html"), "utf8");
 
   const outputs = new Map();
@@ -249,7 +255,7 @@ function main() {
 
   const indexPath = path.join(ROOT, "index.html");
   const index = fs.readFileSync(indexPath, "utf8");
-  outputs.set("index.html", rewriteGallery(index, decorated));
+  outputs.set("index.html", rewriteGallery(index, galleryProducts));
 
   // lastmod: reuse the existing value when unchanged so --check is stable and
   // the file does not churn on every build.
