@@ -92,7 +92,7 @@
   }
   function validateCheckout(form) {
     var valid = true, first = null;
-    form.querySelectorAll("input:not([type=radio]), textarea").forEach(function (field) {
+    form.querySelectorAll("input:not([type=radio]):not([type=checkbox]), textarea").forEach(function (field) {
       if (field.closest("[hidden]")) { setFieldError(field, ""); return; }
       var message = field.required || field.value ? fieldMessage(field) : "";
       setFieldError(field, message); if (message && !first) { first = field; valid = false; }
@@ -102,6 +102,13 @@
     error.textContent = shipping ? "" : "יש לבחור אופן קבלת ההזמנה"; error.hidden = !!shipping;
     form.querySelectorAll('[name="shipping"]').forEach(function (radio) { radio.setAttribute("aria-invalid", shipping ? "false" : "true"); });
     if (!shipping) { valid = false; if (!first) first = form.querySelector('[name="shipping"]'); }
+    var consent = form.elements.termsAccepted, consentError = document.getElementById("termsError");
+    if (consent) {
+      var consentMessage = consent.checked ? "" : "יש לאשר את התקנון ומדיניות הפרטיות כדי להמשיך לתשלום";
+      consentError.textContent = consentMessage; consentError.hidden = !consentMessage;
+      consent.setAttribute("aria-invalid", consentMessage ? "true" : "false");
+      if (consentMessage) { valid = false; if (!first) first = consent; }
+    }
     if (first) first.focus(); return valid;
   }
   function initCheckout() {
@@ -114,7 +121,7 @@
       var draft = JSON.parse(sessionStorage.getItem(CHECKOUT_DRAFT_KEY) || "null");
       if (draft && typeof draft === "object") Object.keys(draft).forEach(function (name) {
         var field = form.elements[name];
-        if (!field || name === "items") return;
+        if (!field || name === "items" || field.type === "checkbox") return;
         if (field instanceof RadioNodeList) {
           [].slice.call(form.querySelectorAll('[name="' + CSS.escape(name) + '"]')).forEach(function (radio) { radio.checked = radio.value === draft[name]; });
         } else field.value = draft[name];
@@ -149,6 +156,7 @@
       var status = document.getElementById("checkoutStatus");
       if (!validateCheckout(form)) { status.textContent = "יש לתקן את השדות המסומנים"; return; }
       var data = Object.fromEntries(new FormData(form));
+      data.termsAccepted = !!form.elements.termsAccepted.checked;
       data.items = items().map(function (x) { return { id: x.id, color: x.color || null, quantity: x.quantity }; });
       sessionStorage.setItem(CHECKOUT_DRAFT_KEY, JSON.stringify(data));
       status.textContent = "מכינים את עמוד התשלום…";
@@ -158,8 +166,11 @@
         .then(function (b) { sessionStorage.setItem("paperpop-payment-url", b.paymentUrl); location.href = "/payment?order=" + encodeURIComponent(b.orderId); })
         .catch(function () { status.textContent = "לא הצלחנו לפתוח את התשלום. נסו שוב או פנו אלינו."; form.querySelector('[type="submit"]').disabled = false; });
     });
-    form.addEventListener("input", function (e) { if (e.target.matches("input:not([type=radio]), textarea") && e.target.getAttribute("aria-invalid") === "true") setFieldError(e.target, e.target.required || e.target.value ? fieldMessage(e.target) : ""); });
-    form.addEventListener("change", function (e) { if (e.target.name === "shipping") { var error = form.querySelector(".pp-shipping-error"); if (error) { error.textContent = ""; error.hidden = true; } form.querySelectorAll('[name="shipping"]').forEach(function (radio) { radio.setAttribute("aria-invalid", "false"); }); } });
+    form.addEventListener("input", function (e) { if (e.target.matches("input:not([type=radio]):not([type=checkbox]), textarea") && e.target.getAttribute("aria-invalid") === "true") setFieldError(e.target, e.target.required || e.target.value ? fieldMessage(e.target) : ""); });
+    form.addEventListener("change", function (e) {
+      if (e.target.name === "shipping") { var error = form.querySelector(".pp-shipping-error"); if (error) { error.textContent = ""; error.hidden = true; } form.querySelectorAll('[name="shipping"]').forEach(function (radio) { radio.setAttribute("aria-invalid", "false"); }); }
+      if (e.target.name === "termsAccepted" && e.target.checked) { var consentError = document.getElementById("termsError"); consentError.textContent = ""; consentError.hidden = true; e.target.setAttribute("aria-invalid", "false"); }
+    });
     update();
   }
 

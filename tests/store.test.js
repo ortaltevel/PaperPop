@@ -1,12 +1,13 @@
 "use strict";
 const test=require("node:test"),assert=require("node:assert/strict"),{validate}=require("../api/_lib/store");
-const customer={fullName:"ישראל ישראלי",email:"test@example.com",phone:"0501234567",city:"רעננה",street:"אחוזה",houseNumber:"1",postalCode:"1234567"};
+const customer={fullName:"ישראל ישראלי",email:"test@example.com",phone:"0501234567",city:"רעננה",street:"אחוזה",houseNumber:"1",postalCode:"1234567",termsAccepted:true};
 test("server prices ignore client prices",()=>{const o=validate({...customer,shipping:"registered",items:[{id:"duck",quantity:2,price:1}]});assert.equal(o.subtotal,130);assert.equal(o.total,147)});
 test("registered shipping becomes free at 250",()=>{const o=validate({...customer,shipping:"registered",items:[{id:"duck",quantity:4}]});assert.equal(o.shippingCost,0)});
-test("pickup needs no address",()=>{assert.equal(validate({fullName:"א א",email:"a@b.co",phone:"0501234567",shipping:"pickup",items:[{id:"heart",quantity:1}]}).total,45)});
-test("delivery requires address",()=>{assert.throws(()=>validate({fullName:"א א",email:"a@b.co",phone:"0501234567",shipping:"courier",items:[{id:"heart",quantity:1}]}),/INVALID_ADDRESS/)});
+test("pickup needs no address",()=>{assert.equal(validate({fullName:"א א",email:"a@b.co",phone:"0501234567",termsAccepted:true,shipping:"pickup",items:[{id:"heart",quantity:1}]}).total,45)});
+test("delivery requires address",()=>{assert.throws(()=>validate({fullName:"א א",email:"a@b.co",phone:"0501234567",termsAccepted:true,shipping:"courier",items:[{id:"heart",quantity:1}]}),/INVALID_ADDRESS/)});
 test("unknown product is rejected",()=>{assert.throws(()=>validate({...customer,shipping:"pickup",items:[{id:"evil",quantity:1}]}),/INVALID_CART/)});
 test("octopus requires a supported color",()=>{assert.throws(()=>validate({...customer,shipping:"pickup",items:[{id:"octopus",quantity:1}]}),/INVALID_CART/);const o=validate({...customer,shipping:"pickup",items:[{id:"octopus",color:"pink",quantity:1}]});assert.equal(o.items[0].name,"התמנון שעושה סדר – ורוד")});
 test("other products reject color variants",()=>{assert.throws(()=>validate({...customer,shipping:"pickup",items:[{id:"duck",color:"yellow",quantity:1}]}),/INVALID_CART/)});
 test("fox price is validated on the server",()=>{const o=validate({...customer,shipping:"pickup",items:[{id:"fox",quantity:2,price:1}]});assert.equal(o.subtotal,70);assert.equal(o.total,70)});
 test("apple price is validated on the server",()=>{const o=validate({...customer,shipping:"pickup",items:[{id:"apple",quantity:2,price:1}]});assert.equal(o.subtotal,90);assert.equal(o.total,90)});
+test("terms consent is required and recorded by the server",()=>{assert.throws(()=>validate({...customer,termsAccepted:false,shipping:"pickup",items:[{id:"heart",quantity:1}]}),/TERMS_NOT_ACCEPTED/);const o=validate({...customer,shipping:"pickup",items:[{id:"heart",quantity:1}]});assert.equal(o.customer.consent.termsVersion,"2026-09-22");assert.match(o.customer.consent.acceptedAt,/^\d{4}-\d{2}-\d{2}T/)});
