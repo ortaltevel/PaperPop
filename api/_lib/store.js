@@ -24,7 +24,7 @@ function validate(input){
  if(!customer.fullName||!/^\S+@\S+\.\S+$/.test(customer.email)||!/^[+\d][\d\s().-]{6,19}$/.test(customer.phone))throw Error("INVALID_CUSTOMER");
  if(shipping!=="pickup"&&(!customer.city||!customer.street||!customer.houseNumber||!customer.postalCode))throw Error("INVALID_ADDRESS");
  customer.consent={termsVersion:TERMS_VERSION,acceptedAt:new Date().toISOString()};
- const subtotal=items.reduce((n,x)=>n+x.total,0),shippingCost=shipping==="registered"&&subtotal>=250?0:SHIPPING[shipping];
+ const subtotal=items.reduce((n,x)=>n+x.total,0),shippingCost=shipping==="registered"&&subtotal>=200?0:SHIPPING[shipping];
  return{id:crypto.randomUUID(),items,customer,shipping,subtotal,shippingCost,discountAgorot:0,discount:0,total:subtotal+shippingCost,couponCode:normalizeCouponCode(input.couponCode)};
 }
 module.exports={validate,validateItems,normalizeCouponCode,applyCoupon,TERMS_VERSION};

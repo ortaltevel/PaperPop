@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  document.querySelectorAll(".pp-header__ticker").forEach(function (el) { el.innerHTML = 'משלוח חינם בהזמנה מעל <bdi dir="ltr">₪250</bdi>'; });
+  document.querySelectorAll(".pp-header__ticker").forEach(function (el) { el.innerHTML = 'משלוח חינם בהזמנה מעל <bdi dir="ltr">₪200</bdi>'; });
   var KEY = "paperpop-cart-v1";
   var COUPON_KEY = "paperpop-coupon-v1";
   var CHECKOUT_DRAFT_KEY = "paperpop-checkout-draft-v1";
@@ -56,7 +56,7 @@
   }
   function ensureDrawer() {
     if (document.getElementById("cartDrawer")) return;
-    document.body.insertAdjacentHTML("beforeend", '<div class="pp-cart-backdrop" data-cart-close hidden></div><aside class="pp-cart" id="cartDrawer" aria-labelledby="cartTitle" aria-modal="true" role="dialog" hidden><div class="pp-cart__head"><h2 id="cartTitle">סל הקניות</h2><button class="pp-iconbtn" type="button" data-cart-close aria-label="סגירת הסל">×</button></div><div data-cart-items></div><div class="pp-cart__foot"><div class="pp-cart__total"><span>סכום מוצרים</span><strong data-cart-subtotal></strong></div><div class="pp-cart__discount" data-cart-discount-row hidden><span>קופון <bdi dir="ltr" data-cart-coupon-code></bdi></span><strong dir="ltr" data-cart-discount></strong></div><div class="pp-cart__total pp-cart__total--final" data-cart-products-total-row hidden><span>סה״כ לאחר הנחה</span><strong data-cart-products-total></strong></div><form class="pp-coupon" data-coupon-form novalidate><label for="couponCode">יש לך קוד קופון?</label><div class="pp-coupon__entry"><input id="couponCode" name="couponCode" maxlength="32" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="submit">הפעלת קופון</button></div><div class="pp-coupon__applied" data-coupon-applied hidden><span>קופון <bdi dir="ltr" data-coupon-applied-code></bdi> הופעל</span><button type="button" data-coupon-remove>הסרה</button></div><p data-coupon-status role="status" aria-live="polite"></p></form><div class="pp-shipping-progress"><p data-shipping-progress-text></p><div class="pp-shipping-progress__track" role="progressbar" aria-label="התקדמות למשלוח בדואר רשום חינם" aria-valuemin="0" aria-valuemax="250" data-shipping-progress><span></span></div></div><a class="pp-btn pp-btn--lg" href="/checkout" data-checkout-link>המשך הזמנה</a></div></aside><span class="pp-visually-hidden" id="cartLive" aria-live="polite"></span>');
+    document.body.insertAdjacentHTML("beforeend", '<div class="pp-cart-backdrop" data-cart-close hidden></div><aside class="pp-cart" id="cartDrawer" aria-labelledby="cartTitle" aria-modal="true" role="dialog" hidden><div class="pp-cart__head"><h2 id="cartTitle">סל הקניות</h2><button class="pp-iconbtn" type="button" data-cart-close aria-label="סגירת הסל">×</button></div><div data-cart-items></div><div class="pp-cart__foot"><div class="pp-cart__total"><span>סכום מוצרים</span><strong data-cart-subtotal></strong></div><div class="pp-cart__discount" data-cart-discount-row hidden><span>קופון <bdi dir="ltr" data-cart-coupon-code></bdi></span><strong dir="ltr" data-cart-discount></strong></div><div class="pp-cart__total pp-cart__total--final" data-cart-products-total-row hidden><span>סה״כ לאחר הנחה</span><strong data-cart-products-total></strong></div><form class="pp-coupon" data-coupon-form novalidate><label for="couponCode">יש לך קוד קופון?</label><div class="pp-coupon__entry"><input id="couponCode" name="couponCode" maxlength="32" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="submit">הפעלת קופון</button></div><div class="pp-coupon__applied" data-coupon-applied hidden><span>קופון <bdi dir="ltr" data-coupon-applied-code></bdi> הופעל</span><button type="button" data-coupon-remove>הסרה</button></div><p data-coupon-status role="status" aria-live="polite"></p></form><div class="pp-shipping-progress"><p data-shipping-progress-text></p><div class="pp-shipping-progress__track" role="progressbar" aria-label="התקדמות למשלוח בדואר רשום חינם" aria-valuemin="0" aria-valuemax="200" data-shipping-progress><span></span></div></div><a class="pp-btn pp-btn--lg" href="/checkout" data-checkout-link>המשך הזמנה</a></div></aside><span class="pp-visually-hidden" id="cartLive" aria-live="polite"></span>');
   }
   function renderCart() {
     var box = document.querySelector("[data-cart-items]");
@@ -71,11 +71,11 @@
     discountRow.hidden = !coupon; finalRow.hidden = !coupon;
     if (coupon) { document.querySelector("[data-cart-coupon-code]").textContent = coupon.code; document.querySelector("[data-cart-discount]").textContent = "−" + money(couponDiscount()); document.querySelector("[data-cart-products-total]").textContent = money(subtotal() - couponDiscount()); }
     renderCouponForm();
-    var sum = subtotal(), remaining = Math.max(0, 250 - sum), progress = document.querySelector("[data-shipping-progress]");
+    var sum = subtotal(), remaining = Math.max(0, 200 - sum), progress = document.querySelector("[data-shipping-progress]");
     document.querySelector("[data-shipping-progress-text]").textContent = remaining ? "חסרים " + money(remaining) + " למשלוח בדואר רשום חינם" : "יש! קיבלת משלוח בדואר רשום חינם";
-    progress.setAttribute("aria-valuenow", String(Math.min(sum, 250)));
+    progress.setAttribute("aria-valuenow", String(Math.min(sum, 200)));
     progress.setAttribute("aria-valuetext", remaining ? "חסרים " + money(remaining) : "הגעת לסכום המזכה");
-    progress.querySelector("span").style.width = Math.min(100, sum / 250 * 100) + "%";
+    progress.querySelector("span").style.width = Math.min(100, sum / 200 * 100) + "%";
     document.querySelector("[data-checkout-link]").setAttribute("aria-disabled", list.length ? "false" : "true");
   }
   function renderCouponForm() {
@@ -100,7 +100,7 @@
   function openCart() { ensureDrawer(); returnFocus = document.activeElement; renderCart(); document.getElementById("cartDrawer").hidden = false; document.querySelector(".pp-cart-backdrop").hidden = false; document.body.classList.add("is-cart-open"); document.querySelector("[data-cart-close]").focus(); if (coupon) validateCoupon(coupon.code, { silent: true }).catch(function () {}); }
   function closeCart() { var d = document.getElementById("cartDrawer"); if (!d) return; d.hidden = true; document.querySelector(".pp-cart-backdrop").hidden = true; document.body.classList.remove("is-cart-open"); if (returnFocus) returnFocus.focus(); }
 
-  function shippingCost(kind, sum) { if (kind === "pickup") return 0; if (kind === "registered") return sum >= 250 ? 0 : 17; return kind === "courier" ? 69 : 0; }
+  function shippingCost(kind, sum) { if (kind === "pickup") return 0; if (kind === "registered") return sum >= 200 ? 0 : 17; return kind === "courier" ? 69 : 0; }
   function fieldMessage(field) {
     if (!field.value.trim()) return "זהו שדה חובה";
     if (field.type === "email" && !/^\S+@\S+\.\S+$/.test(field.value)) return "יש להזין כתובת אימייל תקינה";
@@ -163,8 +163,8 @@
     function update() {
       var sum = subtotal();
       var registered = form.querySelector('[value="registered"]');
-      form.querySelector("[data-registered-price]").textContent = sum >= 250 ? "חינם" : money(17);
-      if (sum >= 250 && !shippingTouched && !form.querySelector('[name="shipping"]:checked')) registered.checked = true;
+      form.querySelector("[data-registered-price]").textContent = sum >= 200 ? "חינם" : money(17);
+      if (sum >= 200 && !shippingTouched && !form.querySelector('[name="shipping"]:checked')) registered.checked = true;
       var selected = form.querySelector('[name="shipping"]:checked');
       var needsAddress = selected && selected.value !== "pickup";
       document.querySelector("[data-address-fields]").hidden = !needsAddress;
