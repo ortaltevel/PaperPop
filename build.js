@@ -156,6 +156,14 @@ function buildGallery(products) {
     .map((p) => {
       const ws = MEDIA.widthsOf(p.card);
       const mid = ws[Math.floor(ws.length / 2)];
+      const colorHint = p.colors
+        ? `<div class="pp-pcard__variants" aria-label="${p.colors.length} צבעים לבחירה">
+                <span class="pp-pcard__swatches" aria-hidden="true">${p.colors
+                  .map((color) => `<span class="pp-pcard__swatch" style="--pp-card-swatch:${h(color.hex)}"></span>`)
+                  .join("")}</span>
+                <span>${p.colors.length} צבעים לבחירה</span>
+              </div>`
+        : "";
       const sizes =
         "(min-width:1201px) 219px, (min-width:861px) 234px, (min-width:381px) 39vw, 78vw";
       const eager = p === products[0];
@@ -173,7 +181,8 @@ function buildGallery(products) {
           </div>
           <div class="pp-pcard__body">
             <div>
-              <h3 class="pp-pcard__name">${h(p.name)}</h3>
+              <h3 class="pp-pcard__name">${h(p.name)}</h3>${colorHint ? `
+              ${colorHint}` : ""}
             </div>
             <span class="pp-pcard__price">${h(p.priceLabel)}</span>
           </div></a>

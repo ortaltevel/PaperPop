@@ -546,6 +546,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pp-pcard:focus-visible{outline:var(--stroke-bold) solid var(--focus-ring);outline-offset:6px}
 .pp-pcard__body{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4)}
 .pp-pcard__name{font:var(--type-h3);color:var(--text-strong);margin:0}
+.pp-pcard__variants{display:flex;align-items:center;gap:8px;margin-block-start:8px;color:var(--text-meta);font:var(--type-meta);white-space:nowrap}
+.pp-pcard__swatches{display:flex;direction:ltr;gap:5px}
+.pp-pcard__swatch{display:block;width:15px;height:15px;flex:none;background:var(--pp-card-swatch);border:1px solid rgba(29,29,27,.14);clip-path:polygon(25% 0,75% 0,100% 25%,100% 75%,75% 100%,25% 100%,0 75%,0 25%)}
 .pp-pcard__meta{display:flex;gap:var(--space-4);margin-block-start:6px}
 .pp-pcard__price{font:var(--type-price);color:var(--text-price);white-space:nowrap}
 .pp-pcard__desc{font:var(--type-body-sm);color:var(--text-meta);margin-block-start:8px;max-width:38ch}
