@@ -140,6 +140,7 @@
   function initCheckout() {
     var form = document.getElementById("checkoutForm");
     if (!form) return;
+    form.elements.termsAccepted.checked = false;
     var title = document.querySelector(".pp-checkout h1");
     if (title) title.insertAdjacentHTML("beforebegin", '<a class="pp-checkout-back" href="/#gallery"><span aria-hidden="true">→</span><span class="pp-checkout-back__label">המשך קניות</span></a>');
     if (!items().length) { location.replace("/"); return; }
@@ -206,6 +207,12 @@
     });
     update();
   }
+
+  window.addEventListener("pageshow", function (event) {
+    if (!event.persisted) return;
+    var consent = document.querySelector('#checkoutForm [name="termsAccepted"]');
+    if (consent) consent.checked = false;
+  });
 
   document.addEventListener("click", function (e) {
     var addBtn = e.target.closest("[data-add-cart]"); if (addBtn) { add(addBtn); return; }
