@@ -750,6 +750,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pp-faq__chev{color:var(--pp-burgundy-400);flex:none;transition:transform var(--dur-hover) var(--ease-fold)}
 .pp-faq__item[open] .pp-faq__chev{transform:rotate(180deg)}
 .pp-faq__a{padding:0 var(--space-6) var(--space-5);font:var(--type-body);color:var(--text-meta);max-width:60ch}
+.pp-faq__a p{margin:0 0 var(--space-3)}
+.pp-faq__a p:last-child{margin-bottom:0}
+.pp-faq__a ul{margin:0 0 var(--space-3);padding-inline-start:1.25em}
+.pp-faq__a li+li{margin-top:var(--space-2)}
 @media (max-width:600px){
   .pp-faq{gap:var(--space-3)}
   .pp-faq__item summary{gap:var(--space-3);padding:15px var(--space-4);font-size:18px}
