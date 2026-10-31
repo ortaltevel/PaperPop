@@ -21,7 +21,7 @@ const SITE = {
 };
 
 // Brand-supplied, identical for every kit.
-const AGE = "מגיל 10 ומעלה, ומגיל 8 בליווי מבוגר";
+const AGE = "מגיל 10 ומעלה, ומגיל 7 בליווי מבוגר";
 
 /* NOTE ON `time`: these are estimates carried over from the original build,
  * not measured values. They are now server-rendered, which means Google and AI
@@ -144,7 +144,7 @@ const products = [
     price: 35,
     time: "15 דקות",
     size: "16.5 × 16.5 × 1 ס״מ",
-    age: "מגיל 8 ומעלה, ומגיל 6 בליווי מבוגר",
+    age: "מגיל 8 ומעלה, ומגיל 5 בליווי מבוגר",
     desc: "בואו ליצור שועלה צבעונית ומלאת אופי, שכבה אחר שכבה! ערכת יצירה מהנה ליצירת שועלה מרהיבה בתלת מימד שעשויה כולה מנייר. כל השכבות הצבעוניות ממוספרות, כך שקל לדעת מה מדביקים ובאיזה סדר. פשוט מרכיבים את המסגרת, מדביקים את השכבות לפי המספרים, ורואים איך השועלה מתעוררת לחיים! בסיום מתקבלת יצירה צבעונית ומיוחדת שאפשר להניח על מדף או לתלות בחדר הילדים — מזכרת יפהפייה שהילדים יוכלו להתגאות בה.",
     ogImage: "assets/og/fox-og.jpg",
     card: {
