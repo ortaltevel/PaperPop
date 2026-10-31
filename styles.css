@@ -813,7 +813,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pp-pdp__main .pp-media__art--fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:none}
 .pp-pdp__main video{position:relative;z-index:1;width:92%;height:92%;object-fit:contain}
 .pp-pdp__main video.pp-media__video--fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.pp-pdp__main video.pp-media__video--bottom{object-position:center 35%}
+.pp-pdp__main video.pp-media__video--bottom{object-position:center 45%}
 .pp-pdp__nav{position:absolute;z-index:3;inset-block-start:50%;transform:translateY(-50%);display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;cursor:pointer;color:var(--pp-white);background:transparent;opacity:.85;transition:opacity var(--dur-hover) var(--ease-fold),transform var(--dur-hover) var(--ease-fold)}
 .pp-pdp__nav .pp-icon{width:30px;height:30px;filter:drop-shadow(0 1px 3px rgba(66,7,21,.55))}
 .pp-pdp__nav--prev{inset-inline-end:var(--space-2)}
