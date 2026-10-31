@@ -17,7 +17,7 @@ const SITE = {
   locale: "he_IL",
   // Bumped whenever styles.css / app.js change; stamped into every generated
   // page so index.html and kits/*.html can never disagree on a cached copy.
-  assetVersion: 76,
+  assetVersion: 77,
 };
 
 // Brand-supplied, identical for every kit.
@@ -201,7 +201,7 @@ const products = [
     },
     media: [
       { type: "image", src: "assets/products/panda-tight.png", alt: "פנדה מיני — פסל נייר תלת־ממדי בשחור ולבן" },
-      { type: "video", src: "assets/media/panda-making-muted.mp4", poster: "assets/products/panda-real-600.fallback.jpg", alt: "פנדה מיני בתצוגה מקרוב" },
+      { type: "video", src: "assets/media/panda-making-muted.mp4", poster: "assets/products/panda-real-600.fallback.jpg", alt: "פנדה מיני בתצוגה מקרוב", fill: true, position: "bottom" },
       { type: "image", src: "assets/products/panda-held.jpg", alt: "פנדה מיני מוחזקת בידיים", fill: true },
       { type: "image", src: "assets/products/panda-room.jpg", alt: "פנדה מיני על מדף בחדר ילדים", fill: true },
       { type: "image", src: "assets/products/panda-shelf.jpg", alt: "פנדה מיני מוצגת על מדף עץ", fill: true },

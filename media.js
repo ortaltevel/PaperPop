@@ -59,7 +59,8 @@
     opts = opts || {};
     if (m.type === "video") {
       // `muted` must be an ATTRIBUTE for reliable iOS inline autoplay.
-      return '<video autoplay muted loop playsinline preload="metadata" poster="' +
+      var videoClass = m.fill ? ' class="pp-media__video--fill' + (m.position === "bottom" ? ' pp-media__video--bottom' : '') + '"' : "";
+      return '<video' + videoClass + ' autoplay muted loop playsinline preload="metadata" poster="' +
         h(url(m.poster)) + '" aria-label="' + h(m.alt) + '">' +
         (m.webm ? '<source src="' + h(url(m.webm)) + '" type="video/webm">' : "") +
         '<source src="' + h(url(m.src)) + '" type="video/mp4"></video>';
