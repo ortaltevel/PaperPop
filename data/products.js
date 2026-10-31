@@ -17,7 +17,7 @@ const SITE = {
   locale: "he_IL",
   // Bumped whenever styles.css / app.js change; stamped into every generated
   // page so index.html and kits/*.html can never disagree on a cached copy.
-  assetVersion: 74,
+  assetVersion: 75,
 };
 
 // Brand-supplied, identical for every kit.
@@ -183,6 +183,29 @@ const products = [
       { type: "image", src: "assets/products/apple-open.jpg", alt: "תפוח ההפתעות עם מכסה פתוח", fill: true },
       { type: "image", src: "assets/products/apple-chocolates.jpg", alt: "תפוח ההפתעות פתוח ומלא שוקולדים להמחשה", fill: true },
       { type: "image", src: "assets/products/apple-held.jpg", alt: "אדם פותח את תפוח ההפתעות", fill: true },
+    ],
+  },
+  {
+    id: "panda",
+    slug: "panda-mini",
+    name: "פנדה מיני",
+    price: 55,
+    time: "שעה וחצי",
+    size: "15 × 13 × 12.5 ס״מ",
+    age: AGE,
+    desc: "פנדה קטנה, אושר גדול 🐼 מקפלים, מדביקים ומגלים איך חלקי נייר הופכים לפנדה מתוקה בתלת־ממד. נהנים מזמן יצירה, ובסוף מניחים על המדף ומתגאים: ״את זה אני הכנתי!״",
+    ogImage: "assets/og/panda-og.jpg",
+    card: {
+      src: "assets/products/panda-tight.png",
+      alt: "פנדה מיני — פסל פנדה גאומטרי מנייר בשחור ולבן",
+    },
+    media: [
+      { type: "image", src: "assets/products/panda-tight.png", alt: "פנדה מיני — פסל נייר תלת־ממדי בשחור ולבן" },
+      { type: "video", src: "assets/media/panda-making-muted.mp4", poster: "assets/products/panda-real-600.fallback.jpg", alt: "פנדה מיני בתצוגה מקרוב" },
+      { type: "image", src: "assets/products/panda-held.jpg", alt: "פנדה מיני מוחזקת בידיים", fill: true },
+      { type: "image", src: "assets/products/panda-room.jpg", alt: "פנדה מיני על מדף בחדר ילדים", fill: true },
+      { type: "image", src: "assets/products/panda-shelf.jpg", alt: "פנדה מיני מוצגת על מדף עץ", fill: true },
+      { type: "image", src: "assets/products/panda-real.jpg", alt: "פנדה מיני — צילום המוצר המוגמר", fill: true },
     ],
   },
 ];

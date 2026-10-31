@@ -4,7 +4,7 @@
   var KEY = "paperpop-cart-v1";
   var COUPON_KEY = "paperpop-coupon-v1";
   var CHECKOUT_DRAFT_KEY = "paperpop-checkout-draft-v1";
-  var PRODUCT_IMAGES = { octopus: "/assets/products/octopus-blue-tight-400.webp", duck: "/assets/products/duck-tight-400.webp", heart: "/assets/products/heart-tight-400.webp", soccer: "/assets/products/soccer-tight-400.webp", fox: "/assets/products/fox-tight-400.webp", apple: "/assets/products/apple-tight-400.webp" };
+  var PRODUCT_IMAGES = { octopus: "/assets/products/octopus-blue-tight-400.webp", duck: "/assets/products/duck-tight-400.webp", heart: "/assets/products/heart-tight-400.webp", soccer: "/assets/products/soccer-tight-400.webp", fox: "/assets/products/fox-tight-400.webp", apple: "/assets/products/apple-tight-400.webp", panda: "/assets/products/panda-tight-400.webp" };
   var OCTOPUS_IMAGES = { blue: "/assets/products/octopus-blue-tight-400.webp", pink: "/assets/products/OctepusPink-clean-400.webp", green: "/assets/products/OctepusGreen-clean-400.webp", yellow: "/assets/products/OctepusYellow-clean-400.webp" };
   var cart = read();
   var coupon = readCoupon(), couponValidationPending = false, couponValidationTimer, checkoutUpdater = null;

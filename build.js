@@ -246,7 +246,7 @@ function buildSitemap(products, lastmod) {
 
 /* ---------- main ------------------------------------------------------- */
 
-const GALLERY_ORDER = ["octopus", "duck", "heart", "soccer", "apple", "fox"];
+const GALLERY_ORDER = ["octopus", "duck", "heart", "soccer", "apple", "panda", "fox"];
 
 function main() {
   const decorated = products.map(decorate);
